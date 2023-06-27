@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-
-import '../constants/colors.dart';
+import 'package:provider_practical_7/screens/page/settings.dart';
+import 'package:provider_practical_7/values/app_styles.dart';
+import '../../values/colors.dart';
+import 'bookmark.dart';
+import 'fab.dart';
 import 'homepage.dart';
+import 'message.dart';
 
 class DashboardMainScreen extends StatefulWidget {
   const DashboardMainScreen({Key? key}) : super(key: key);
@@ -14,34 +18,28 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
   int _selectedIndex = 0;
   final screens = [
     const Dashboard(),
+    const BookmarkPage(),
+    const FABPage(),
+    const MessagePage(),
+    const SettingPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens.elementAt(_selectedIndex),
+      body: IndexedStack(index: _selectedIndex, children: screens),
       bottomNavigationBar: Container(
         height: 95,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(36),
-            topRight: Radius.circular(36),
-          ),
+          borderRadius: AppStyles.bottomNavRadius,
           boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade200,
-              spreadRadius: 6,
-              blurRadius: 7,
-            )
+            AppStyles.navBoxShadow,
           ],
         ),
         child: ClipRRect(
           clipBehavior: Clip.hardEdge,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(36),
-            topRight: Radius.circular(36),
-          ),
+          borderRadius: AppStyles.bottomNavRadius,
           child: Stack(
             children: [
               Padding(
@@ -53,106 +51,15 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = 0;
-                          });
-                        },
-                        child: Container(
-                          width: 48.0,
-                          height: 48.0,
-                          decoration: BoxDecoration(
-                            color: _selectedIndex == 0
-                                ? KColors.kBlue.withOpacity(0.2)
-                                : null,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Icon(
-                            Icons.home_outlined,
-                            color: KColors.kBlue,
-                            size: 30,
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = 1;
-                          });
-                        },
-                        child: Container(
-                          width: 48.0,
-                          height: 48.0,
-                          decoration: BoxDecoration(
-                            color: _selectedIndex == 1
-                                ? KColors.kBlue.withOpacity(0.2)
-                                : null,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Icon(
-                            Icons.bookmark_border,
-                            color: KColors.kBlue,
-                            size: 30.0,
-                          ),
-                        ),
-                      ),
+                      buildGestureDetector(0, Icons.home_outlined),
+                      buildGestureDetector(1, Icons.bookmark_border),
                       Container(
                         width: 48.0,
                         height: 48.0,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                        decoration: AppStyles.navDecoration,
                       ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = 3;
-                          });
-                        },
-                        child: Container(
-                          width: 48.0,
-                          height: 48.0,
-                          decoration: BoxDecoration(
-                            color: _selectedIndex == 3
-                                ? KColors.kBlue.withOpacity(0.2)
-                                : null,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Icon(
-                            Icons.message_outlined,
-                            color: KColors.kBlue,
-                            size: 30.0,
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = 4;
-                          });
-                        },
-                        child: Container(
-                          width: 30.0,
-                          height: 30.0,
-                          decoration: BoxDecoration(
-                            color: _selectedIndex == 4
-                                ? KColors.kBlue.withOpacity(0.2)
-                                : null,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Icon(
-                            Icons.settings_outlined,
-                            color: KColors.kBlue,
-                            size: 30.0,
-                          ),
-                        ),
-                      ),
+                      buildGestureDetector(3, Icons.message_outlined),
+                      buildGestureDetector(4, Icons.settings_outlined),
                     ],
                   ),
                 ),
@@ -169,10 +76,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
                   child: Container(
                     width: 72.0,
                     height: 72.0,
-                    decoration: const BoxDecoration(
-                      color: KColors.kBlue,
-                      shape: BoxShape.circle,
-                    ),
+                    decoration: AppStyles.navDialContainerDecor,
                     child: const Icon(
                       Icons.dialpad,
                       color: Colors.white,
@@ -183,6 +87,30 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  GestureDetector buildGestureDetector(int idx, IconData icons) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        setState(() {
+          _selectedIndex = idx;
+        });
+      },
+      child: Container(
+        width: 48.0,
+        height: 48.0,
+        decoration: BoxDecoration(
+          color: _selectedIndex == idx ? KColors.kBlue.withOpacity(0.2) : null,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Icon(
+          icons,
+          color: KColors.kBlue,
+          size: 30,
         ),
       ),
     );

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_practical_7/api/api_service/fetch_data.dart';
+import 'package:provider_practical_7/values/app_styles.dart';
 import '../../modal/image_modal.dart';
-import '../constants/colors.dart';
-
+import '../../values/colors.dart';
+import '../../values/strings.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -17,13 +18,6 @@ class _DashboardState extends State<Dashboard> {
   List btnColors = List.filled(3, false);
   final searchController = TextEditingController();
 
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureProvider(
@@ -35,9 +29,9 @@ class _DashboardState extends State<Dashboard> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                //greeting container
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0, right: 20, left: 20),
+                  padding:
+                      const EdgeInsets.only(top: 10.0, right: 20, left: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -46,24 +40,16 @@ class _DashboardState extends State<Dashboard> {
                         children: [
                           //hello label
                           Text(
-                            "Hello!",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Inter',
-                            ),
+                            Strings.hello,
+                            style: AppStyles.helloTextStyle,
                           ),
                           SizedBox(
                             height: 2,
                           ),
                           //user name label
                           Text(
-                            "Sameer User",
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Inter',
-                            ),
+                            Strings.username,
+                            style: AppStyles.userNameTextStyle,
                           ),
                         ],
                       ),
@@ -71,14 +57,11 @@ class _DashboardState extends State<Dashboard> {
                       Container(
                         height: 44,
                         width: 44,
-                        decoration: BoxDecoration(
-                          color: KColors.kGrey,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                        decoration: AppStyles.imageBoxDecor,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: Image.asset(
-                              'asset/images/user.jpeg',
+                              Strings.staticImagePath,
                               fit: BoxFit.cover,
                             )),
                       ),
@@ -86,8 +69,8 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15.0, horizontal: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -110,12 +93,8 @@ class _DashboardState extends State<Dashboard> {
                             controller: searchController,
                             cursorColor: KColors.kBlue,
                             decoration: const InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: KColors.kBlue,
-                                size: 24,
-                              ),
-                              hintText: "Search",
+                              prefixIcon: AppStyles.prefixIconStyle,
+                              hintText: Strings.search,
                               border: InputBorder.none,
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(
@@ -138,7 +117,7 @@ class _DashboardState extends State<Dashboard> {
                               vertical: 18.0, horizontal: 25.0),
                         ),
                         child: const Text(
-                          "Filter",
+                          Strings.filter,
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -148,8 +127,8 @@ class _DashboardState extends State<Dashboard> {
                 //categories container
                 Container(
                   height: 40,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 20),
                   child: ListView.separated(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
@@ -163,15 +142,17 @@ class _DashboardState extends State<Dashboard> {
                         height: 40,
                         width: 104,
                         decoration: BoxDecoration(
-                          color: btnColors[index] ? KColors.kBlue : Colors.white,
+                          color:
+                              btnColors[index] ? KColors.kBlue : Colors.white,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             "${names[index]}",
                             style: TextStyle(
-                              color:
-                                  btnColors[index] ? Colors.white : KColors.kGrey,
+                              color: btnColors[index]
+                                  ? Colors.white
+                                  : KColors.kGrey,
                             ),
                           ),
                         ),
@@ -184,35 +165,23 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 //all property label
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 18.0, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 18.0, horizontal: 20),
                   child: Row(
                     children: [
                       const Text(
-                        "All Property",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Inter',
-                        ),
+                        Strings.allProperty,
+                        style: AppStyles.titleTextStyle,
                       ),
                       const Spacer(),
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          //TODO: implement all property see all here
-                        },
                         child: const Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              "See All",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                                color: KColors.kSeeAllColor,
-                              ),
+                              Strings.seeAll,
+                              style: AppStyles.seeAllTextStyle,
                             ),
                             Icon(
                               Icons.arrow_forward_ios_outlined,
@@ -229,114 +198,106 @@ class _DashboardState extends State<Dashboard> {
                 SizedBox(
                   height: 270,
                   child: Consumer<ImageDataFromPexel?>(
-                    builder: (context, value, child) => (value?.photos?.isEmpty ?? true) ? const Center(child: CircularProgressIndicator(),): ListView.builder(
-                      itemCount: value?.photos?.length,
-                      padding: const EdgeInsets.only(left: 18),
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(10),
-                                height: 180,
-                                width: 180,
-                                decoration: BoxDecoration(
-                                  color: KColors.kGrey,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: Image.network(
-                                    (value?.photos?[index].src?.medium ??
-                                        "ERROR 403"),
-                                    errorBuilder: (context, error, stackTrace) =>
-                                        Center(child: Text("${error}")),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                    builder: (context, value, child) => (value
+                                ?.photos?.isEmpty ??
+                            true)
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : ListView.builder(
+                            itemCount: value?.photos?.length,
+                            padding: const EdgeInsets.only(left: 18),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) => Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
                               ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 12),
-                                child: SizedBox(
-                                  width: 180,
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "3 Story Office",
-                                        style: TextStyle(
-                                          color: KColors.kHeadingColour,
-                                          fontWeight: FontWeight.w700,
-                                          fontFamily: 'Inter',
-                                          fontSize: 12,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.all(10),
+                                      height: 180,
+                                      width: 180,
+                                      decoration: AppStyles.emptyBoxDecor,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(30),
+                                        child: Image.network(
+                                          (value?.photos?[index].src?.medium ??
+                                              Strings.error403),
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  Center(child: Text("$error")),
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
-                                      Spacer(),
-                                      Text(
-                                        "\$267000",
-                                        style: TextStyle(
-                                          color: KColors.kBlue,
-                                          fontWeight: FontWeight.w700,
-                                          fontFamily: 'Inter',
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 12),
-                                child: SizedBox(
-                                  width: 180,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "2000sqft",
-                                        style: TextStyle(
-                                          color: KColors.kBorderColor,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: 'Inter',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Icon(Icons.person_outline_outlined,
-                                              size: 12, color: KColors.kOrange),
-                                          Text(
-                                            "25",
-                                            style: TextStyle(
-                                              color: KColors.kBorderColor,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: 'Inter',
-                                              fontSize: 10,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 12),
+                                      child: SizedBox(
+                                        width: 180,
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              Strings.threeStoryOffice,
+                                              style:
+                                                  AppStyles.boldMediumTextStyle,
                                             ),
-                                          ),
-                                        ],
+                                            Spacer(),
+                                            Text(
+                                              Strings.twoSixtySevenThousand,
+                                              style: AppStyles.mediumTextStyle,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    const SizedBox(
+                                      height: 2,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 12),
+                                      child: SizedBox(
+                                        width: 180,
+                                        child: Row(
+                                          children: [
+                                            Text(Strings.twoThousand,
+                                                style:
+                                                    AppStyles.smallTextStyle),
+                                            Spacer(),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Icon(
+                                                    Icons
+                                                        .person_outline_outlined,
+                                                    size: 12,
+                                                    color: KColors.kOrange),
+                                                Text(
+                                                  Strings.twentyFive,
+                                                  style:
+                                                      AppStyles.smallTextStyle,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
                   ),
                 ),
                 //featured property label
@@ -345,13 +306,8 @@ class _DashboardState extends State<Dashboard> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Featured Property",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                        fontFamily: 'Inter',
-                        color: KColors.kHeadingColour,
-                      ),
+                      Strings.featuredProperty,
+                      style: AppStyles.titleTextStyle,
                     ),
                   ),
                 ),
@@ -359,144 +315,123 @@ class _DashboardState extends State<Dashboard> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Consumer<ImageDataFromPexel?>(
-                    builder: (context, value, child) => (value?.photos!.isEmpty ?? true) ? const Center(child: CircularProgressIndicator()) : ListView.builder(
-                      primary: false,
-                      reverse: true,
-                      shrinkWrap: true,
-                      itemCount: 5,
-                      itemBuilder: (context, index) => Card(
-                            margin:
-                            const EdgeInsets.symmetric(
-                                vertical: 6, horizontal: 20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                children: [
-                                  //image section
-                                  Container(
-                                    height: 70,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                      color: KColors.kGrey,
-                                      borderRadius: BorderRadius.circular(20),
+                    builder: (context, value, child) => (value
+                                ?.photos!.isEmpty ??
+                            true)
+                        ? const Center(child: CircularProgressIndicator())
+                        : ListView.builder(
+                            primary: false,
+                            physics: const BouncingScrollPhysics(),
+                            reverse: true,
+                            shrinkWrap: true,
+                            itemCount: 5,
+                            itemBuilder: (context, index) => Card(
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 6, horizontal: 20),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Row(
+                                  children: [
+                                    //image section
+                                    Container(
+                                      height: 70,
+                                      width: 70,
+                                      decoration: BoxDecoration(
+                                        color: KColors.kGrey,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.network(
+                                            "${value?.photos?[index].src?.medium}",
+                                            fit: BoxFit.cover),
+                                      ),
                                     ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                          "${value?.photos?[index].src?.medium}",
-                                          fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                  const Flexible(
-                                    child: Column(
-                                      children: [
-                                        //price and title
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 12),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                "2 Story Office",
-                                                style: TextStyle(
-                                                  color: KColors
-                                                      .kHeadingColour,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontFamily: 'Inter',
+                                    const Flexible(
+                                      child: Column(
+                                        children: [
+                                          //price and title
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 12),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  Strings.twoStoryOffice,
+                                                  style: AppStyles
+                                                      .boldMediumTextStyle,
                                                 ),
-                                              ),
-                                              Spacer(),
-                                              Text(
-                                                "\$267000",
-                                                style: TextStyle(
-                                                    color: KColors.kBlue,
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight
-                                                        .w700,
-                                                    fontFamily: 'Inter'),
-                                              ),
-                                            ],
+                                                Spacer(),
+                                                Text(
+                                                  Strings.twoSixtySevenThousand,
+                                                  style:
+                                                      AppStyles.mediumTextStyle,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 9, top: 6, bottom: 10),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .start,
-                                            children: [
-                                              Icon(
-                                                Icons.location_on,
-                                                color: KColors.kGrey,
-                                                size: 14,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "BW Street, NY New York",
-                                                style: TextStyle(
-                                                  color: KColors.kBorderColor,
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400,
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 9, top: 6, bottom: 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on,
+                                                  color: KColors.kGrey,
+                                                  size: 14,
                                                 ),
-                                              ),
-                                            ],
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  Strings.newYorkCity,
+                                                  style:
+                                                      AppStyles.smallTextStyle,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        //area section
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 12),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                "2000 sqft",
-                                                style: TextStyle(
-                                                  color: KColors.kBorderColor,
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400,
+                                          //area section
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 12),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  Strings.twoThousand,
+                                                  style:
+                                                      AppStyles.smallTextStyle,
                                                 ),
-                                              ),
-                                              Spacer(),
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                                children: [
-                                                  Icon(
-                                                    Icons
-                                                        .person_outline_outlined,
-                                                    size: 14,
-                                                    color: KColors.kOrange,
-                                                  ),
-                                                  Text(
-                                                    "25",
-                                                    style: TextStyle(
-                                                      color: KColors
-                                                          .kBorderColor,
-                                                      fontFamily: 'Inter',
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight
-                                                          .w400,
+                                                Spacer(),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Icon(
+                                                      Icons
+                                                          .person_outline_outlined,
+                                                      size: 14,
+                                                      color: KColors.kOrange,
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                                    Text(Strings.twentyFive,
+                                                        style: AppStyles
+                                                            .smallTextStyle),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                    ),
                   ),
                 ),
               ],
