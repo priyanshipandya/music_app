@@ -1,21 +1,40 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:provider_practical_7/api/api_service/generate_token.dart';
+import 'package:retrofit/http.dart';
+import '../../modal/music_modal.dart';
 
-import '../../modal/image_modal.dart';
+// part 'fetch_data.g.dart';
 
-class APIServiceUsingProvider {
-  Future<ImageDataFromPexel?> fetchData() async {
-    Uri uri = Uri.parse("https://api.pexels.com/v1/search?query=people");
-    http.Response response = await http.get(uri, headers: {
-      'Authorization':
-          'J8IFcjRx2YkaF5I6awZ871wvgEJ342sUUhxatbVZVEcJZpUJvPtdp6P8',
-    });
+//
+// @RestApi(baseUrl: "https://api.spotify.com/v1/artists/")
+// abstract class FetchMusic{
+//   factory FetchMusic(Dio dio, {String baseUrl}) = _FetchMusic;
+//
+//   @GET("4Z8W4fKeB5YxbusRsdQVPb")
+//   Future<List<SpotifyModal>> fetchMusicApi();
+//
+// }
 
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return ImageDataFromPexel.fromJson(data);
-    } else {
-     throw Exception("Can't fetch data");
-    }
+Future<T> fetchMusicApi<T>(String Url, T Function(dynamic json) parser) async {
+  String token = await generateToken();
+  final response = await Dio().get(
+    Url,
+    options: Options(
+      headers: {
+        'Authorization':
+            'Bearer $token',
+      },
+    ),
+  );
+  // if (response.statusCode == 401) {
+  //   token = generateToken();
+  //   print("Token generated: $token");
+  // }
+  if (response.statusCode == 200) {
+    return parser(response.data);
+  } else {
+    print(response.statusCode);
+    throw Exception("${response.statusCode}");
   }
 }
+

@@ -34,7 +34,7 @@ class AppStyles {
     color: KColors.kBorderColor,
     fontWeight: FontWeight.w400,
     fontFamily: 'Inter',
-    fontSize: 10,
+    fontSize: 12,
   );
 
   static const titleTextStyle = TextStyle(
@@ -67,7 +67,8 @@ class AppStyles {
     color: KColors.kHeadingColour,
     fontWeight: FontWeight.w700,
     fontFamily: 'Inter',
-    fontSize: 12,
+    fontSize: 14,
+    // overflow: TextOverflow.ellipsis,
   );
 
   static final navDecoration = BoxDecoration(

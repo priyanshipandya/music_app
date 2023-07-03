@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider_practical_7/screens/page/settings.dart';
+import 'package:provider_practical_7/screens/page/profile.dart';
 import 'package:provider_practical_7/values/app_styles.dart';
 import '../../values/colors.dart';
 import 'bookmark.dart';
 import 'fab.dart';
-import 'homepage.dart';
+import 'homepage/homepage.dart';
 import 'message.dart';
 
 class DashboardMainScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
     const BookmarkPage(),
     const FABPage(),
     const MessagePage(),
-    const SettingPage(),
+    ProfilePage(),
   ];
 
   @override
@@ -59,7 +59,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
                         decoration: AppStyles.navDecoration,
                       ),
                       buildGestureDetector(3, Icons.message_outlined),
-                      buildGestureDetector(4, Icons.settings_outlined),
+                      buildGestureDetector(4, Icons.person_outline_rounded),
                     ],
                   ),
                 ),

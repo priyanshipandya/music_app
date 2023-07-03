@@ -5,7 +5,8 @@ class Strings{
   static const threeStoryOffice = "3 Story Office";
   static const error403 = "ERROR 403";
   static const seeAll = "See All";
-  static const allProperty = "All Property";
+  static const allTracks = "All Tracks";
+  static const allALbums = "All Albums";
   static const filter = "Filter";
   static const search = "Search";
   static const staticImagePath = 'asset/images/user.jpeg';
