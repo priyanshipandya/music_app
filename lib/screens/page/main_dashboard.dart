@@ -77,11 +77,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
                     width: 72.0,
                     height: 72.0,
                     decoration: AppStyles.navDialContainerDecor,
-                    child: const Icon(
-                      Icons.dialpad,
-                      color: Colors.white,
-                      size: 30,
-                    ),
+                    child: CircleAvatar(backgroundColor: Colors.transparent, radius: 20, child: Image.asset("asset/images/reels.png", height: 40, width: 40, fit: BoxFit.fill)),
                   ),
                 ),
               ),

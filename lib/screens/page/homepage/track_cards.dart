@@ -17,6 +17,7 @@ class TrackCards extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemCount: snapshot.data?.tracks?.length,
               padding: const EdgeInsets.only(left: 18),
               scrollDirection: Axis.horizontal,
