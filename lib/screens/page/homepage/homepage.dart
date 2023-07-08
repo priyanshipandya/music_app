@@ -36,9 +36,12 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
-    fetchTracks = fetchMusicApi<SpotifyModal>("https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B", (json) => SpotifyModal.fromJson(json));
+    fetchTracks = fetchMusicTrack("https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B");
     // fetchTracks = fetchMusicApi<SpotifyModal>("https://api.spotify.com/v1/playlists?ids=1MuDVTTNqRmEUV1dzyfMnB,3AAeD7XiPsK3UtmXyPCvfz,7HEVGWzjOGo2DacxG0ESFg", (json) => SpotifyModal.fromJson(json));
-    fetchAlbums = fetchMusicApi<SpotifyAlbum>("https://api.spotify.com/v1/albums?ids=5gQZvWM1o8NkQndueJtZcP,1xn54DMo2qIqBuMqHtUsFd,2VP96XdMOKTXefI8Nui23s,5fy0X0JmZRZnVa2UEicIOl,1xn54DMo2qIqBuMqHtUsFd,3Lp4JKk2ZgNkybMRS3eZR5,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc", (json) => SpotifyAlbum.fromJson(json));
+    fetchAlbums = fetchMusicAlbum("https://api.spotify.com/v1/albums?ids=5gQZvWM1o8NkQndueJtZcP,2VP96XdMOKTXefI8Nui23s,5fy0X0JmZRZnVa2UEicIOl,1xn54DMo2qIqBuMqHtUsFd,3Lp4JKk2ZgNkybMRS3eZR5,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc");
+    // fetchTracks = fetchMusicApi<SpotifyModal>("https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B", (json) => SpotifyModal.fromJson(json));
+    // // fetchTracks = fetchMusicApi<SpotifyModal>("https://api.spotify.com/v1/playlists?ids=1MuDVTTNqRmEUV1dzyfMnB,3AAeD7XiPsK3UtmXyPCvfz,7HEVGWzjOGo2DacxG0ESFg", (json) => SpotifyModal.fromJson(json));
+    // fetchAlbums = fetchMusicApi<SpotifyAlbum>("https://api.spotify.com/v1/albums?ids=5gQZvWM1o8NkQndueJtZcP,1xn54DMo2qIqBuMqHtUsFd,2VP96XdMOKTXefI8Nui23s,5fy0X0JmZRZnVa2UEicIOl,1xn54DMo2qIqBuMqHtUsFd,3Lp4JKk2ZgNkybMRS3eZR5,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc", (json) => SpotifyAlbum.fromJson(json));
     super.initState();
   }
 
@@ -72,6 +75,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     ),
+
                     Container(
                       height: 44,
                       width: 44,
@@ -87,62 +91,7 @@ class _DashboardState extends State<Dashboard> {
                   ],
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 1,
-                              color: KColors.kGrey,
-                              spreadRadius: 0,
-                            ),
-                          ],
-                        ),
-                        child: TextField(
-                          onTapOutside: (event) =>
-                              FocusScope.of(context).unfocus(),
-                          controller: searchController,
-                          cursorColor: KColors.kBlue,
-                          decoration: const InputDecoration(
-                            prefixIcon: AppStyles.prefixIconStyle,
-                            hintText: Strings.search,
-                            border: InputBorder.none,
-                            isDense: true,
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 15),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 9,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: KColors.kBlue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 18.0, horizontal: 25.0),
-                      ),
-                      child: const Text(
-                        Strings.filter,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
               Container(
                 height: 40,
                 margin:
@@ -170,7 +119,7 @@ class _DashboardState extends State<Dashboard> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color:
-                                btnColors[index] ? Colors.white : KColors.kGrey,
+                                btnColors[index] ? Colors.white : KColors.kBlack,
                           ),
                         ),
                       ),
@@ -183,31 +132,31 @@ class _DashboardState extends State<Dashboard> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 18.0, horizontal: 20),
+                    const EdgeInsets.only(top: 25.0, bottom: 10, left: 20),
                 child: Row(
                   children: [
                     const Text(
                       Strings.allTracks,
                       style: AppStyles.titleTextStyle,
                     ),
-                    const Spacer(),
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      child: const Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            Strings.seeAll,
-                            style: AppStyles.seeAllTextStyle,
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            size: 12,
-                            color: KColors.kSeeAllColor,
-                          )
-                        ],
-                      ),
-                    ),
+                    // const Spacer(),
+                    // GestureDetector(
+                    //   behavior: HitTestBehavior.opaque,
+                    //   child: const Row(
+                    //     crossAxisAlignment: CrossAxisAlignment.center,
+                    //     children: [
+                    //       Text(
+                    //         Strings.seeAll,
+                    //         style: AppStyles.seeAllTextStyle,
+                    //       ),
+                    //       Icon(
+                    //         Icons.arrow_forward_ios_outlined,
+                    //         size: 12,
+                    //         color: KColors.kSeeAllColor,
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

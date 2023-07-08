@@ -78,8 +78,8 @@ class AppStyles {
 
   static final navBoxShadow = BoxShadow(
     color: Colors.grey.shade200,
-    spreadRadius: 6,
-    blurRadius: 7,
+    spreadRadius: 2,
+    blurRadius: 1,
   );
 
 static final imageBoxDecor = BoxDecoration(

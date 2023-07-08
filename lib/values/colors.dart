@@ -19,4 +19,5 @@ class KColors {
   static const kTextFieldBorderColour = Color(0xFFE3E3E3);
   static const kMessageBarColor = Color(0xFF424242);
   static const kFacebookContainerColor = Color(0xFF1877F2);
+  static const kBlack = Color(0xFF303030);
 }

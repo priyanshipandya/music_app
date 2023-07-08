@@ -15,7 +15,7 @@ class Strings{
   static const  featuredProperty = "Featured Property";
   static const  twoStoryOffice = "2 Story Office";
   static const  newYorkCity = "BW Street, NY New York";
-  static const  messagePage = "Message Page";
+  static const  noData = "No Data Found";
   static const  settingPage = "Settings Page";
   static const  otherPage = "Other Page";
   static const  bookmarkPage = "Bookmark Page";

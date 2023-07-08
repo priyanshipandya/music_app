@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider_practical_7/values/colors.dart';
-
 import '../../values/app_styles.dart';
 
 class ProfilePage extends StatefulWidget {

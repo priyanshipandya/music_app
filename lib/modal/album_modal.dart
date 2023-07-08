@@ -175,24 +175,23 @@ class Items {
   int? trackNumber;
   String? type;
   String? uri;
-  bool? isFav = false;
 
-  Items(
-      {this.artists,
-      this.availableMarkets,
-      this.discNumber,
-      this.durationMs,
-      this.explicit,
-      this.externalUrls,
-      this.href,
-      this.id,
-      this.isLocal,
-      this.name,
-      this.previewUrl,
-      this.trackNumber,
-      this.type,
-      this.uri,
-      this.isFav});
+  Items({
+    this.artists,
+    this.availableMarkets,
+    this.discNumber,
+    this.durationMs,
+    this.explicit,
+    this.externalUrls,
+    this.href,
+    this.id,
+    this.isLocal,
+    this.name,
+    this.previewUrl,
+    this.trackNumber,
+    this.type,
+    this.uri,
+  });
 
   factory Items.fromJson(Map<String, dynamic> json) => _$ItemsFromJson(json);
 

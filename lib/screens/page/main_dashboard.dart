@@ -5,7 +5,7 @@ import '../../values/colors.dart';
 import 'bookmark.dart';
 import 'fab.dart';
 import 'homepage/homepage.dart';
-import 'message.dart';
+import 'search.dart';
 
 class DashboardMainScreen extends StatefulWidget {
   const DashboardMainScreen({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
     const Dashboard(),
     const BookmarkPage(),
     const FABPage(),
-    const MessagePage(),
+    SearchPage(),
     ProfilePage(),
   ];
 
@@ -58,7 +58,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
                         height: 48.0,
                         decoration: AppStyles.navDecoration,
                       ),
-                      buildGestureDetector(3, Icons.message_outlined),
+                      buildGestureDetector(3, Icons.search),
                       buildGestureDetector(4, Icons.person_outline_rounded),
                     ],
                   ),

@@ -120,11 +120,8 @@ class AlbumList extends StatelessWidget {
                   onTap: () async {
                     print(
                         "${data.tracks?.items?[index].externalUrls?.spotify}");
-                    String? callme = data
-                            .tracks?.items?[index].externalUrls?.spotify ??
+                    String? callme = data.tracks?.items?[index].uri ??
                         "https://open.spotify.com/track/5nujrmhLynf4yMoMtj8AQF";
-                    String url =
-                        "https://open.spotify.com/track/4lteJuSjb9Jt9W1W7PIU2U";
                     await launchUrl(Uri.parse(callme));
                   },
                   child: Card(
@@ -165,22 +162,20 @@ class AlbumList extends StatelessWidget {
                                         style: AppStyles.boldMediumTextStyle,
                                         // overflow: TextOverflow.ellipsis,
                                       ),
-                                      // Text(
-                                      //   Strings.twoSixtySevenThousand,
-                                      //   style:
-                                      //       AppStyles.mediumTextStyle,
                                     ],
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 9, top: 6, bottom: 10),
+                                              left: 9, top: 6),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               const Icon(
                                                 Icons.person_outline_outlined,
@@ -197,14 +192,16 @@ class AlbumList extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: List.generate(
-                                                  data.tracks?.items?[index].artists
-                                                          ?.length ??
+                                                  data.tracks?.items?[index]
+                                                          .artists?.length ??
                                                       0,
                                                   (i) => Text(
                                                     "${data.tracks?.items?[index].artists?[i].name}" ??
                                                         "Unknown Created",
-                                                    style: AppStyles.smallTextStyle,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    style: AppStyles
+                                                        .smallTextStyle,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     // maxLines: 1,
                                                   ),
                                                 ),
@@ -212,32 +209,41 @@ class AlbumList extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        Row(
-                                          children: [
-                                            const Icon(Icons.audiotrack_outlined, size: 20, color: KColors.kGrey,),
-                                            Text(
-                                              "type: ${data.tracks?.items?[index].type}" ?? "No data",
-                                              style: AppStyles.smallTextStyle,
-                                            ),
-                                            // const Spacer(),
-                                          ],
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 9),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              const Icon(
+                                                Icons.audiotrack_outlined,
+                                                size: 20,
+                                                color: KColors.kGrey,
+                                              ),
+                                              Text(
+                                                "type: ${data.tracks?.items?[index].type}" ??
+                                                    "No data",
+                                                style: AppStyles.smallTextStyle,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
                                     const Spacer(),
                                     Observer(
                                       builder: (context) {
-                                        // log(favStore.favList.toString(), name: "FAVSTORE LIST" );
                                         print(favStore.favList.toString());
                                         return IconButton(
-                                        icon: getFavIcon(index, data.tracks!.items![index]!),
-                                        // Icon(favStore.favList.contains(data) ? Icons.favorite : Icons.favorite_border ,
-                                        //     size: 30),
-                                        onPressed: () {
-                                          // favStore.toggleFav(data.tracks?.items?[index]);
-                                          favStore.toggleFav(index, data.tracks!.items![index]);
-                                        },
-                                      );
+                                          icon: getFavIcon(index,
+                                              data.tracks!.items![index]!),
+                                          // Icon(favStore.favList.contains(data) ? Icons.favorite : Icons.favorite_border ,
+                                          //     size: 30),
+                                          onPressed: () {
+                                            // favStore.toggleFav(data.tracks?.items?[index]);
+                                            favStore.toggleFav(data.tracks?.items[index]);
+                                          },
+                                        );
                                       },
                                     ),
                                   ],
@@ -283,5 +289,4 @@ class AlbumList extends StatelessWidget {
       return Icon(Icons.favorite_border);
     }
   }
-
 }
