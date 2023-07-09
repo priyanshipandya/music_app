@@ -22,7 +22,6 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -74,7 +73,12 @@ class _SearchPageState extends State<SearchPage> {
                     }).toList();
 
                     if (filteredItems.isNotEmpty) {
-                      filteredData.add(AllData(filteredItems, data.poster));
+                      bool alreadyExists = filteredData
+                          .any((d) => d.albumLabelName == data.albumLabelName);
+                      if (!alreadyExists) {
+                        filteredData.add(AllData(1, filteredItems, data.poster,
+                            data.songCreater, data.albumLabelName));
+                      }
                     }
                   }
                   // for (int i = 0; i < allData.length; i++) {

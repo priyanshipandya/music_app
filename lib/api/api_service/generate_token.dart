@@ -18,7 +18,7 @@ Future<String> generateToken() async{
   final response = await http.post(Uri.parse(authOptions['url'],),
       headers: authOptions['headers'], body: authOptions['body']);
 
-        log("${response.statusCode}", name: "TOKEN STATUS CODE");
+        // log("${response.statusCode}", name: "TOKEN STATUS CODE");
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
       var token = body['access_token'];

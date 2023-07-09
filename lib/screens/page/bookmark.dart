@@ -203,7 +203,7 @@ class BookmarkPage extends StatelessWidget {
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
-                                                      children: List.generate(favStore.favList.values.length, (i) => Text("Hello")
+                                                      children: List.generate(favStore.favList.length, (i) => Text("Hello")
                                                         //   "${favStore.favList.values[i].toList().}" ??
                                                         //       "Unknown Created",
                                                         //   style: AppStyles

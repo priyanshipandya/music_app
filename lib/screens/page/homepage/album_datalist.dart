@@ -1,18 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:provider_practical_7/store/fav_store.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import '../../../modal/album_modal.dart';
 import '../../../values/app_styles.dart';
 import '../../../values/colors.dart';
-import '../../../values/strings.dart';
 
 class AlbumList extends StatelessWidget {
   const AlbumList({super.key, required this.data});
 
-  final Albums data;
+  final AllData? data;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +37,7 @@ class AlbumList extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(30),
                           child: Image.network(
-                              data.images?[0].url.toString() ??
+                              data?.poster ??
                                   "https://jonlieffmd.com/wp-content/uploads/2013/02/Music-vector-Feature-HiRes1-scaled.jpg",
                               height: MediaQuery.of(context).size.height * 0.6,
                               fit: BoxFit.fill),
@@ -115,12 +112,10 @@ class AlbumList extends StatelessWidget {
                 primary: false,
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: data.tracks?.items?.length,
+                itemCount: data?.items.length,
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () async {
-                    print(
-                        "${data.tracks?.items?[index].externalUrls?.spotify}");
-                    String? callme = data.tracks?.items?[index].uri ??
+                    String? callme = data?.items[index].songUrl ??
                         "https://open.spotify.com/track/5nujrmhLynf4yMoMtj8AQF";
                     await launchUrl(Uri.parse(callme));
                   },
@@ -134,21 +129,6 @@ class AlbumList extends StatelessWidget {
                       padding: const EdgeInsets.all(12.0),
                       child: Row(
                         children: [
-                          // Container(
-                          //   height: 70,
-                          //   width: 70,
-                          //   decoration: BoxDecoration(
-                          //     color: KColors.kGrey,
-                          //     borderRadius: BorderRadius.circular(20),
-                          //   ),
-                          //   child: ClipRRect(
-                          //     borderRadius: BorderRadius.circular(20),
-                          //     child: Image.network(
-                          //         data.images?[1].url ??
-                          //             'https://jonlieffmd.com/wp-content/uploads/2013/02/Music-vector-Feature-HiRes1-scaled.jpg',
-                          //         fit: BoxFit.cover),
-                          //   ),
-                          // ),
                           Flexible(
                             child: Column(
                               children: [
@@ -157,7 +137,7 @@ class AlbumList extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        data.tracks?.items?[index].name ??
+                                        data?.items?[index].songName ??
                                             "Unknown",
                                         style: AppStyles.boldMediumTextStyle,
                                         // overflow: TextOverflow.ellipsis,
@@ -168,7 +148,8 @@ class AlbumList extends StatelessWidget {
                                 Row(
                                   children: [
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
@@ -192,25 +173,27 @@ class AlbumList extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: List.generate(
-                                                  data.tracks?.items?[index]
-                                                          .artists?.length ??
+                                                  data?.items[index].artists?.length ??
                                                       0,
-                                                  (i) => Text(
-                                                    "${data.tracks?.items?[index].artists?[i].name}" ??
-                                                        "Unknown Created",
+                                                      (i) => SizedBox(
+                                                        width: 200,
+                                                        child: Text(
+                                                    "${data?.items[index].artists?[i].name}",
                                                     style: AppStyles
-                                                        .smallTextStyle,
+                                                          .smallTextStyle,
                                                     overflow:
-                                                        TextOverflow.ellipsis,
+                                                          TextOverflow.ellipsis,
                                                     // maxLines: 1,
                                                   ),
+                                                      ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 9),
+                                         Padding(
+                                          padding:
+                                              EdgeInsets.only(left: 9),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -220,10 +203,14 @@ class AlbumList extends StatelessWidget {
                                                 size: 20,
                                                 color: KColors.kGrey,
                                               ),
-                                              Text(
-                                                "type: ${data.tracks?.items?[index].type}" ??
-                                                    "No data",
-                                                style: AppStyles.smallTextStyle,
+                                              SizedBox(
+                                                width: 200,
+                                                child: Text(
+                                                  "${data?.songCreater}" ??
+                                                      "No data",
+                                                  style: AppStyles
+                                                      .smallTextStyle,
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -235,13 +222,14 @@ class AlbumList extends StatelessWidget {
                                       builder: (context) {
                                         print(favStore.favList.toString());
                                         return IconButton(
-                                          icon: getFavIcon(index,
-                                              data.tracks!.items![index]!),
+                                          icon: getFavIcon(
+                                              index, data!.items[index]),
                                           // Icon(favStore.favList.contains(data) ? Icons.favorite : Icons.favorite_border ,
                                           //     size: 30),
                                           onPressed: () {
                                             // favStore.toggleFav(data.tracks?.items?[index]);
-                                            favStore.toggleFav(data.tracks?.items[index]);
+                                            favStore
+                                                .toggleFav(data!.items[index]);
                                           },
                                         );
                                       },
@@ -266,27 +254,18 @@ class AlbumList extends StatelessWidget {
     );
   }
 
-  void _launchUrl(String? spotifyUrl) async {
-    print("Url: $spotifyUrl");
-    if (await canLaunchUrl(Uri.parse(spotifyUrl!))) {
-      await launchUrl(spotifyUrl as Uri);
-    } else {
-      throw "Could not launch Url";
-    }
-  }
-
-  Icon getFavIcon(int index, Items item) {
+  Icon getFavIcon(int index, AllItems item) {
     FavStore favStore = FavStore();
-    if (favStore.favList.containsKey(index)) {
-      List<Items>? listAtIndex = favStore.favList[index];
+    if (favStore.favList.contains(item)) {
+      // List<Items>? listAtIndex = favStore.favList[index];
 
-      if (listAtIndex!.contains(data)) {
-        return Icon(Icons.favorite);
-      } else {
-        return Icon(Icons.favorite_border);
-      }
+      // if (listAtIndex!.contains(data)) {
+      return const Icon(Icons.favorite);
     } else {
-      return Icon(Icons.favorite_border);
+      return const Icon(Icons.favorite_border);
     }
   }
+// else {
+//   return Icon(Icons.favorite_border);
+// }
 }

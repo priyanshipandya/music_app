@@ -1,15 +1,147 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/api/api_service/generate_token.dart';
 import 'package:retrofit/http.dart';
 import '../../modal/album_modal.dart';
 import '../../modal/all_data.dart';
 import '../../modal/music_modal.dart';
 
-// part 'fetch_data.g.dart';
+part 'fetch_data.g.dart';
 
-//
+class FetchAPIDatas = _FetchAPIDatas with _$FetchAPIDatas;
+
+abstract class _FetchAPIDatas with Store {
+  @observable
+  ObservableFuture<List<AllData>>? callAbumAPI;
+  ObservableFuture<List<AllData>>? callTrackAPI;
+
+  _FetchAPIDatas() {
+    callAbumAPI = ObservableFuture<List<AllData>>(fetchMusicAlbum(
+        "https://api.spotify.com/v1/albums?ids=5gQZvWM1o8NkQndueJtZcP,2VP96XdMOKTXefI8Nui23s,5fy0X0JmZRZnVa2UEicIOl,1xn54DMo2qIqBuMqHtUsFd,3Lp4JKk2ZgNkybMRS3eZR5,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"));
+
+    callTrackAPI = ObservableFuture<List<AllData>>(fetchMusicTrack(
+        "https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"));
+  }
+
+  @action
+  Future<List<AllData>> fetchMusicAlbum(String Url) async {
+    String token = await generateToken();
+    final response = await Dio().get(
+      Url,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
+
+    late List<AllItems> allItems;
+    late List<Artist> artistList;
+    if (response.statusCode == 200) {
+      SpotifyAlbum albumResult = SpotifyAlbum.fromJson(response.data);
+      for (var album = 0; album < albumResult.albums!.length; album++) {
+        allItems = [];
+        var itemAt = albumResult.albums![album].tracks!.items!;
+
+        for (var item = 0; item < itemAt.length; item++) {
+          String id = itemAt[item].id.toString();
+          String songName = itemAt[item].name.toString();
+          String songUrl = itemAt[item].uri.toString();
+          artistList = [];
+          int itemLength = itemAt[item].artists?.length ?? 0;
+          for (var artist = 0; artist < itemLength; artist++) {
+            var artistName = itemAt[item].artists?[artist].name.toString();
+            var artistType = itemAt[item].artists?[artist].type.toString();
+            artistList.add(Artist(artistName, artistType));
+          }
+          allItems.add(
+            AllItems(
+              id: id,
+              songName: songName,
+              songUrl: songUrl,
+              isFav: false,
+              artists: artistList,
+            ),
+          );
+        }
+        String poster =
+            albumResult.albums![album].images?[1].url.toString() ?? "";
+        String songCreator =
+            albumResult.albums?[album].label ?? "Unknown Records";
+        String cardsLabel =
+            albumResult.albums?[album].name ?? "Unknown Records";
+        allData.add(AllData(1, allItems, poster, songCreator, cardsLabel));
+      }
+    } else {
+      print(response.statusCode);
+      throw Exception("${response.statusCode}");
+    }
+
+    return allData;
+  }
+
+  @action
+  Future<List<AllData>> fetchMusicTrack(String Url) async {
+    String token = await generateToken();
+    final response = await Dio().get(
+      Url,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
+
+    late List<AllItems> allItems;
+    late List<Artist> artistList;
+    late String songName;
+    if (response.statusCode == 200) {
+      SpotifyModal trackResult = SpotifyModal.fromJson(response.data);
+      int trackLength = trackResult.tracks?.length ?? 0;
+      for (var track = 0; track < trackLength; track++) {
+        allItems = [];
+        var itemAt = trackResult.tracks;
+        for (var item = 0; item < itemAt!.length; item++) {
+          String id = itemAt[item].id.toString();
+          songName = itemAt[item].name.toString();
+          String songUrl = itemAt[item].uri.toString();
+          artistList = [];
+          var artistName;
+          int itemLength = itemAt[item].artists?.length ?? 0;
+          for (var artist = 0; artist < itemLength; artist++) {
+            artistName = itemAt[item].artists?[artist].name.toString();
+            var artistType = itemAt[item].artists?[artist].type.toString();
+            artistList.add(Artist(artistName, artistType));
+          }
+          allItems.add(
+            AllItems(
+              id: id,
+              songName: songName,
+              songUrl: songUrl,
+              isFav: false,
+              artists: artistList,
+            ),
+          );
+        }
+        String poster = trackResult.tracks?[track].album?.images?[1].url ?? "";
+        String songCreator =
+            trackResult.tracks?[track].name ?? "Unknown Records";
+        String cardsLabel =
+            trackResult.tracks?[track].type ?? "Unknown Records";
+        allData.add(AllData(0, allItems, poster, cardsLabel, songCreator));
+      }
+    } else {
+      throw Exception("FROM TRACK");
+    }
+
+    return allData;
+  }
+
+
+}
+
 // @RestApi(baseUrl: "https://api.spotify.com/v1/artists/")
 // abstract class FetchMusic{
 //   factory FetchMusic(Dio dio, {String baseUrl}) = _FetchMusic;
@@ -42,96 +174,3 @@ List<AllData> allResponses = [];
 //     throw Exception("${response.statusCode}");
 //   }
 // }
-
-// Future<SpotifyAlbum> fetchMusicAlbum(String Url) async {
-//   String token = await generateToken();
-//   final response = await Dio().get(
-//     Url,
-//     options: Options(
-//       headers: {
-//         'Authorization': 'Bearer $token',
-//       },
-//     ),
-//   );
-//   List<String> ids = [];
-//   late List<String> songs = [];
-//   List<String> uri = [];
-//   String? poster;
-//   if (response.statusCode == 200) {
-//     SpotifyAlbum albumResult = SpotifyAlbum.fromJson(response.data);
-//     List<Album> albums = [];
-//     for (var album = 0; album < albumResult.albums!.length; album++) {
-//       for (var item = 0;
-//           item < albumResult.albums![album].tracks!.items!.length;
-//           item++) {
-//         songs.add(
-//             albumResult.albums![album].tracks!.items![item].name.toString());
-//         uri.add(albumResult.albums![album].tracks!.items![item].uri.toString());
-//         ids.add(albumResult.albums![album].tracks!.items![item].id.toString());
-//       }
-//
-//       poster = albumResult.albums![album].images?[1].url.toString();
-//     }
-//
-//     allData.add(
-//         AllData(ids, songs, songs, poster!, uri));
-//
-//     return albumResult;
-//   } else {
-//     print(response.statusCode);
-//     throw Exception("${response.statusCode}");
-//   }
-// }
-
-Future<SpotifyAlbum> fetchMusicAlbum(String Url) async {
-  String token = await generateToken();
-  final response = await Dio().get(
-    Url,
-    options: Options(
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    ),
-  );
-  late List<AllItems> allItems;
-  if (response.statusCode == 200) {
-    SpotifyAlbum albumResult = SpotifyAlbum.fromJson(response.data);
-    for (var album = 0; album < albumResult.albums!.length; album++) {
-      allItems = [];
-      var itemAt = albumResult.albums![album].tracks!.items!;
-      for (var item = 0; item < itemAt.length; item++) {
-        String id = itemAt[item].id.toString();
-        String songName = itemAt[item].name.toString();
-        String songUrl = itemAt[item].uri.toString();
-        allItems.add(AllItems(id: id, songName: songName, songUrl: songUrl));
-      }
-      String poster =
-          albumResult.albums![album].images?[1].url.toString() ?? "";
-      allData.add(AllData(allItems, poster));
-      // log(allData.first.items[0].songName, name: "DATA CONTAIN");
-      // log(allData.length.toString(), name: "DATA LENGTH");
-    }
-    return albumResult;
-  } else {
-    print(response.statusCode);
-    throw Exception("${response.statusCode}");
-  }
-}
-
-Future<SpotifyModal> fetchMusicTrack(String Url) async {
-  String token = await generateToken();
-  final response = await Dio().get(
-    Url,
-    options: Options(
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    ),
-  );
-  if (response.statusCode == 200) {
-    return SpotifyModal.fromJson(response.data);
-  } else {
-    print(response.statusCode);
-    throw Exception("${response.statusCode}");
-  }
-}
