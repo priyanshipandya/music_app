@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider_practical_7/screens/page/main_dashboard.dart';
+import 'package:provider_practical_7/store/fav_store.dart';
 import 'package:provider_practical_7/values/colors.dart';
 
 void main() {
@@ -8,6 +9,8 @@ void main() {
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   runApp(const MyApp());
 }
+
+FavStore favStore = FavStore();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -17,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: KColors.kWhite),
+      // theme: ThemeData(scaffoldBackgroundColor: Colors.black),
       home: const DashboardMainScreen(),
     );
   }

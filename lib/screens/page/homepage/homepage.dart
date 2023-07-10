@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/api/api_service/fetch_data.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
+import 'package:provider_practical_7/screens/page/homepage/shimmer_home_page.dart';
 import 'package:provider_practical_7/values/app_styles.dart';
 
 import '../../../values/colors.dart';
@@ -31,7 +32,6 @@ class _DashboardState extends State<Dashboard> {
   List btnColors = List.filled(7, false);
   final searchController = TextEditingController();
   late Future<List<AllData>> fetchTracks;
-
 
   FetchAPIDatas fetchAPI = FetchAPIDatas();
 
@@ -158,16 +158,8 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 fetchAPI.callTrackAPI!.status == FutureStatus.pending
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
+                    ? ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 0),
-                // HomePageCardsWithoutGesture(
-                //     length: allData.length,
-                //     poster: allData[0].poster,
-                //     songCreator: allData[0].songCreater.toString(),
-                //     albumLabel: allData[0].albumLabelName.toString()),
-                // TrackCards(fetchApi: fetchTracks),
                 const Padding(
                   padding: EdgeInsets.only(top: 25.0, bottom: 10, left: 20),
                   child: Align(
@@ -179,7 +171,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 fetchAPI.callAbumAPI!.status == FutureStatus.pending
-                    ? const Center(child: CircularProgressIndicator())
+                    ? ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 1),
                 // AlbumCards(fetchApi: fetchAlbums),
               ],

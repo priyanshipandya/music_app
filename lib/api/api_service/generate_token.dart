@@ -1,6 +1,5 @@
-import 'dart:developer';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 Future<String> generateToken() async{
   var clientId = '9e6e0c333de44e219dbb4ce6b6d7a1d0';

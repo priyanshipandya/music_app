@@ -3,17 +3,18 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:provider_practical_7/store/fav_store.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../main.dart';
 import '../../../values/app_styles.dart';
 import '../../../values/colors.dart';
 
 class AlbumList extends StatelessWidget {
-  const AlbumList({super.key, required this.data});
+  AlbumList({super.key, required this.data});
 
   final AllData? data;
 
+
   @override
   Widget build(BuildContext context) {
-    FavStore favStore = FavStore();
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -220,14 +221,10 @@ class AlbumList extends StatelessWidget {
                                     const Spacer(),
                                     Observer(
                                       builder: (context) {
-                                        print(favStore.favList.toString());
                                         return IconButton(
                                           icon: getFavIcon(
                                               index, data!.items[index]),
-                                          // Icon(favStore.favList.contains(data) ? Icons.favorite : Icons.favorite_border ,
-                                          //     size: 30),
                                           onPressed: () {
-                                            // favStore.toggleFav(data.tracks?.items?[index]);
                                             favStore
                                                 .toggleFav(data!.items[index]);
                                           },
@@ -255,17 +252,12 @@ class AlbumList extends StatelessWidget {
   }
 
   Icon getFavIcon(int index, AllItems item) {
-    FavStore favStore = FavStore();
-    if (favStore.favList.contains(item)) {
-      // List<Items>? listAtIndex = favStore.favList[index];
 
-      // if (listAtIndex!.contains(data)) {
+    print(favStore.favList);
+    if (favStore.favList.contains(item)) {
       return const Icon(Icons.favorite);
     } else {
       return const Icon(Icons.favorite_border);
     }
   }
-// else {
-//   return Icon(Icons.favorite_border);
-// }
 }

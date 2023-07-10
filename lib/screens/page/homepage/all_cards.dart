@@ -39,6 +39,7 @@ class HomePageCards extends StatelessWidget {
                 }
               },
               child: Card(
+                // color: Colors.black54,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),

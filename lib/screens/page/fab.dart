@@ -51,18 +51,6 @@ class _FABPageState extends State<FABPage> {
     super.dispose();
   }
 
-  // void pageChanged(int value) {
-  //   log(value.toString(), name:"PAGE NUMBER");
-  //   _videoPlayerController = VideoPlayerController.asset(reels[value]);
-  //   _videoPlayerController.initialize().then((_) {
-  //     setState(() {
-  //       _videoPlayerController.play();
-  //       _videoPlayerController.setLooping(true);
-  //
-  //     });
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -79,21 +67,34 @@ class _FABPageState extends State<FABPage> {
       ),
     );
   }
+
 }
 
-class ReelPlayer extends StatefulWidget {
+class ReelPlayer extends StatefulWidget{
   const ReelPlayer({super.key, this.videoNo});
   final videoNo;
+
 
   @override
   State<ReelPlayer> createState() => _ReelPlayerState();
 }
 
-class _ReelPlayerState extends State<ReelPlayer> {
+class _ReelPlayerState extends State<ReelPlayer>  with WidgetsBindingObserver{
   late VideoPlayerController _videoPlayerController;
 
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if(state == AppLifecycleState.resumed){
+      _videoPlayerController.play();
+    }else {
+      _videoPlayerController.pause();
+    }
+    super.didChangeAppLifecycleState(state);
+  }
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     _videoPlayerController = VideoPlayerController.asset(widget.videoNo);
     _videoPlayerController.initialize().then((_) {
       setState(() {
@@ -107,6 +108,7 @@ class _ReelPlayerState extends State<ReelPlayer> {
   @override
   void dispose() {
     _videoPlayerController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -139,5 +141,13 @@ class _ReelPlayerState extends State<ReelPlayer> {
         ],
       ),
     );
+  }
+
+  changePauseResume() {
+    if(_videoPlayerController.pause() == true){
+        _videoPlayerController.play();
+    }else{
+      _videoPlayerController.pause();
+    }
   }
 }

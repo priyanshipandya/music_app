@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/api/api_service/generate_token.dart';
-import 'package:retrofit/http.dart';
 import '../../modal/album_modal.dart';
 import '../../modal/all_data.dart';
 import '../../modal/music_modal.dart';
@@ -17,12 +16,17 @@ abstract class _FetchAPIDatas with Store {
   ObservableFuture<List<AllData>>? callAbumAPI;
   ObservableFuture<List<AllData>>? callTrackAPI;
 
-  _FetchAPIDatas() {
-    callAbumAPI = ObservableFuture<List<AllData>>(fetchMusicAlbum(
-        "https://api.spotify.com/v1/albums?ids=5gQZvWM1o8NkQndueJtZcP,2VP96XdMOKTXefI8Nui23s,5fy0X0JmZRZnVa2UEicIOl,1xn54DMo2qIqBuMqHtUsFd,3Lp4JKk2ZgNkybMRS3eZR5,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"));
+  static bool isDataAlreadyFetched = false;
 
-    callTrackAPI = ObservableFuture<List<AllData>>(fetchMusicTrack(
-        "https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"));
+  _FetchAPIDatas() {
+    log(isDataAlreadyFetched.toString(), name: "IS ALREASY FETCH DATA");
+    if (isDataAlreadyFetched == false) {
+      callAbumAPI = ObservableFuture<List<AllData>>(fetchMusicAlbum(
+          "https://api.spotify.com/v1/albums?ids=5gQZvWM1o8NkQndueJtZcP,2VP96XdMOKTXefI8Nui23s,5fy0X0JmZRZnVa2UEicIOl,1xn54DMo2qIqBuMqHtUsFd,3Lp4JKk2ZgNkybMRS3eZR5,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"));
+
+      callTrackAPI = ObservableFuture<List<AllData>>(fetchMusicTrack(
+          "https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"));
+    }
   }
 
   @action
@@ -78,7 +82,9 @@ abstract class _FetchAPIDatas with Store {
       print(response.statusCode);
       throw Exception("${response.statusCode}");
     }
-
+    log(allData.length.toString(), name: "ALL DATA LENGTH ALBUM");
+    isDataAlreadyFetched = true;
+    log(isDataAlreadyFetched.toString(), name: "IS FETCHED ALEADY UPDATED");
     return allData;
   }
 
@@ -94,52 +100,59 @@ abstract class _FetchAPIDatas with Store {
       ),
     );
 
-    late List<AllItems> allItems;
+    List<AllItems> allItems = [];
     late List<Artist> artistList;
-    late String songName;
+    log(response.statusCode.toString(), name: "STATUS CODE OF TRACK");
+
     if (response.statusCode == 200) {
       SpotifyModal trackResult = SpotifyModal.fromJson(response.data);
       int trackLength = trackResult.tracks?.length ?? 0;
+
+      log(trackLength.toString(), name: "TRACK LENGTH");
+
       for (var track = 0; track < trackLength; track++) {
-        allItems = [];
-        var itemAt = trackResult.tracks;
-        for (var item = 0; item < itemAt!.length; item++) {
-          String id = itemAt[item].id.toString();
-          songName = itemAt[item].name.toString();
-          String songUrl = itemAt[item].uri.toString();
-          artistList = [];
-          var artistName;
-          int itemLength = itemAt[item].artists?.length ?? 0;
-          for (var artist = 0; artist < itemLength; artist++) {
-            artistName = itemAt[item].artists?[artist].name.toString();
-            var artistType = itemAt[item].artists?[artist].type.toString();
-            artistList.add(Artist(artistName, artistType));
-          }
-          allItems.add(
-            AllItems(
-              id: id,
-              songName: songName,
-              songUrl: songUrl,
-              isFav: false,
-              artists: artistList,
-            ),
-          );
+        var itemAt = trackResult.tracks?[track];
+
+        var id = itemAt?.id ?? "";
+        var songName = itemAt?.name ?? "";
+        var songUrl = itemAt?.uri ?? "";
+        var itemAtType = itemAt?.type ?? "";
+        artistList = [];
+        var artistName;
+        var artistType;
+        int itemLength = trackResult.tracks?[track].artists?.length ?? 0;
+        for (var artist = 0; artist < itemLength; artist++) {
+          artistName =
+              trackResult.tracks?[track].artists?[artist].name.toString();
+          artistType =
+              trackResult.tracks?[track].artists?[artist].type.toString();
+          artistList.add(Artist(artistName, artistType));
         }
-        String poster = trackResult.tracks?[track].album?.images?[1].url ?? "";
-        String songCreator =
-            trackResult.tracks?[track].name ?? "Unknown Records";
-        String cardsLabel =
-            trackResult.tracks?[track].type ?? "Unknown Records";
-        allData.add(AllData(0, allItems, poster, cardsLabel, songCreator));
+
+        log(allItems.length.toString(), name: "ALL ITEMS LENGTH");
+
+        String poster = itemAt?.album?.images?[1].url ?? "";
+        String songCreator = itemAt?.name ?? "Unknown Records";
+        String cardsLabel = itemAt?.type ?? "Unknown Records";
+
+        allItems.add(
+          AllItems(
+            id: id,
+            songName: songName,
+            songUrl: songUrl,
+            isFav: false,
+            artists: artistList,
+          ),
+        );
+        allData.add(AllData(0, [allItems.last], poster, cardsLabel, songCreator));
       }
     } else {
       throw Exception("FROM TRACK");
     }
-
+    isDataAlreadyFetched = true;
+    log(allData.length.toString(), name: "ALL DATA LENGTH");
     return allData;
   }
-
-
 }
 
 // @RestApi(baseUrl: "https://api.spotify.com/v1/artists/")
@@ -150,6 +163,8 @@ abstract class _FetchAPIDatas with Store {
 //   Future<List<SpotifyModal>> fetchMusicApi();
 //
 // }
+
+
 
 List<AllData> allResponses = [];
 //
