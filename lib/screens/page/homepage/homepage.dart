@@ -7,7 +7,7 @@ import 'package:provider_practical_7/api/api_service/fetch_data.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:provider_practical_7/screens/page/homepage/shimmer_home_page.dart';
 import 'package:provider_practical_7/values/app_styles.dart';
-
+import '../../../main.dart';
 import '../../../values/colors.dart';
 import '../../../values/strings.dart';
 import 'all_cards.dart';
@@ -33,7 +33,7 @@ class _DashboardState extends State<Dashboard> {
   final searchController = TextEditingController();
   late Future<List<AllData>> fetchTracks;
 
-  FetchAPIDatas fetchAPI = FetchAPIDatas();
+  // FetchAPIDatas fetchAPI = FetchAPIDatas();
 
   @override
   void initState() {

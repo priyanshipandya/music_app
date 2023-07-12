@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/api/api_service/generate_token.dart';
@@ -26,6 +25,8 @@ abstract class _FetchAPIDatas with Store {
 
       callTrackAPI = ObservableFuture<List<AllData>>(fetchMusicTrack(
           "https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"));
+
+          log("fetch album called", name: "CONSTRUCTOR CALLED");
     }
   }
 

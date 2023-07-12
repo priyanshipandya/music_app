@@ -11,7 +11,7 @@ class HomePageCards extends StatelessWidget {
   final List<AllData> allData;
   final int cardNo;
 
-  FetchAPIDatas fetchAlbumAPI = FetchAPIDatas();
+  // FetchAPIDatas fetchAlbumAPI = FetchAPIDatas();
 
   @override
   Widget build(BuildContext context) {

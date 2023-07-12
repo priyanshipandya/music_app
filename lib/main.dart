@@ -4,6 +4,8 @@ import 'package:provider_practical_7/screens/page/main_dashboard.dart';
 import 'package:provider_practical_7/store/fav_store.dart';
 import 'package:provider_practical_7/values/colors.dart';
 
+import 'api/api_service/fetch_data.dart';
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -11,6 +13,7 @@ void main() {
 }
 
 FavStore favStore = FavStore();
+FetchAPIDatas fetchAPI = FetchAPIDatas();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

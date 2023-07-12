@@ -6,7 +6,7 @@ import '../../../values/app_styles.dart';
 class ShimmerHomePageCards extends StatelessWidget {
   ShimmerHomePageCards({super.key});
 
-  FetchAPIDatas fetchAlbumAPI = FetchAPIDatas();
+  // FetchAPIDatas fetchAlbumAPI = FetchAPIDatas();
 
   @override
   Widget build(BuildContext context) {
