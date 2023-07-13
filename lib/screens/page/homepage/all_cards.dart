@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../api/api_service/fetch_data.dart';
 import '../../../values/app_styles.dart';
 import 'album_datalist.dart';
 
@@ -11,12 +10,11 @@ class HomePageCards extends StatelessWidget {
   final List<AllData> allData;
   final int cardNo;
 
-  // FetchAPIDatas fetchAlbumAPI = FetchAPIDatas();
-
   @override
   Widget build(BuildContext context) {
     final List<AllData> allAlbumData =
         allData.where((element) => element.cardNo == cardNo).toList();
+    print("From allData build: ${allAlbumData.length}");
     return SizedBox(
       height: 270,
       child: ListView.builder(
@@ -25,8 +23,10 @@ class HomePageCards extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: allAlbumData.length,
           itemBuilder: (context, i) {
+            print("from inside artist ${allAlbumData.length}");
             return GestureDetector(
               onTap: () async {
+
                 if (cardNo != 0) {
                   Navigator.push(
                     context,

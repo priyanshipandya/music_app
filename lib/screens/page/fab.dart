@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import '../../values/app_styles.dart';
@@ -108,6 +110,7 @@ class _ReelPlayerState extends State<ReelPlayer>  with WidgetsBindingObserver{
   @override
   void dispose() {
     _videoPlayerController.dispose();
+    log("dispose of FAB called", name: "DISPOSE");
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

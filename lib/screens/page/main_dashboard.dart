@@ -14,8 +14,9 @@ class DashboardMainScreen extends StatefulWidget {
   State<DashboardMainScreen> createState() => _DashboardMainScreenState();
 }
 
+int _selectedIndex = 0;
 class _DashboardMainScreenState extends State<DashboardMainScreen> {
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
   final screens = [
     const Dashboard(),
     const BookmarkPage(),

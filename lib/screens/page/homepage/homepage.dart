@@ -173,6 +173,19 @@ class _DashboardState extends State<Dashboard> {
                 fetchAPI.callAbumAPI!.status == FutureStatus.pending
                     ? ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 1),
+                const Padding(
+                  padding: EdgeInsets.only(top: 25.0, bottom: 10, left: 20),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "All Artists",
+                      style: AppStyles.titleTextStyle,
+                    ),
+                  ),
+                ),
+                fetchAPI.callAbumAPI!.status == FutureStatus.pending
+                    ? ShimmerHomePageCards()
+                    : HomePageCards(allData: allData, cardNo: 2),
                 // AlbumCards(fetchApi: fetchAlbums),
               ],
             ),
