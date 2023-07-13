@@ -64,7 +64,7 @@ class AppStyles {
   );
 
   static const boldMediumTextStyle = TextStyle(
-    color: KColors.kHeadingColour,
+    color: KColors.darkBlack,
     fontWeight: FontWeight.w700,
     fontFamily: 'Inter',
     fontSize: 14,

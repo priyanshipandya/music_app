@@ -26,6 +26,8 @@ dependencies:
   flutter_mobx: ^2.0.6+5
   video_player: ^2.7.0
   shimmer: ^3.0.0
+#  audioplayers: ^0.18.3
+  just_audio: ^0.9.34
 
 dev_dependencies:
   flutter_test:
@@ -33,11 +35,6 @@ dev_dependencies:
   retrofit_generator:
   build_runner: ^2.4.6
   json_serializable:
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^2.0.0
   mobx_codegen: ^2.3.0
 
@@ -56,6 +53,7 @@ flutter:
   assets:
     - asset/images/
     - asset/reels/
+    - asset/icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

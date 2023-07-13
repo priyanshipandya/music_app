@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:provider_practical_7/api/api_service/fetch_data.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:provider_practical_7/screens/page/homepage/shimmer_home_page.dart';
 import 'package:provider_practical_7/values/app_styles.dart';
+
 import '../../../main.dart';
 import '../../../values/colors.dart';
 import '../../../values/strings.dart';

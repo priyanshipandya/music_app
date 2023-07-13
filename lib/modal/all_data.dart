@@ -5,13 +5,16 @@ class AllData {
   String? songCreater;
   String? albumLabelName;
 
-  AllData(this.cardNo, this.items, this.poster, this.songCreater, this.albumLabelName);
-}
+  // int? durationInMs;
 
+  AllData(this.cardNo, this.items, this.poster, this.songCreater,
+      this.albumLabelName);
+}
 class AllItems {
   String id;
   String songName;
   String songUrl;
+  int? songDurationInMs;
   bool? isFav = false;
   List<Artist>? artists;
 
@@ -20,7 +23,8 @@ class AllItems {
       required this.songName,
       required this.songUrl,
       this.isFav,
-      this.artists});
+      this.artists,
+      this.songDurationInMs});
 }
 
 class Artist {

@@ -54,6 +54,8 @@ abstract class _FetchAPIDatas with Store {
           String id = itemAt[item].id.toString();
           String songName = itemAt[item].name.toString();
           String songUrl = itemAt[item].uri.toString();
+          int? songDuration = itemAt[item].durationMs;
+          log("Duration: ${itemAt[item].durationMs}", name: "DURATIONSS");
           artistList = [];
           int itemLength = itemAt[item].artists?.length ?? 0;
           for (var artist = 0; artist < itemLength; artist++) {
@@ -68,6 +70,7 @@ abstract class _FetchAPIDatas with Store {
               songUrl: songUrl,
               isFav: false,
               artists: artistList,
+              songDurationInMs: songDuration,
             ),
           );
         }
@@ -83,6 +86,7 @@ abstract class _FetchAPIDatas with Store {
       print(response.statusCode);
       throw Exception("${response.statusCode}");
     }
+
     log(allData.length.toString(), name: "ALL DATA LENGTH ALBUM");
     isDataAlreadyFetched = true;
     log(isDataAlreadyFetched.toString(), name: "IS FETCHED ALEADY UPDATED");

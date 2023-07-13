@@ -165,7 +165,7 @@ Items _$ItemsFromJson(Map<String, dynamic> json) => Items(
           ?.map((e) => e as String)
           .toList(),
       discNumber: json['discNumber'] as int?,
-      durationMs: json['durationMs'] as int?,
+      durationMs: json['duration_ms'] as int?,
       explicit: json['explicit'] as bool?,
       externalUrls: json['external_urls'] == null
           ? null
@@ -185,7 +185,7 @@ Map<String, dynamic> _$ItemsToJson(Items instance) => <String, dynamic>{
       'artists': instance.artists,
       'availableMarkets': instance.availableMarkets,
       'discNumber': instance.discNumber,
-      'durationMs': instance.durationMs,
+      'duration_ms': instance.durationMs,
       'explicit': instance.explicit,
       'external_urls': instance.externalUrls,
       'href': instance.href,

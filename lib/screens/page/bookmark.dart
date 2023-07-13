@@ -117,6 +117,7 @@ class BookmarkPage extends StatelessWidget {
                   : Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: ListView.builder(
+                        padding: EdgeInsets.zero,
                         primary: false,
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,

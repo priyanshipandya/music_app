@@ -163,6 +163,7 @@ class Items {
   List<Artists>? artists;
   List<String>? availableMarkets;
   int? discNumber;
+  @JsonKey(name: "duration_ms")
   int? durationMs;
   bool? explicit;
   @JsonKey(name: "external_urls")
