@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import '../../values/app_styles.dart';
@@ -21,24 +23,6 @@ class _FABPageState extends State<FABPage> {
     // "asset/reels/7.mp4"
   ];
 
-  // @override
-  // void initState() {
-  //   _videoPlayerController = VideoPlayerController.asset("asset/reels/1.mp4");
-  //   _videoPlayerController.initialize().then((_) {
-  //     setState(() {
-  //       _videoPlayerController.play();
-  //       _videoPlayerController.setLooping(true);
-  //
-  //     });
-  //   });
-  // setState(() {
-  //   _videoPlayerController = VideoPlayerController.asset("asset/reels/1.mp4");
-  //   _videoPlayerController.play();
-  //   _videoPlayerController.setLooping(true);
-  // });
-  // super.initState();
-  // }
-
   @override
   void initState() {
     _pageController = PageController();
@@ -53,9 +37,8 @@ class _FABPageState extends State<FABPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-      // extendBody: true,
+      backgroundColor: Colors.black,
       body: PageView.builder(
         scrollDirection: Axis.vertical,
         physics: const BouncingScrollPhysics(),
@@ -108,6 +91,7 @@ class _ReelPlayerState extends State<ReelPlayer>  with WidgetsBindingObserver{
   @override
   void dispose() {
     _videoPlayerController.dispose();
+    log("dispose of FAB called", name: "DISPOSE");
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -118,27 +102,21 @@ class _ReelPlayerState extends State<ReelPlayer>  with WidgetsBindingObserver{
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.8,
-            width: MediaQuery.of(context).size.width,
-            decoration: AppStyles.emptyBoxDecor,
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    child: VideoPlayer(_videoPlayerController),
-                  ),
-                ),
-              ],
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: AppStyles.blackEmptyBoxDecor,
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: VideoPlayer(_videoPlayerController),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

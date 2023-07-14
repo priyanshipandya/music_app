@@ -1,7 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../api/api_service/fetch_data.dart';
 import '../../../values/app_styles.dart';
 import 'album_datalist.dart';
 
@@ -15,14 +16,16 @@ class HomePageCards extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<AllData> allAlbumData =
         allData.where((element) => element.cardNo == cardNo).toList();
+    print("From allData build: ${allAlbumData.length}");
     return SizedBox(
-      height: 270,
+      height: 250,
       child: ListView.builder(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           itemCount: allAlbumData.length,
           itemBuilder: (context, i) {
+            print("from inside artist ${allAlbumData.length}");
             return GestureDetector(
               onTap: () async {
                 if (cardNo != 0) {
@@ -36,21 +39,18 @@ class HomePageCards extends StatelessWidget {
                   await launchUrl(Uri.parse(allAlbumData[i].items[i].songUrl));
                 }
               },
-              child: Card(
-                // color: Colors.black54,
-                shape: RoundedRectangleBorder(
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    fit: StackFit.loose,
                     children: [
                       Container(
                         margin: const EdgeInsets.all(10),
-                        height: 180,
-                        width: 180,
+                        height: 200,
+                        width: 200,
                         decoration: AppStyles.emptyBoxDecor,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30),
@@ -60,8 +60,9 @@ class HomePageCards extends StatelessWidget {
                               fit: BoxFit.fill),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                      Positioned(
+                        // left: 30,
+                        bottom: 5,
                         child: SizedBox(
                           width: 180,
                           child: Row(
@@ -75,37 +76,38 @@ class HomePageCards extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 2,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: SizedBox(
-                          width: 180,
-                          child: Row(
-                            children: [
-                              Text(
-                                  allAlbumData[i].songCreater ??
-                                      "Unknown Created",
-                                  style: AppStyles.smallTextStyle),
-                              // const Spacer(),
-                              // Row(
-                              //   mainAxisAlignment:
-                              //   MainAxisAlignment.end,
-                              //   children: [
-                              //     const Icon(Icons.person_outline_outlined,
-                              //         size: 12,
-                              //         color: KColors.kOrange),
-                              //     Text(
-                              //       snapshot.data?.albums?[index].label ?? "Unknown Created",
-                              //       style: AppStyles.smallTextStyle,
-                              //     ),
-                              //   ],
-                              // ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 12),
+                      //   child: SizedBox(
+                      //     width: 180,
+                      //     child: Row(
+                      //       crossAxisAlignment: CrossAxisAlignment.center,
+                      //       children: [
+                      //         Text(
+                      //           allAlbumData[i].albumLabelName ?? "Unknown",
+                      //           style: AppStyles.boldMediumTextStyle,
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 2,
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 12),
+                      //   child: SizedBox(
+                      //     width: 180,
+                      //     child: Row(
+                      //       children: [
+                      //         Text(
+                      //             allAlbumData[i].songCreater ??
+                      //                 "Unknown Created",
+                      //             style: AppStyles.smallTextStyle),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

@@ -21,69 +21,45 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
     const BookmarkPage(),
     const FABPage(),
     SearchPage(),
-    ProfilePage(),
+    const ProfilePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // extendBody: true,
       body: IndexedStack(index: _selectedIndex, children: screens),
-      bottomNavigationBar: Container(
-        height: 95,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: AppStyles.bottomNavRadius,
-          boxShadow: [
-            AppStyles.navBoxShadow,
-          ],
-        ),
-        child: ClipRRect(
-          clipBehavior: Clip.hardEdge,
-          borderRadius: AppStyles.bottomNavRadius,
-          child: Stack(
-            children: [
-              Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      buildGestureDetector(0, Icons.home_outlined),
-                      buildGestureDetector(1, Icons.bookmark_border),
-                      Container(
-                        width: 48.0,
-                        height: 48.0,
-                        decoration: AppStyles.navDecoration,
-                      ),
-                      buildGestureDetector(3, Icons.search),
-                      buildGestureDetector(4, Icons.person_outline_rounded),
-                    ],
-                  ),
-                ),
+      bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.black,
+        items: [
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined, color: Colors.white), label: ""),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.bookmark_border, color: Colors.white),
+              label: ""),
+          BottomNavigationBarItem(
+              icon: Image.asset(
+                "asset/images/reels.png",
+                height: 25,
+                width: 25,
+                fit: BoxFit.fill,
               ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    setState(() {
-                      _selectedIndex = 2;
-                    });
-                  },
-                  child: Container(
-                    width: 72.0,
-                    height: 72.0,
-                    decoration: AppStyles.navDialContainerDecor,
-                    child: CircleAvatar(backgroundColor: Colors.transparent, radius: 20, child: Image.asset("asset/images/reels.png", height: 40, width: 40, fit: BoxFit.fill)),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+              label: ""),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.search, color: Colors.white), label: ""),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.person_2_outlined, color: Colors.white),
+              label: ""),
+        ],
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        currentIndex: _selectedIndex,
       ),
     );
   }

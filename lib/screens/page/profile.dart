@@ -15,6 +15,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -46,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   const Text(
                     "Welcome, Priyanshi Pandya",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white70),
                   ),
                   const SizedBox(height: 40),
                   Row(
@@ -55,6 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         "asset/images/account.png",
                         height: 30,
                         width: 30,
+                        color: Colors.white,
                       ),
                       const SizedBox(
                         width: 10,
@@ -62,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const Text(
                         "Account",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                            fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white,),
                       )
                     ],
                   ),
@@ -75,26 +77,38 @@ class _ProfilePageState extends State<ProfilePage> {
               primary: false,
               shrinkWrap: true,
               itemCount: infoList.length,
-              itemBuilder: (context, index) => Card(
-                margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-                shape: RoundedRectangleBorder(
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15.0),
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        "${infoList[index]}",
-                        style: AppStyles.boldMediumTextStyle,
-                        // overflow: TextOverflow.ellipsis,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.white.withOpacity(0.4),
+                          Colors.white.withOpacity(0.4),
+                        ],
+                        begin: AlignmentDirectional.topStart,
+                        end: AlignmentDirectional.bottomEnd,
                       ),
-                      const Spacer(),
-                      IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios, size: 20),
-                        onPressed: () {},
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "${infoList[index]}",
+                            style: AppStyles.mediumTextStyleLabel,
+                            // overflow: TextOverflow.ellipsis,
+                          ),
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.arrow_forward_ios, size: 20),
+                            onPressed: () {},
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),

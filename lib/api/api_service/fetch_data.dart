@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/api/api_service/generate_token.dart';
 import '../../modal/album_modal.dart';
 import '../../modal/all_data.dart';
+import '../../modal/artist_modal.dart';
 import '../../modal/music_modal.dart';
 
 part 'fetch_data.g.dart';
@@ -14,20 +15,17 @@ abstract class _FetchAPIDatas with Store {
   @observable
   ObservableFuture<List<AllData>>? callAbumAPI;
   ObservableFuture<List<AllData>>? callTrackAPI;
-
-  static bool isDataAlreadyFetched = false;
+  ObservableFuture<List<AllData>>? callArtistAPI;
 
   _FetchAPIDatas() {
-    log(isDataAlreadyFetched.toString(), name: "IS ALREASY FETCH DATA");
-    if (isDataAlreadyFetched == false) {
-      callAbumAPI = ObservableFuture<List<AllData>>(fetchMusicAlbum(
-          "https://api.spotify.com/v1/albums?ids=5gQZvWM1o8NkQndueJtZcP,2VP96XdMOKTXefI8Nui23s,5fy0X0JmZRZnVa2UEicIOl,1xn54DMo2qIqBuMqHtUsFd,3Lp4JKk2ZgNkybMRS3eZR5,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"));
+    callAbumAPI = ObservableFuture<List<AllData>>(fetchMusicAlbum(
+        "https://api.spotify.com/v1/albums?ids=5gQZvWM1o8NkQndueJtZcP,2VP96XdMOKTXefI8Nui23s,5fy0X0JmZRZnVa2UEicIOl,1xn54DMo2qIqBuMqHtUsFd,3Lp4JKk2ZgNkybMRS3eZR5,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"));
 
-      callTrackAPI = ObservableFuture<List<AllData>>(fetchMusicTrack(
-          "https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"));
+    callTrackAPI = ObservableFuture<List<AllData>>(fetchMusicTrack(
+        "https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"));
 
-          log("fetch album called", name: "CONSTRUCTOR CALLED");
-    }
+    callArtistAPI = ObservableFuture<List<AllData>>(fetchMusicArtist(
+        "https://api.spotify.com/v1/artists?ids=6VuMaDnrHyPL1p4EHjYLi7,04gDigrS5kc9YWfZHwBETP,2CIMQHirSU0MQqyYHq0eOx%2C57dN52uHvrHOxijzpIgu3E%2C1vCWHaC5f2uS3yhpwWbIA6"));
   }
 
   @action
@@ -88,8 +86,6 @@ abstract class _FetchAPIDatas with Store {
     }
 
     log(allData.length.toString(), name: "ALL DATA LENGTH ALBUM");
-    isDataAlreadyFetched = true;
-    log(isDataAlreadyFetched.toString(), name: "IS FETCHED ALEADY UPDATED");
     return allData;
   }
 
@@ -149,12 +145,75 @@ abstract class _FetchAPIDatas with Store {
             artists: artistList,
           ),
         );
-        allData.add(AllData(0, [allItems.last], poster, cardsLabel, songCreator));
+        allData
+            .add(AllData(0, [allItems.last], poster, cardsLabel, songCreator));
       }
     } else {
       throw Exception("FROM TRACK");
     }
-    isDataAlreadyFetched = true;
+    log(allData.length.toString(), name: "ALL DATA LENGTH");
+    return allData;
+  }
+
+  @action
+  Future<List<AllData>> fetchMusicArtist(String Url) async {
+    String token = await generateToken();
+    final response = await Dio().get(
+      Url,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
+
+    // List<AllItems> allItems = [];
+    List<AllItems> artistList = [];
+    log(response.statusCode.toString(), name: "STATUS CODE OF ARTIST");
+
+    if (response.statusCode == 200) {
+      ArtistModal artistResult = ArtistModal.fromJson(response.data);
+      int artistLength = artistResult.artists?.length ?? 0;
+
+      log(artistLength.toString(), name: "ARTIST LENGTH");
+
+      for (var artists = 0; artists < artistLength; artists++) {
+        var id = artistResult.artists?[artists].id ?? "";
+        var songName = artistResult.artists?[artists].name ?? "";
+        var songUrl =
+            artistResult.artists?[artists].externalUrls?.spotify ?? "";
+        // var itemAtType = itemAt?.type ?? "";
+        // artistList = [];
+        var artistName;
+        var artistType;
+        int genreLength = artistResult.artists?[artists].genres?.length ?? 0;
+        List genreList = [];
+        for(int i = 0; i < genreLength; i++){
+          genreList.add(artistResult.artists?[artists].genres?[i]);
+        }
+
+        log(genreLength.toString() ?? "", name: "Genre LENGTH");
+        String poster = artistResult.artists?[artists].images?[1].url ?? "";
+        String songCreator =
+            artistResult.artists?[artists].name ?? "Unknown Records";
+        String cardsLabel =
+            artistResult.artists?[artists].name ?? "Unknown Records";
+
+        artistList.add(
+          AllItems(
+            id: id,
+            songName: songName,
+            songUrl: songUrl,
+            isFav: false,
+            // artists: genreList,
+          ),
+        );
+        allData
+            .add(AllData(2, artistList, poster, cardsLabel, songCreator));
+      }
+    } else {
+      throw Exception("FROM ARTIST");
+    }
     log(allData.length.toString(), name: "ALL DATA LENGTH");
     return allData;
   }
@@ -168,8 +227,6 @@ abstract class _FetchAPIDatas with Store {
 //   Future<List<SpotifyModal>> fetchMusicApi();
 //
 // }
-
-
 
 List<AllData> allResponses = [];
 //

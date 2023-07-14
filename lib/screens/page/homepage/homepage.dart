@@ -1,12 +1,11 @@
 import 'dart:developer';
-
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:provider_practical_7/screens/page/homepage/shimmer_home_page.dart';
 import 'package:provider_practical_7/values/app_styles.dart';
-
 import '../../../main.dart';
 import '../../../values/colors.dart';
 import '../../../values/strings.dart';
@@ -33,8 +32,6 @@ class _DashboardState extends State<Dashboard> {
   final searchController = TextEditingController();
   late Future<List<AllData>> fetchTracks;
 
-  // FetchAPIDatas fetchAPI = FetchAPIDatas();
-
   @override
   void initState() {
     super.initState();
@@ -43,6 +40,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       extendBody: true,
       body: SafeArea(
         child: Observer(
@@ -88,6 +86,9 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
 
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
                   height: 40,
                   margin: const EdgeInsets.symmetric(
@@ -136,24 +137,6 @@ class _DashboardState extends State<Dashboard> {
                         Strings.allTracks,
                         style: AppStyles.titleTextStyle,
                       ),
-                      // const Spacer(),
-                      // GestureDetector(
-                      //   behavior: HitTestBehavior.opaque,
-                      //   child: const Row(
-                      //     crossAxisAlignment: CrossAxisAlignment.center,
-                      //     children: [
-                      //       Text(
-                      //         Strings.seeAll,
-                      //         style: AppStyles.seeAllTextStyle,
-                      //       ),
-                      //       Icon(
-                      //         Icons.arrow_forward_ios_outlined,
-                      //         size: 12,
-                      //         color: KColors.kSeeAllColor,
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
@@ -173,6 +156,19 @@ class _DashboardState extends State<Dashboard> {
                 fetchAPI.callAbumAPI!.status == FutureStatus.pending
                     ? ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 1),
+                const Padding(
+                  padding: EdgeInsets.only(top: 25.0, bottom: 10, left: 20),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "All Artists",
+                      style: AppStyles.titleTextStyle,
+                    ),
+                  ),
+                ),
+                fetchAPI.callAbumAPI!.status == FutureStatus.pending
+                    ? ShimmerHomePageCards()
+                    : HomePageCards(allData: allData, cardNo: 2),
                 // AlbumCards(fetchApi: fetchAlbums),
               ],
             ),

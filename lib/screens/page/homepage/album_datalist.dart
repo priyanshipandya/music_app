@@ -109,7 +109,7 @@ class AlbumList extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(24)),
+                            borderRadius: const BorderRadius.all(Radius.circular(24)),
                             child: Container(
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
@@ -138,7 +138,7 @@ class AlbumList extends StatelessWidget {
                                                           .songName ??
                                                       "Unknown",
                                                   style: AppStyles
-                                                      .boldMediumTextStyle,
+                                                      .mediumTextStyleLabel,
                                                   // overflow: TextOverflow.ellipsis,
                                                 ),
                                               ],

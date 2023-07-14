@@ -21,7 +21,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.black,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -116,7 +117,7 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: filteredData.isEmpty
           ? const Center(
-              child: Text(Strings.noData),
+              child: Text(Strings.noData, style: TextStyle(color: Colors.white, fontSize: 18),),
             )
           : ListView.separated(
               physics: const BouncingScrollPhysics(),
@@ -171,7 +172,7 @@ class _SearchPageState extends State<SearchPage> {
                                     ),
                                     Text(
                                       "${filteredData[index].items[i].songName}",
-                                      style: AppStyles.boldMediumTextStyle,
+                                      style: AppStyles.mediumTextStyleLabel,
                                     ),
                                   ],
                                 ),
