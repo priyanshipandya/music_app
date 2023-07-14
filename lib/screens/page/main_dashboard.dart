@@ -35,23 +35,50 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.black,
         items: [
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined, color: Colors.white), label: ""),
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark_border, color: Colors.white),
+          BottomNavigationBarItem(
+              icon: Image.asset(
+                "asset/icons/home.png",
+                height: 20,
+                width: 20,
+                fit: BoxFit.fill,
+                color: Colors.white,
+              ),
               label: ""),
           BottomNavigationBarItem(
               icon: Image.asset(
-                "asset/images/reels.png",
-                height: 25,
-                width: 25,
+                "asset/icons/bookmark.png",
+                height: 20,
+                width: 20,
                 fit: BoxFit.fill,
+                color: Colors.white,
               ),
               label: ""),
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.search, color: Colors.white), label: ""),
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_outlined, color: Colors.white),
+          BottomNavigationBarItem(
+              icon: Image.asset(
+                "asset/icons/video.png",
+                height: 20,
+                width: 20,
+                fit: BoxFit.fill,
+                color: Colors.white,
+              ),
+              label: ""),
+          BottomNavigationBarItem(
+              icon: Image.asset(
+                "asset/icons/search.png",
+                height: 20,
+                width: 20,
+                fit: BoxFit.fill,
+                color: Colors.white,
+              ),
+              label: ""),
+          BottomNavigationBarItem(
+              icon: Image.asset(
+                "asset/icons/user.png",
+                height: 20,
+                width: 20,
+                fit: BoxFit.fill,
+                color: Colors.white,
+              ),
               label: ""),
         ],
         onTap: (index) {

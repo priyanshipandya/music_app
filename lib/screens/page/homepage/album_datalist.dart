@@ -1,12 +1,10 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:provider_practical_7/screens/page/music.dart';
 import '../../../main.dart';
 import '../../../values/app_styles.dart';
-import '../../../values/colors.dart';
 
 class AlbumList extends StatelessWidget {
   AlbumList({super.key, required this.data});
@@ -17,6 +15,25 @@ class AlbumList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.transparent,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 8.0, top: 5),
+            child: CircleAvatar(
+              radius: 0,
+              backgroundColor: Colors.white.withOpacity(0.1),
+              child: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios_outlined),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  color: Colors.white),
+            ),
+          ),
+        ),
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -37,7 +54,7 @@ class AlbumList extends StatelessWidget {
               child: Column(
                 children: [
                   Card(
-                    margin: EdgeInsets.only(top: 30),
+                    margin: const EdgeInsets.only(top: 30),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -45,31 +62,14 @@ class AlbumList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: Image.network(
-                                  data?.poster ??
-                                      "https://jonlieffmd.com/wp-content/uploads/2013/02/Music-vector-Feature-HiRes1-scaled.jpg",
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  fit: BoxFit.fill),
-                            ),
-                            Positioned(
-                              left: 5,
-                              top: 5,
-                              child: IconButton(
-                                  icon:
-                                      const Icon(Icons.arrow_back_ios_outlined),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  color: Colors.white),
-                            ),
-                          ],
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Image.network(
+                              data?.poster ??
+                                  "https://jonlieffmd.com/wp-content/uploads/2013/02/Music-vector-Feature-HiRes1-scaled.jpg",
+                              height: MediaQuery.of(context).size.width * 0.7,
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              fit: BoxFit.fill),
                         ),
                       ],
                     ),
@@ -107,9 +107,11 @@ class AlbumList extends StatelessWidget {
                           // }
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 7),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 7),
                           child: ClipRRect(
-                            borderRadius: const BorderRadius.all(Radius.circular(24)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(24)),
                             child: Container(
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
@@ -190,8 +192,8 @@ class AlbumList extends StatelessWidget {
                                                               child: Text(
                                                                 "${data?.items[index].artists?[i].name}",
                                                                 style: const TextStyle(
-                                                                    color: Colors.black87
-                                                                ),
+                                                                    color: Colors
+                                                                        .black87),
                                                                 // style: AppStyles
                                                                 //     .smallTextStyle,
                                                                 overflow:
@@ -206,8 +208,9 @@ class AlbumList extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        left: 9),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 9),
                                                     child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -224,7 +227,9 @@ class AlbumList extends StatelessWidget {
                                                           child: Text(
                                                             "${data?.songCreater}" ??
                                                                 "No data",
-                                                            style: const TextStyle(color: Colors.black87),
+                                                            style: const TextStyle(
+                                                                color: Colors
+                                                                    .black87),
                                                             // style: AppStyles
                                                             //     .smallTextStyle,
                                                           ),

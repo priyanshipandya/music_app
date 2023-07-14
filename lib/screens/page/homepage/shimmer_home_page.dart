@@ -6,8 +6,6 @@ import '../../../values/app_styles.dart';
 class ShimmerHomePageCards extends StatelessWidget {
   ShimmerHomePageCards({super.key});
 
-  // FetchAPIDatas fetchAlbumAPI = FetchAPIDatas();
-
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
@@ -35,7 +33,7 @@ class ShimmerHomePageCards extends StatelessWidget {
                   children: [
                     Container(
                       margin: const EdgeInsets.all(10),
-                      height: 180,
+                      height: 150,
                       width: 180,
                       decoration: AppStyles.emptyBoxDecor,
                       child: ClipRRect(

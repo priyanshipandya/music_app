@@ -101,6 +101,14 @@ class AppStyles {
     // overflow: TextOverflow.ellipsis,
   );
 
+  static const mediumTextStyleWhiteLabel = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Inter',
+    fontSize: 16,
+    // overflow: TextOverflow.ellipsis,
+  );
+
   static final navDecoration = BoxDecoration(
     // color: Colors.white,
     borderRadius: BorderRadius.circular(20),

@@ -51,9 +51,9 @@ abstract class _FetchAPIDatas with Store {
         for (var item = 0; item < itemAt.length; item++) {
           String id = itemAt[item].id.toString();
           String songName = itemAt[item].name.toString();
-          String songUrl = itemAt[item].uri.toString();
+          String songUrl = itemAt[item].href.toString();
+          log(songUrl.toString(), name: "SONGGG URLLLL");
           int? songDuration = itemAt[item].durationMs;
-          log("Duration: ${itemAt[item].durationMs}", name: "DURATIONSS");
           artistList = [];
           int itemLength = itemAt[item].artists?.length ?? 0;
           for (var artist = 0; artist < itemLength; artist++) {
@@ -188,7 +188,7 @@ abstract class _FetchAPIDatas with Store {
         var artistType;
         int genreLength = artistResult.artists?[artists].genres?.length ?? 0;
         List genreList = [];
-        for(int i = 0; i < genreLength; i++){
+        for (int i = 0; i < genreLength; i++) {
           genreList.add(artistResult.artists?[artists].genres?[i]);
         }
 
@@ -208,8 +208,69 @@ abstract class _FetchAPIDatas with Store {
             // artists: genreList,
           ),
         );
-        allData
-            .add(AllData(2, artistList, poster, cardsLabel, songCreator));
+        allData.add(AllData(2, artistList, poster, cardsLabel, songCreator));
+      }
+    } else {
+      throw Exception("FROM ARTIST");
+    }
+    log(allData.length.toString(), name: "ALL DATA LENGTH");
+    return allData;
+  }
+
+  @action
+  Future<List<AllData>> fetchArtistAlbum(String Url, index) async {
+    String token = await generateToken();
+    final response = await Dio().get(
+      Url,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
+
+    // List<AllItems> allItems = [];
+    List<AllItems> artistList = [];
+    log(response.statusCode.toString(), name: "STATUS CODE OF ARTIST");
+
+    if (response.statusCode == 200) {
+      ArtistModal artistResult = ArtistModal.fromJson(response.data);
+      int artistLength = artistResult.artists?.length ?? 0;
+
+      log(artistLength.toString(), name: "ARTIST LENGTH");
+
+      for (var artists = 0; artists < artistLength; artists++) {
+        var id = artistResult.artists?[artists].id ?? "";
+        var songName = artistResult.artists?[artists].name ?? "";
+        var songUrl =
+            artistResult.artists?[artists].externalUrls?.spotify ?? "";
+        // var itemAtType = itemAt?.type ?? "";
+        // artistList = [];
+        var artistName;
+        var artistType;
+        int genreLength = artistResult.artists?[artists].genres?.length ?? 0;
+        List genreList = [];
+        for (int i = 0; i < genreLength; i++) {
+          genreList.add(artistResult.artists?[artists].genres?[i]);
+        }
+
+        log(genreLength.toString() ?? "", name: "Genre LENGTH");
+        String poster = artistResult.artists?[artists].images?[1].url ?? "";
+        String songCreator =
+            artistResult.artists?[artists].name ?? "Unknown Records";
+        String cardsLabel =
+            artistResult.artists?[artists].name ?? "Unknown Records";
+
+        artistList.add(
+          AllItems(
+            id: id,
+            songName: songName,
+            songUrl: songUrl,
+            isFav: false,
+            // artists: genreList,
+          ),
+        );
+        allData.add(AllData(2, artistList, poster, cardsLabel, songCreator));
       }
     } else {
       throw Exception("FROM ARTIST");
@@ -218,6 +279,8 @@ abstract class _FetchAPIDatas with Store {
     return allData;
   }
 }
+
+
 
 // @RestApi(baseUrl: "https://api.spotify.com/v1/artists/")
 // abstract class FetchMusic{
@@ -229,7 +292,7 @@ abstract class _FetchAPIDatas with Store {
 // }
 
 List<AllData> allResponses = [];
-//
+
 // Future<T> fetchMusicApi<T>(String Url, T Function(dynamic json) parser) async {
 //   String token = await generateToken();
 //   final response = await Dio().get(
@@ -251,3 +314,5 @@ List<AllData> allResponses = [];
 //     throw Exception("${response.statusCode}");
 //   }
 // }
+
+

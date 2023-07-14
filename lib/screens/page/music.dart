@@ -1,7 +1,8 @@
+import 'dart:developer';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import '../../modal/all_data.dart';
+import 'package:just_audio/just_audio.dart';
 
 class MusicPage extends StatefulWidget {
   MusicPage({Key? key, required this.data, required this.itemIndex})
@@ -15,6 +16,32 @@ class MusicPage extends StatefulWidget {
 
 class _MusicPageState extends State<MusicPage> {
   double currentValue = 0;
+  AudioPlayer audioPlayer = AudioPlayer();
+
+  @override
+  void initState() {
+    initializeAudioPlayer();
+    super.initState();
+  }
+
+  void initializeAudioPlayer() async {
+    print(widget.data?.items[widget.itemIndex].songUrl);
+    await audioPlayer.setAudioSource(
+      AudioSource.uri(
+        Uri.parse(
+          '${widget.data?.items[widget.itemIndex].songUrl}',
+        ),
+      ),
+    );
+    await audioPlayer.play();
+    log("audio play is playing", name: "AUDIO PLAYER PLAYING");
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +114,8 @@ class _MusicPageState extends State<MusicPage> {
                                   "${widget.data?.items[widget.itemIndex].songName}",
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 20),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -97,8 +125,11 @@ class _MusicPageState extends State<MusicPage> {
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
-                                    itemCount: widget.data
-                                        ?.items[widget.itemIndex].artists?.length,
+                                    itemCount: widget
+                                        .data
+                                        ?.items[widget.itemIndex]
+                                        .artists
+                                        ?.length,
                                     itemBuilder: (context, i) => Text(
                                       "${widget.data?.items[widget.itemIndex].artists?[i].name} ",
                                       overflow: TextOverflow.ellipsis,
