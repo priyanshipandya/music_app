@@ -78,7 +78,7 @@ class _SearchPageState extends State<SearchPage> {
                           .any((d) => d.albumLabelName == data.albumLabelName);
                       if (!alreadyExists) {
                         filteredData.add(AllData(1, filteredItems, data.poster,
-                            data.songCreater, data.albumLabelName));
+                            data.songCreater, data.albumLabelName, null));
                       }
                     }
                   }

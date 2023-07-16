@@ -4,11 +4,11 @@ class AllData {
   String poster;
   String? songCreater;
   String? albumLabelName;
-
+  String? id;
   // int? durationInMs;
 
   AllData(this.cardNo, this.items, this.poster, this.songCreater,
-      this.albumLabelName);
+      this.albumLabelName, this.id);
 }
 class AllItems {
   String id;
@@ -35,3 +35,4 @@ class Artist {
 }
 
 List<AllData> allData = [];
+

@@ -13,38 +13,65 @@ mixin _$FetchAPIDatas on _FetchAPIDatas, Store {
       Atom(name: '_FetchAPIDatas.callAbumAPI', context: context);
 
   @override
-  ObservableFuture<List<AllData>>? get callAbumAPI {
+  ObservableFuture<SpotifyAlbum>? get callAbumAPI {
     _$callAbumAPIAtom.reportRead();
     return super.callAbumAPI;
   }
 
   @override
-  set callAbumAPI(ObservableFuture<List<AllData>>? value) {
+  set callAbumAPI(ObservableFuture<SpotifyAlbum>? value) {
     _$callAbumAPIAtom.reportWrite(value, super.callAbumAPI, () {
       super.callAbumAPI = value;
     });
   }
 
-  late final _$fetchMusicAlbumAsyncAction =
-      AsyncAction('_FetchAPIDatas.fetchMusicAlbum', context: context);
+  late final _$callTrackAPIAtom =
+      Atom(name: '_FetchAPIDatas.callTrackAPI', context: context);
 
   @override
-  Future<List<AllData>> fetchMusicAlbum(String Url) {
-    return _$fetchMusicAlbumAsyncAction.run(() => super.fetchMusicAlbum(Url));
+  ObservableFuture<SpotifyModal>? get callTrackAPI {
+    _$callTrackAPIAtom.reportRead();
+    return super.callTrackAPI;
   }
 
-  late final _$fetchMusicTrackAsyncAction =
-      AsyncAction('_FetchAPIDatas.fetchMusicTrack', context: context);
+  @override
+  set callTrackAPI(ObservableFuture<SpotifyModal>? value) {
+    _$callTrackAPIAtom.reportWrite(value, super.callTrackAPI, () {
+      super.callTrackAPI = value;
+    });
+  }
+
+  late final _$callArtistAPIAtom =
+      Atom(name: '_FetchAPIDatas.callArtistAPI', context: context);
 
   @override
-  Future<List<AllData>> fetchMusicTrack(String Url) {
-    return _$fetchMusicTrackAsyncAction.run(() => super.fetchMusicTrack(Url));
+  ObservableFuture<ArtistModal>? get callArtistAPI {
+    _$callArtistAPIAtom.reportRead();
+    return super.callArtistAPI;
+  }
+
+  @override
+  set callArtistAPI(ObservableFuture<ArtistModal>? value) {
+    _$callArtistAPIAtom.reportWrite(value, super.callArtistAPI, () {
+      super.callArtistAPI = value;
+    });
+  }
+
+  late final _$fetchAllAPIAsyncAction =
+      AsyncAction('_FetchAPIDatas.fetchAllAPI', context: context);
+
+  @override
+  Future<T> fetchAllAPI<T>(String url, T Function(dynamic) parser) {
+    return _$fetchAllAPIAsyncAction
+        .run(() => super.fetchAllAPI<T>(url, parser));
   }
 
   @override
   String toString() {
     return '''
-callAbumAPI: ${callAbumAPI}
+callAbumAPI: ${callAbumAPI},
+callTrackAPI: ${callTrackAPI},
+callArtistAPI: ${callArtistAPI}
     ''';
   }
 }

@@ -140,7 +140,8 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                 ),
-                fetchAPI.callTrackAPI!.status == FutureStatus.pending
+                // fetchAPI.callTrackAPI!.status == FutureStatus.pending
+                fetchAPI.callTrackAPI?.status == FutureStatus.pending
                     ? ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 0),
                 const Padding(
@@ -153,7 +154,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                 ),
-                fetchAPI.callAbumAPI!.status == FutureStatus.pending
+                fetchAPI.callAbumAPI?.status == FutureStatus.pending
                     ? ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 1),
                 const Padding(
@@ -166,7 +167,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                 ),
-                fetchAPI.callAbumAPI!.status == FutureStatus.pending
+                fetchAPI.callArtistAPI?.status == FutureStatus.pending
                     ? ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 2),
                 // AlbumCards(fetchApi: fetchAlbums),

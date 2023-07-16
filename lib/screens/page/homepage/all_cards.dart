@@ -1,7 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:provider_practical_7/api/api_service/pagination_store.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
+import 'package:provider_practical_7/screens/page/homepage/artist_datalist.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../values/app_styles.dart';
 import 'album_datalist.dart';
@@ -11,6 +11,7 @@ class HomePageCards extends StatelessWidget {
 
   final List<AllData> allData;
   final int cardNo;
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +26,25 @@ class HomePageCards extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: allAlbumData.length,
           itemBuilder: (context, i) {
-            print("from inside artist ${allAlbumData.length}");
             return GestureDetector(
               onTap: () async {
-                if (cardNo != 0) {
+                if (cardNo == 1) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => AlbumList(data: allAlbumData[i]),
                     ),
                   );
+                } else if (cardNo == 2) {
+                  String? artistId = allAlbumData[i].id;
+                  if (context.mounted) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ArtistList(data1: allAlbumData[i], artistId: artistId),
+                      ),
+                    );
+                  }
                 } else {
                   await launchUrl(Uri.parse(allAlbumData[i].items[i].songUrl));
                 }

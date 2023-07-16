@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider_practical_7/screens/page/profile.dart';
 import 'package:provider_practical_7/values/app_styles.dart';
+import 'package:video_player/video_player.dart';
 import '../../values/colors.dart';
 import 'bookmark.dart';
 import 'fab.dart';

@@ -7,15 +7,15 @@ class ArtistModal {
     if (json['artists'] != null) {
       artists = <Artists>[];
       json['artists'].forEach((v) {
-        artists!.add(new Artists.fromJson(v));
+        artists!.add(Artists.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.artists != null) {
-      data['artists'] = this.artists!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (artists != null) {
+      data['artists'] = artists!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -47,10 +47,10 @@ class Artists {
 
   Artists.fromJson(Map<String, dynamic> json) {
     externalUrls = json['external_urls'] != null
-        ? new ExternalUrls.fromJson(json['external_urls'])
+        ? ExternalUrls.fromJson(json['external_urls'])
         : null;
     followers = json['followers'] != null
-        ? new Followers.fromJson(json['followers'])
+        ? Followers.fromJson(json['followers'])
         : null;
     genres = json['genres'].cast<String>();
     href = json['href'];
@@ -58,7 +58,7 @@ class Artists {
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
+        images!.add(Images.fromJson(v));
       });
     }
     name = json['name'];
@@ -68,23 +68,23 @@ class Artists {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.externalUrls != null) {
-      data['external_urls'] = this.externalUrls!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (externalUrls != null) {
+      data['external_urls'] = externalUrls!.toJson();
     }
-    if (this.followers != null) {
-      data['followers'] = this.followers!.toJson();
+    if (followers != null) {
+      data['followers'] = followers!.toJson();
     }
-    data['genres'] = this.genres;
-    data['href'] = this.href;
-    data['id'] = this.id;
-    if (this.images != null) {
-      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    data['genres'] = genres;
+    data['href'] = href;
+    data['id'] = id;
+    if (images != null) {
+      data['images'] = images!.map((v) => v.toJson()).toList();
     }
-    data['name'] = this.name;
-    data['popularity'] = this.popularity;
-    data['type'] = this.type;
-    data['uri'] = this.uri;
+    data['name'] = name;
+    data['popularity'] = popularity;
+    data['type'] = type;
+    data['uri'] = uri;
     return data;
   }
 }
@@ -99,8 +99,8 @@ class ExternalUrls {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['spotify'] = this.spotify;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['spotify'] = spotify;
     return data;
   }
 }
@@ -117,9 +117,9 @@ class Followers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['href'] = this.href;
-    data['total'] = this.total;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['href'] = href;
+    data['total'] = total;
     return data;
   }
 }
@@ -138,10 +138,10 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['height'] = this.height;
-    data['url'] = this.url;
-    data['width'] = this.width;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['height'] = height;
+    data['url'] = url;
+    data['width'] = width;
     return data;
   }
 }

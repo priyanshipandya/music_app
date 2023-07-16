@@ -98,7 +98,6 @@ class AppStyles {
     fontWeight: FontWeight.w700,
     fontFamily: 'Inter',
     fontSize: 14,
-    // overflow: TextOverflow.ellipsis,
   );
 
   static const mediumTextStyleWhiteLabel = TextStyle(

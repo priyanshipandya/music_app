@@ -29,7 +29,7 @@ class _MusicPageState extends State<MusicPage> {
     await audioPlayer.setAudioSource(
       AudioSource.uri(
         Uri.parse(
-          '${widget.data?.items[widget.itemIndex].songUrl}',
+          'https://filesamples.com/samples/audio/mp3/sample4.mp3',
         ),
       ),
     );
