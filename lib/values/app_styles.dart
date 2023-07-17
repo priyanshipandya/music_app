@@ -14,7 +14,7 @@ class AppStyles {
   );
 
   static final emptyBoxDecor = BoxDecoration(
-    // color: KColors.kGrey,
+    color: Colors.black,
     gradient: LinearGradient(
       colors: [
         Colors.white.withOpacity(0.1),

@@ -140,7 +140,6 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                 ),
-                // fetchAPI.callTrackAPI!.status == FutureStatus.pending
                 fetchAPI.callTrackAPI?.status == FutureStatus.pending
                     ? ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 0),
@@ -149,7 +148,7 @@ class _DashboardState extends State<Dashboard> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "All Albums",
+                      Strings.allAlbums,
                       style: AppStyles.titleTextStyle,
                     ),
                   ),
@@ -162,7 +161,7 @@ class _DashboardState extends State<Dashboard> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "All Artists",
+                      Strings.allArtist,
                       style: AppStyles.titleTextStyle,
                     ),
                   ),

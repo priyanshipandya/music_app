@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../values/app_styles.dart';
+import '../../values/strings.dart';
+import '../../values/urls.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -10,7 +12,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool switchValue = false;
-  List infoList = ["Personal Info", "Password & Security", "App Theme"];
+  List infoList = [Strings.personalInfo, Strings.pswdAndSecurity, Strings.appTheme];
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(30),
                       child:
-                          Image.asset("asset/images/user.jpeg", fit: BoxFit.fill),
+                          Image.asset(Urls.userIcon, fit: BoxFit.fill),
                     ),
                   ),
                 ),
@@ -47,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Welcome, Priyanshi Pandya",
+                      Strings.welcomeMsg,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -57,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Row(
                       children: [
                         Image.asset(
-                          "asset/images/account.png",
+                          Urls.accountIcon,
                           height: 30,
                           width: 30,
                           color: Colors.white,
@@ -66,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 10,
                         ),
                         const Text(
-                          "Account",
+                          Strings.account,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,

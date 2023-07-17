@@ -5,6 +5,8 @@ import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:provider_practical_7/screens/page/music.dart';
 import '../../../main.dart';
 import '../../../values/app_styles.dart';
+import '../../../values/strings.dart';
+import '../../../values/urls.dart';
 
 class AlbumList extends StatelessWidget {
   AlbumList({super.key, required this.data});
@@ -39,7 +41,7 @@ class AlbumList extends StatelessWidget {
             image: DecorationImage(
               image: NetworkImage(
                 data?.poster ??
-                    "https://jonlieffmd.com/wp-content/uploads/2013/02/Music-vector-Feature-HiRes1-scaled.jpg",
+                    Urls.defaultImage,
               ),
               fit: BoxFit.cover,
             ),
@@ -66,7 +68,7 @@ class AlbumList extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                           child: Image.network(
                               data?.poster ??
-                                  "https://jonlieffmd.com/wp-content/uploads/2013/02/Music-vector-Feature-HiRes1-scaled.jpg",
+                                  Urls.defaultImage,
                               height: MediaQuery.of(context).size.width * 0.7,
                               width: MediaQuery.of(context).size.width * 0.7,
                               fit: BoxFit.fill),
@@ -84,8 +86,6 @@ class AlbumList extends StatelessWidget {
                       itemCount: data?.items.length,
                       itemBuilder: (context, index) => GestureDetector(
                         onTap: () async {
-                          print("time: ${data?.items[index].songDurationInMs}");
-                          print("other: ${data?.items[index].songUrl}");
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -138,7 +138,7 @@ class AlbumList extends StatelessWidget {
                                                 Text(
                                                   data?.items?[index]
                                                           .songName ??
-                                                      "Unknown",
+                                                      Strings.unknownRecord,
                                                   style: AppStyles
                                                       .mediumTextStyleLabel,
                                                   // overflow: TextOverflow.ellipsis,

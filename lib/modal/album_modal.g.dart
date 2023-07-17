@@ -22,12 +22,6 @@ Albums _$AlbumsFromJson(Map<String, dynamic> json) => Albums(
       artists: (json['artists'] as List<dynamic>?)
           ?.map((e) => Artists.fromJson(e as Map<String, dynamic>))
           .toList(),
-      availableMarkets: (json['availableMarkets'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      copyrights: (json['copyrights'] as List<dynamic>?)
-          ?.map((e) => Copyrights.fromJson(e as Map<String, dynamic>))
-          .toList(),
       externalIds: json['externalIds'] == null
           ? null
           : ExternalIds.fromJson(json['externalIds'] as Map<String, dynamic>),
@@ -44,10 +38,6 @@ Albums _$AlbumsFromJson(Map<String, dynamic> json) => Albums(
           .toList(),
       label: json['label'] as String?,
       name: json['name'] as String?,
-      popularity: json['popularity'] as int?,
-      releaseDate: json['releaseDate'] as String?,
-      releaseDatePrecision: json['releaseDatePrecision'] as String?,
-      totalTracks: json['totalTracks'] as int?,
       tracks: json['tracks'] == null
           ? null
           : Tracks.fromJson(json['tracks'] as Map<String, dynamic>),
@@ -58,8 +48,6 @@ Albums _$AlbumsFromJson(Map<String, dynamic> json) => Albums(
 Map<String, dynamic> _$AlbumsToJson(Albums instance) => <String, dynamic>{
       'albumType': instance.albumType,
       'artists': instance.artists,
-      'availableMarkets': instance.availableMarkets,
-      'copyrights': instance.copyrights,
       'externalIds': instance.externalIds,
       'external_urls': instance.externalUrls,
       'genres': instance.genres,
@@ -68,10 +56,6 @@ Map<String, dynamic> _$AlbumsToJson(Albums instance) => <String, dynamic>{
       'images': instance.images,
       'label': instance.label,
       'name': instance.name,
-      'popularity': instance.popularity,
-      'releaseDate': instance.releaseDate,
-      'releaseDatePrecision': instance.releaseDatePrecision,
-      'totalTracks': instance.totalTracks,
       'tracks': instance.tracks,
       'type': instance.type,
       'uri': instance.uri,
@@ -105,17 +89,6 @@ ExternalUrls _$ExternalUrlsFromJson(Map<String, dynamic> json) => ExternalUrls(
 Map<String, dynamic> _$ExternalUrlsToJson(ExternalUrls instance) =>
     <String, dynamic>{
       'spotify': instance.spotify,
-    };
-
-Copyrights _$CopyrightsFromJson(Map<String, dynamic> json) => Copyrights(
-      text: json['text'] as String?,
-      type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$CopyrightsToJson(Copyrights instance) =>
-    <String, dynamic>{
-      'text': instance.text,
-      'type': instance.type,
     };
 
 ExternalIds _$ExternalIdsFromJson(Map<String, dynamic> json) => ExternalIds(
@@ -161,19 +134,13 @@ Items _$ItemsFromJson(Map<String, dynamic> json) => Items(
       artists: (json['artists'] as List<dynamic>?)
           ?.map((e) => Artists.fromJson(e as Map<String, dynamic>))
           .toList(),
-      availableMarkets: (json['availableMarkets'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      discNumber: json['discNumber'] as int?,
       durationMs: json['duration_ms'] as int?,
-      explicit: json['explicit'] as bool?,
       externalUrls: json['external_urls'] == null
           ? null
           : ExternalUrls.fromJson(
               json['external_urls'] as Map<String, dynamic>),
       href: json['href'] as String?,
       id: json['id'] as String?,
-      isLocal: json['isLocal'] as bool?,
       name: json['name'] as String?,
       previewUrl: json['previewUrl'] as String?,
       trackNumber: json['trackNumber'] as int?,
@@ -183,14 +150,10 @@ Items _$ItemsFromJson(Map<String, dynamic> json) => Items(
 
 Map<String, dynamic> _$ItemsToJson(Items instance) => <String, dynamic>{
       'artists': instance.artists,
-      'availableMarkets': instance.availableMarkets,
-      'discNumber': instance.discNumber,
       'duration_ms': instance.durationMs,
-      'explicit': instance.explicit,
       'external_urls': instance.externalUrls,
       'href': instance.href,
       'id': instance.id,
-      'isLocal': instance.isLocal,
       'name': instance.name,
       'previewUrl': instance.previewUrl,
       'trackNumber': instance.trackNumber,

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:provider_practical_7/values/urls.dart';
 import '../../modal/all_data.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -29,7 +30,7 @@ class _MusicPageState extends State<MusicPage> {
     await audioPlayer.setAudioSource(
       AudioSource.uri(
         Uri.parse(
-          'https://filesamples.com/samples/audio/mp3/sample4.mp3',
+          Urls.audioUrl,
         ),
       ),
     );
@@ -54,7 +55,7 @@ class _MusicPageState extends State<MusicPage> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(widget.data?.poster ??
-                  "https://jonlieffmd.com/wp-content/uploads/2013/02/Music-vector-Feature-HiRes1-scaled.jpg"),
+                  Urls.defaultImage),
               fit: BoxFit.cover,
             ),
           ),

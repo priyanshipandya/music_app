@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../../api/api_service/fetch_data.dart';
 import '../../../values/app_styles.dart';
 
 class ShimmerHomePageCards extends StatelessWidget {
@@ -11,10 +10,9 @@ class ShimmerHomePageCards extends StatelessWidget {
     return Shimmer.fromColors(
       baseColor: Colors.white,
       highlightColor: Colors.grey,
-      // loop: 0,
       direction: ShimmerDirection.ltr,
       child: SizedBox(
-        height: 270,
+        height: 250,
         child: ListView.builder(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
@@ -33,8 +31,8 @@ class ShimmerHomePageCards extends StatelessWidget {
                   children: [
                     Container(
                       margin: const EdgeInsets.all(10),
-                      height: 150,
-                      width: 180,
+                      height: 120,
+                      width: 150,
                       decoration: AppStyles.emptyBoxDecor,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),

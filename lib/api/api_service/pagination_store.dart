@@ -29,9 +29,7 @@ abstract class _PaginationStore with Store{
     Dio dio = Dio();
 
     final offset = (currentPage - 1) * itemsPerPage;
-    print("$offset");
     final limit = itemsPerPage;
-    print("$limit");
     String url = 'https://api.spotify.com/v1/artists/$artistId/albums';
     try {
       dio.interceptors.add(TokenInterceptor());

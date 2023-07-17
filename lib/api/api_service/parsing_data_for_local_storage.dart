@@ -3,6 +3,7 @@ import '../../modal/album_modal.dart';
 import '../../modal/all_data.dart';
 import '../../modal/artist_modal.dart';
 import '../../modal/music_modal.dart';
+import '../../values/strings.dart';
 
 void parseDataForStoringLocally(result) {
   log(result.toString(), name: "RESULTTT");
@@ -76,7 +77,6 @@ void parseDataForStoringLocally(result) {
       allData.add(
           AllData(0, [allItems.last], poster, cardsLabel, songCreator, null));
     }
-    log(allData.length.toString(), name: "FROM TRACK RECORDS");
   } else if (result is ArtistModal) {
     List<AllItems> artistList = [];
     int artistLength = result.artists?.length ?? 0;
@@ -85,9 +85,9 @@ void parseDataForStoringLocally(result) {
       var songName = result.artists?[artists].name ?? "";
       var songUrl = result.artists?[artists].externalUrls?.spotify ?? "";
       String poster = result.artists?[artists].images?[1].url ?? "";
-      String songCreator = result.artists?[artists].name ?? "Unknown Records";
-      String cardsLabel = result.artists?[artists].name ?? "Unknown Records";
-      String albumId = result.artists?[artists].id ?? "Unknown Records";
+      String songCreator = result.artists?[artists].name ?? Strings.unknownRecord;
+      String cardsLabel = result.artists?[artists].name ?? Strings.unknownRecord;
+      String albumId = result.artists?[artists].id ?? Strings.unknownRecord;
 
       artistList.add(
         AllItems(

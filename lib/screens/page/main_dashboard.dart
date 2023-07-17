@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider_practical_7/screens/page/profile.dart';
-import 'package:provider_practical_7/values/app_styles.dart';
-import 'package:video_player/video_player.dart';
 import '../../values/colors.dart';
+import '../../values/urls.dart';
 import 'bookmark.dart';
 import 'fab.dart';
 import 'homepage/homepage.dart';
@@ -38,7 +37,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
         items: [
           BottomNavigationBarItem(
               icon: Image.asset(
-                "asset/icons/home.png",
+                Urls.homeIcon,
                 height: 20,
                 width: 20,
                 fit: BoxFit.fill,
@@ -47,7 +46,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
               label: ""),
           BottomNavigationBarItem(
               icon: Image.asset(
-                "asset/icons/bookmark.png",
+                Urls.bookmarkIcon,
                 height: 20,
                 width: 20,
                 fit: BoxFit.fill,
@@ -56,7 +55,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
               label: ""),
           BottomNavigationBarItem(
               icon: Image.asset(
-                "asset/icons/video.png",
+                Urls.videoIcon,
                 height: 20,
                 width: 20,
                 fit: BoxFit.fill,
@@ -65,7 +64,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
               label: ""),
           BottomNavigationBarItem(
               icon: Image.asset(
-                "asset/icons/search.png",
+                Urls.searchIcon,
                 height: 20,
                 width: 20,
                 fit: BoxFit.fill,
@@ -74,7 +73,7 @@ class _DashboardMainScreenState extends State<DashboardMainScreen> {
               label: ""),
           BottomNavigationBarItem(
               icon: Image.asset(
-                "asset/icons/user.png",
+                Urls.userIcon,
                 height: 20,
                 width: 20,
                 fit: BoxFit.fill,

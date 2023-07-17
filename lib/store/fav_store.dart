@@ -1,10 +1,6 @@
 import 'dart:developer';
-
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
-import 'package:provider_practical_7/store/fav_modal.dart';
-
-import '../modal/album_modal.dart';
 
 part 'fav_store.g.dart';
 

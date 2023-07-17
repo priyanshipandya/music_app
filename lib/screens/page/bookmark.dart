@@ -1,13 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../values/app_styles.dart';
-import '../../../values/colors.dart';
 import '../../main.dart';
 import '../../modal/all_data.dart';
+import '../../values/strings.dart';
+import '../../values/urls.dart';
 
 class BookmarkPage extends StatelessWidget {
   const BookmarkPage({super.key});
@@ -33,7 +31,7 @@ class BookmarkPage extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: Image.network(
-                            "https://jonlieffmd.com/wp-content/uploads/2013/02/Music-vector-Feature-HiRes1-scaled.jpg",
+                            Urls.defaultImage,
                             height: MediaQuery.of(context).size.width * 0.7,
                             width: MediaQuery.of(context).size.width * 0.7,
                             fit: BoxFit.fill),
@@ -44,7 +42,7 @@ class BookmarkPage extends StatelessWidget {
                 favStore.favList.isEmpty
                     ? const Center(
                         child: Text(
-                          "No Favorites",
+                          Strings.noFav,
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -60,8 +58,6 @@ class BookmarkPage extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: favStore.favList.length,
                           itemBuilder: (context, index) {
-                            log(favStore.favList.length.toString(),
-                                name: "LENGTH OF FAVLIST");
                             return GestureDetector(
                               // onTap: () async {
                               //   print(
@@ -192,7 +188,8 @@ class BookmarkPage extends StatelessWidget {
                                                                   SizedBox(
                                                                     width: 200,
                                                                     child: Text(
-                                                                      "${"favStore.favList[index]."}" ??
+                                                                      "Albums" ??
+                                                                      // "${favStore.favList[index].}" ??
                                                                           "No data",
                                                                       style: AppStyles
                                                                           .smallTextStyle,
@@ -224,8 +221,6 @@ class BookmarkPage extends StatelessWidget {
                                                   ],
                                                 ),
                                               ),
-                                              // Spacer(),
-                                              // IconButton(icon: Icon(Icons.favorite_border, size: 30), onPressed: () {}, ),
                                             ],
                                           ),
                                         ),
@@ -266,11 +261,10 @@ class BookmarkPage extends StatelessWidget {
   }
 
   void _launchUrl(String? spotifyUrl) async {
-    print("Url: $spotifyUrl");
     if (await canLaunchUrl(Uri.parse(spotifyUrl!))) {
       await launchUrl(spotifyUrl as Uri);
     } else {
-      throw "Could not launch Url";
+      throw Strings.throwUrlError;
     }
   }
 }

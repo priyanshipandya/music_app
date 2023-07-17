@@ -18,8 +18,6 @@ class SpotifyAlbum {
 class Albums {
   String? albumType;
   List<Artists>? artists;
-  List<String>? availableMarkets;
-  List<Copyrights>? copyrights;
   ExternalIds? externalIds;
   @JsonKey(name: 'external_urls')
   ExternalUrls? externalUrls;
@@ -29,10 +27,6 @@ class Albums {
   List<Images>? images;
   String? label;
   String? name;
-  int? popularity;
-  String? releaseDate;
-  String? releaseDatePrecision;
-  int? totalTracks;
   Tracks? tracks;
   String? type;
   String? uri;
@@ -40,8 +34,6 @@ class Albums {
   Albums(
       {this.albumType,
       this.artists,
-      this.availableMarkets,
-      this.copyrights,
       this.externalIds,
       this.externalUrls,
       this.genres,
@@ -50,10 +42,6 @@ class Albums {
       this.images,
       this.label,
       this.name,
-      this.popularity,
-      this.releaseDate,
-      this.releaseDatePrecision,
-      this.totalTracks,
       this.tracks,
       this.type,
       this.uri});
@@ -94,18 +82,6 @@ class ExternalUrls {
   Map<String, dynamic> toJson() => _$ExternalUrlsToJson(this);
 }
 
-@JsonSerializable()
-class Copyrights {
-  String? text;
-  String? type;
-
-  Copyrights({this.text, this.type});
-
-  factory Copyrights.fromJson(Map<String, dynamic> json) =>
-      _$CopyrightsFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CopyrightsToJson(this);
-}
 
 @JsonSerializable()
 class ExternalIds {
@@ -161,16 +137,12 @@ class Tracks {
 @JsonSerializable()
 class Items {
   List<Artists>? artists;
-  List<String>? availableMarkets;
-  int? discNumber;
   @JsonKey(name: "duration_ms")
   int? durationMs;
-  bool? explicit;
   @JsonKey(name: "external_urls")
   ExternalUrls? externalUrls;
   String? href;
   String? id;
-  bool? isLocal;
   String? name;
   String? previewUrl;
   int? trackNumber;
@@ -179,14 +151,10 @@ class Items {
 
   Items({
     this.artists,
-    this.availableMarkets,
-    this.discNumber,
     this.durationMs,
-    this.explicit,
     this.externalUrls,
     this.href,
     this.id,
-    this.isLocal,
     this.name,
     this.previewUrl,
     this.trackNumber,
