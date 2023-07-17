@@ -3,7 +3,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../values/app_styles.dart';
 
 class ShimmerHomePageCards extends StatelessWidget {
-  ShimmerHomePageCards({super.key});
+  const ShimmerHomePageCards({super.key});
 
   @override
   Widget build(BuildContext context) {

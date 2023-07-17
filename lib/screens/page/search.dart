@@ -4,10 +4,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../modal/all_data.dart';
 import '../../values/app_styles.dart';
 import '../../values/colors.dart';
-import '../../values/urls.dart';
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key? key}) : super(key: key);
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -21,7 +20,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -151,8 +149,7 @@ class _SearchPageState extends State<SearchPage> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.network(
-                                          filteredData[index].poster ??
-                                              Urls.defaultImage,
+                                          filteredData[index].poster,
                                           fit: BoxFit.cover),
                                     ),
                                   ),

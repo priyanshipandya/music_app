@@ -3,21 +3,18 @@ import '../../values/app_styles.dart';
 import '../../values/strings.dart';
 import '../../values/urls.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class ProfilePage extends StatelessWidget {
+  ProfilePage({Key? key}) : super(key: key);
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
   bool switchValue = false;
+
   List infoList = [Strings.personalInfo, Strings.pswdAndSecurity, Strings.appTheme];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      // floatingActionButton: FloatingActionButton(onPressed: () {}, ),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -38,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(30),
                       child:
-                          Image.asset(Urls.userIcon, fit: BoxFit.fill),
+                          Image.asset(Urls.userImage, fit: BoxFit.fill),
                     ),
                   ),
                 ),
@@ -48,13 +45,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      Strings.welcomeMsg,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.white70),
-                    ),
                     const SizedBox(height: 40),
                     Row(
                       children: [

@@ -13,7 +13,6 @@ class BookmarkPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -150,7 +149,7 @@ class BookmarkPage extends StatelessWidget {
                                                                             .start,
                                                                     children: List
                                                                         .generate(
-                                                                      1 ?? 0,
+                                                                      1,
                                                                       (i) =>
                                                                           SizedBox(
                                                                         width:
@@ -188,9 +187,7 @@ class BookmarkPage extends StatelessWidget {
                                                                   SizedBox(
                                                                     width: 200,
                                                                     child: Text(
-                                                                      "Albums" ??
-                                                                      // "${favStore.favList[index].}" ??
-                                                                          "No data",
+                                                                      "Albums",
                                                                       style: AppStyles
                                                                           .smallTextStyle,
                                                                     ),
@@ -252,7 +249,7 @@ class BookmarkPage extends StatelessWidget {
   // }
 
   Icon getFavIcon(int index, AllItems item) {
-    print(favStore.favList);
+    debugPrint(favStore.favList.toString());
     if (favStore.favList.contains(item)) {
       return const Icon(Icons.favorite);
     } else {

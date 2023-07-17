@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
-import 'package:provider_practical_7/api/api_service/token_interceptor.dart';
+import 'package:provider_practical_7/services/api_service/token_interceptor.dart';
 
 import '../../modal/artist_item_modal.dart';
 
@@ -23,8 +23,10 @@ abstract class _PaginationStore with Store{
   @observable
   int itemsPerPage = 10;
 
+  @observable
+  bool isLoading = false;
+
   @action
-  // Future<void> fetchAtistAlbum(String _url) async {
   Future<List<Items>> fetchNextPage(String artistId) async {
     Dio dio = Dio();
 
@@ -50,15 +52,9 @@ abstract class _PaginationStore with Store{
 
         allArtistItems.addAll(items);
         currentPage++;
-        log(allArtistItems.toString(), name: "ALL ARTIST ITEM LENGTH");
-        print("currentPage, $currentPage");
-        final hasNextPage = data['next'] != null;
-        log(data['next'], name: "has next ");
+        bool hasNextPage = data['next'] != null;
         hasMoreData = hasNextPage;
-        log(hasMoreData.toString(), name: "has more data");
-
         return items;
-        // return ArtistItemModal.fromJson(data);
       } else {
         throw Exception("Token generation error");
       }

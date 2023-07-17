@@ -5,7 +5,6 @@ class AllData {
   String? songCreater;
   String? albumLabelName;
   String? id;
-  // int? durationInMs;
 
   AllData(this.cardNo, this.items, this.poster, this.songCreater,
       this.albumLabelName, this.id);
