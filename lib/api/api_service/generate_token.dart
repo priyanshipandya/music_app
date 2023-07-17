@@ -8,8 +8,7 @@ Future<String> generateToken() async{
   Map<String, dynamic> authOptions = {
     'url': 'https://accounts.spotify.com/api/token',
     'headers': {
-      'Authorization': 'Basic ' +
-          base64.encode(utf8.encode('$clientId:$clientSecret')),
+      'Authorization': 'Basic ${base64.encode(utf8.encode('$clientId:$clientSecret'))}',
     },
     'body': {'grant_type': 'client_credentials'}
   };
@@ -21,7 +20,6 @@ Future<String> generateToken() async{
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
       var token = body['access_token'];
-      print(token);
       return token;
     }else{
       throw Exception("Problem while generating token");

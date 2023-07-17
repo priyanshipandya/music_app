@@ -8,7 +8,7 @@ import 'package:provider_practical_7/values/colors.dart';
 import 'api/api_service/fetch_data.dart';
 
 void main() async{
-  await WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: KColors.kWhite),
       // theme: ThemeData(scaffoldBackgroundColor: Colors.black),
-      home: const DashboardMainScreen(),
+      home: DashboardMainScreen(),
     );
   }
 }

@@ -6,7 +6,7 @@ import '../../modal/all_data.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MusicPage extends StatefulWidget {
-  MusicPage({Key? key, required this.data, required this.itemIndex})
+  const MusicPage({Key? key, required this.data, required this.itemIndex})
       : super(key: key);
   final AllData? data;
   final int itemIndex;
@@ -18,6 +18,9 @@ class MusicPage extends StatefulWidget {
 class _MusicPageState extends State<MusicPage> {
   double currentValue = 0;
   AudioPlayer audioPlayer = AudioPlayer();
+  Duration _duration = const Duration();
+  Duration _positioned = const Duration();
+  bool _isPlaying = true;
 
   @override
   void initState() {
@@ -26,7 +29,18 @@ class _MusicPageState extends State<MusicPage> {
   }
 
   void initializeAudioPlayer() async {
-    print(widget.data?.items[widget.itemIndex].songUrl);
+    audioPlayer.positionStream.listen((p) {
+      setState(() {
+        _positioned = p;
+      });
+    });
+
+    audioPlayer.durationStream.listen((d) {
+      setState(() {
+        _duration = d!;
+      });
+    });
+    debugPrint(widget.data?.items[widget.itemIndex].songUrl);
     await audioPlayer.setAudioSource(
       AudioSource.uri(
         Uri.parse(
@@ -54,8 +68,7 @@ class _MusicPageState extends State<MusicPage> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(widget.data?.poster ??
-                  Urls.defaultImage),
+              image: NetworkImage(widget.data?.poster ?? Urls.defaultImage),
               fit: BoxFit.cover,
             ),
           ),
@@ -157,17 +170,18 @@ class _MusicPageState extends State<MusicPage> {
                     ),
                     Slider(
                       min: 0,
-                      max: widget.data?.items[0].songDurationInMs?.toDouble() ??
-                          3,
-                      value: currentValue,
+                      max: _duration.inSeconds.toDouble(),
+                      value: _positioned.inSeconds.toDouble(),
                       thumbColor: Colors.black87,
                       activeColor: Colors.black87,
                       inactiveColor: Colors.black12,
                       onChanged: (value) {
                         setState(() {
-                          currentValue = value;
+                          audioPlayer.seek(Duration(seconds: value.toInt()));
+                          log(value.toString(), name: "VALUE OF AUDIO");
                         });
-                        print("song duration current : ${currentValue}");
+                        debugPrint("song duration current : $currentValue");
+                        setState(() {});
                       },
                     ),
                     const SizedBox(
@@ -188,10 +202,17 @@ class _MusicPageState extends State<MusicPage> {
                             height: 25,
                             width: 25,
                           ),
-                          Image.asset(
-                            'asset/icons/play.png',
-                            height: 25,
-                            width: 25,
+                          GestureDetector(
+                            onTap: changePlayPause,
+                            child: _isPlaying == true ? Image.asset(
+                              'asset/icons/pause.png',
+                              height: 25,
+                              width: 25,
+                            ) : Image.asset(
+                              'asset/icons/play.png',
+                              height: 25,
+                              width: 25,
+                            ),
                           ),
                           Image.asset(
                             'asset/icons/next.png',
@@ -215,5 +236,14 @@ class _MusicPageState extends State<MusicPage> {
         ),
       ),
     );
+  }
+
+  changePlayPause() {
+    if(_isPlaying){
+      audioPlayer.pause();
+    }else{
+      audioPlayer.play();
+    }
+    _isPlaying = !_isPlaying;
   }
 }

@@ -113,8 +113,7 @@ class AppStyles {
     borderRadius: BorderRadius.circular(20),
   );
 
-  static final navBoxShadow = BoxShadow(
-    // color: Colors.grey.shade200,
+  static const navBoxShadow = BoxShadow(
     spreadRadius: 2,
     blurRadius: 1,
   );

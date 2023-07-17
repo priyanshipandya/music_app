@@ -9,7 +9,7 @@ import '../../../values/strings.dart';
 import '../../../values/urls.dart';
 
 class AlbumList extends StatelessWidget {
-  AlbumList({super.key, required this.data});
+  const AlbumList({super.key, required this.data});
 
   final AllData? data;
 
@@ -135,13 +135,15 @@ class AlbumList extends StatelessWidget {
                                                 const EdgeInsets.only(left: 12),
                                             child: Row(
                                               children: [
-                                                Text(
-                                                  data?.items?[index]
-                                                          .songName ??
-                                                      Strings.unknownRecord,
-                                                  style: AppStyles
-                                                      .mediumTextStyleLabel,
-                                                  // overflow: TextOverflow.ellipsis,
+                                                Expanded(
+                                                  child: Text(
+                                                    data?.items[index]
+                                                            .songName ??
+                                                        Strings.unknownRecord,
+                                                    style: AppStyles
+                                                        .mediumTextStyleLabel,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -225,8 +227,7 @@ class AlbumList extends StatelessWidget {
                                                         SizedBox(
                                                           width: 200,
                                                           child: Text(
-                                                            "${data?.songCreater}" ??
-                                                                "No data",
+                                                            "${data?.songCreater}",
                                                             style: const TextStyle(
                                                                 color: Colors
                                                                     .black87),
@@ -278,7 +279,7 @@ class AlbumList extends StatelessWidget {
   }
 
   Icon getFavIcon(int index, AllItems item) {
-    print(favStore.favList);
+    debugPrint(favStore.favList.toString());
     if (favStore.favList.contains(item)) {
       return const Icon(Icons.favorite);
     } else {

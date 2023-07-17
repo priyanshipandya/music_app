@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -141,7 +140,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 fetchAPI.callTrackAPI?.status == FutureStatus.pending
-                    ? ShimmerHomePageCards()
+                    ? const ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 0),
                 const Padding(
                   padding: EdgeInsets.only(top: 25.0, bottom: 10, left: 20),
@@ -154,7 +153,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 fetchAPI.callAbumAPI?.status == FutureStatus.pending
-                    ? ShimmerHomePageCards()
+                    ? const ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 1),
                 const Padding(
                   padding: EdgeInsets.only(top: 25.0, bottom: 10, left: 20),
@@ -167,7 +166,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 fetchAPI.callArtistAPI?.status == FutureStatus.pending
-                    ? ShimmerHomePageCards()
+                    ? const ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 2),
                 // AlbumCards(fetchApi: fetchAlbums),
               ],

@@ -7,7 +7,7 @@ import '../../../values/strings.dart';
 import 'album_datalist.dart';
 
 class HomePageCards extends StatelessWidget {
-  HomePageCards({super.key, required this.allData, required this.cardNo});
+  const HomePageCards({super.key, required this.allData, required this.cardNo});
 
   final List<AllData> allData;
   final int cardNo;
@@ -16,7 +16,6 @@ class HomePageCards extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<AllData> allAlbumData =
         allData.where((element) => element.cardNo == cardNo).toList();
-    print("From allData build: ${allAlbumData.length}");
     return SizedBox(
       height: 250,
       child: ListView.builder(
@@ -67,8 +66,7 @@ class HomePageCards extends StatelessWidget {
                       decoration: AppStyles.emptyBoxDecor,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
-                        child: Image.network(
-                            allAlbumData[i].poster,
+                        child: Image.network(allAlbumData[i].poster,
                             fit: BoxFit.fill),
                       ),
                     ),

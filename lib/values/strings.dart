@@ -3,7 +3,7 @@ class Strings{
   static const seeAll = "See All";
   static const allTracks = "All Tracks";
   static const filter = "Filter";
-  static const search = "Search";
+  static const search = "Search anything";
   static const staticImagePath = 'asset/images/user.jpeg';
   static const username = "Hey, User";
   static const hello = "Hello";
@@ -24,7 +24,7 @@ class Strings{
   static const  pswdAndSecurity = "Password & Security";
   static const  appTheme = "App Theme";
   static const  welcomeMsg = "Welcome, Priyanshi Pandya";
-  static const  account = "Account";
+  static const  account = "Account Settings";
 
 
 }

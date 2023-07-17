@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/api/api_service/parsing_data_for_local_storage.dart';
 import 'package:provider_practical_7/api/api_service/token_interceptor.dart';
@@ -50,7 +51,7 @@ abstract class _FetchAPIDatas with Store {
         parseDataForStoringLocally(result);
         return result;
       } else {
-        print(response.statusCode);
+        debugPrint(response.statusCode.toString());
         throw Exception("${response.statusCode}");
       }
     } catch (e) {

@@ -1,9 +1,9 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:provider_practical_7/screens/page/music.dart';
+
 import '../../../api/api_service/pagination_store.dart';
 import '../../../main.dart';
 import '../../../values/app_styles.dart';
@@ -11,7 +11,7 @@ import '../../../values/strings.dart';
 import '../../../values/urls.dart';
 
 class ArtistList extends StatefulWidget {
-  ArtistList({super.key, required this.data1, this.artistId});
+  const ArtistList({super.key, required this.data1, this.artistId});
 
   final AllData? data1;
   final String? artistId;
@@ -21,37 +21,36 @@ class ArtistList extends StatefulWidget {
 }
 
 class _ArtistListState extends State<ArtistList> {
-  late ScrollController _scrollController;
+  late final ScrollController _scrollController;
   PaginationStore pagination = PaginationStore();
 
   @override
   void initState() {
-    setState(() {
-      _scrollController = ScrollController();
-      _scrollController.addListener(_onScroll);
-    });
     super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      _onScroll();
+    });
     _loadNextPage(widget.artistId);
   }
 
-  bool _isLoading = false;
-
   void _onScroll() {
-    print("Outside scroll");
-    if (_scrollController.position.maxScrollExtent ==
-        _scrollController.offset) {
-      if (!_isLoading) {
-        _isLoading = true;
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      if (!pagination.isLoading) {
+        setState(() {
+          pagination.isLoading = true;
+        });
+
         _loadNextPage(widget.artistId);
+
+        setState(() {
+          pagination.isLoading = false;
+        });
       }
-
-      print("reached at End");
+    } else {
+      debugPrint("_onScroll not be called");
     }
-    // if (_scrollController.position.pixels ==
-    //     _scrollController.position.maxScrollExtent) {
-    //   _loadNextPage(widget.artistId);
-
-    // }
   }
 
   Future<void> _loadNextPage(artistId) async {
@@ -60,7 +59,6 @@ class _ArtistListState extends State<ArtistList> {
 
   @override
   Widget build(BuildContext context) {
-    // print("alitems length:  ${pagination.allArtistItems.length}");
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -92,6 +90,7 @@ class _ArtistListState extends State<ArtistList> {
             ),
           ),
           child: SingleChildScrollView(
+            controller: _scrollController,
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             child: BackdropFilter(
@@ -125,200 +124,207 @@ class _ArtistListState extends State<ArtistList> {
                     builder: (context) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: ListView.builder(
-                          controller: _scrollController,
                           padding: EdgeInsets.zero,
-                          primary: false,
+                          primary: true,
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: pagination.allArtistItems.length,
+                          itemCount: pagination.isLoading == true
+                              ? pagination.allArtistItems.length + 1
+                              : pagination.allArtistItems.length,
                           itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () async {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MusicPage(
-                                        data: widget.data1, itemIndex: index),
-                                  ),
-                                );
-
-                                // String? callme = data?.items[index].songUrl ??
-                                //     "https://open.spotify.com/track/5nujrmhLynf4yMoMtj8AQF";
-                                // try{
-                                //   // if(await canLaunchUrl(Uri.parse(callme))){
-                                //     await launchUrl(Uri.parse(callme));
-                                //   // }else{
-                                //   //   log("Can't launch", name: "CANT LAUNCH");
-                                //   // }
-                                // }catch(e){
-                                //   log("error in launching $e", name: "ERROR IN LAUNCH");
-                                // }
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 7),
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(24)),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Colors.white.withOpacity(0.1),
-                                          Colors.white.withOpacity(0.2),
-                                        ],
-                                        begin: AlignmentDirectional.topStart,
-                                        end: AlignmentDirectional.bottomEnd,
-                                      ),
+                            if (index < pagination.allArtistItems.length - 1) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MusicPage(
+                                          data: widget.data1, itemIndex: index),
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 12),
-                                                  child: Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          pagination
-                                                                  .allArtistItems[
-                                                                      index]
-                                                                  .name ??
-                                                              Strings
-                                                                  .unknownRecord,
-                                                          style: AppStyles
-                                                              .mediumTextStyleLabel,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                  );
+
+                                  // String? call_me = data?.items[index].songUrl ??
+                                  //     "https://open.spotify.com/track/5nujrmhLynf4yMoMtj8AQF";
+                                  // try{
+                                  //   // if(await canLaunchUrl(Uri.parse(call_me))){
+                                  //     await launchUrl(Uri.parse(call_me));
+                                  //   // }else{
+                                  //   //   log("Can't launch", name: "CANT LAUNCH");
+                                  //   // }
+                                  // }catch(e){
+                                  //   log("error in launching $e", name: "ERROR IN LAUNCH");
+                                  // }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15.0, vertical: 7),
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(24)),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.white.withOpacity(0.1),
+                                            Colors.white.withOpacity(0.2),
+                                          ],
+                                          begin: AlignmentDirectional.topStart,
+                                          end: AlignmentDirectional.bottomEnd,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 12),
+                                                    child: Row(
                                                       children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 9,
-                                                                  top: 6),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              const Icon(
-                                                                Icons
-                                                                    .person_outline_outlined,
-                                                                color: Colors
-                                                                    .black87,
-                                                                size: 20,
-                                                                weight: 100,
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 5,
-                                                              ),
-                                                              Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: List
-                                                                    .generate(
-                                                                  pagination
-                                                                          .allArtistItems[
-                                                                              index]
-                                                                          .artists
-                                                                          ?.length ??
-                                                                      0,
-                                                                  (i) =>
-                                                                      SizedBox(
-                                                                    width: 200,
-                                                                    child: Text(
-                                                                      "${pagination.allArtistItems[index].artists?[i].name}",
-                                                                      style: const TextStyle(
-                                                                          color:
-                                                                              Colors.black87),
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      // maxLines: 1,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 9),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              const Icon(
-                                                                Icons
-                                                                    .audiotrack_outlined,
-                                                                size: 20,
-                                                                color: Colors
-                                                                    .black87,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 200,
-                                                                child: Text(
-                                                                  "${widget.data1?.songCreater}" ??
-                                                                      "No data",
-                                                                  style: const TextStyle(
-                                                                      color: Colors
-                                                                          .black87),
-                                                                  // style: AppStyles
-                                                                  //     .smallTextStyle,
-                                                                ),
-                                                              ),
-                                                            ],
+                                                        Expanded(
+                                                          child: Text(
+                                                            pagination
+                                                                    .allArtistItems[
+                                                                        index]
+                                                                    .name ??
+                                                                Strings
+                                                                    .unknownRecord,
+                                                            style: AppStyles
+                                                                .mediumTextStyleLabel,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                    const Spacer(),
-                                                    // IconButton(
-                                                    //   icon: getFavIcon(index,
-                                                    //       data1!.items[index]),
-                                                    //   onPressed: () {
-                                                    //     favStore.toggleFav(
-                                                    //         data1!.items[index]);
-                                                    //   },
-                                                    // ),
-                                                  ],
-                                                ),
-                                              ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 9,
+                                                                    top: 6),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                const Icon(
+                                                                  Icons
+                                                                      .person_outline_outlined,
+                                                                  color: Colors
+                                                                      .black87,
+                                                                  size: 20,
+                                                                  weight: 100,
+                                                                ),
+                                                                const SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: List
+                                                                      .generate(
+                                                                    pagination
+                                                                            .allArtistItems[index]
+                                                                            .artists
+                                                                            ?.length ??
+                                                                        0,
+                                                                    (i) =>
+                                                                        SizedBox(
+                                                                      width:
+                                                                          200,
+                                                                      child:
+                                                                          Text(
+                                                                        "${pagination.allArtistItems[index].artists?[i].name}",
+                                                                        style: const TextStyle(
+                                                                            color:
+                                                                                Colors.black87),
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        // maxLines: 1,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 9),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                const Icon(
+                                                                  Icons
+                                                                      .audiotrack_outlined,
+                                                                  size: 20,
+                                                                  color: Colors
+                                                                      .black87,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 200,
+                                                                  child: Text(
+                                                                    "${widget.data1?.songCreater}",
+                                                                    style: const TextStyle(
+                                                                        color: Colors
+                                                                            .black87),
+                                                                    // style: AppStyles
+                                                                    //     .smallTextStyle,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const Spacer(),
+                                                      // IconButton(
+                                                      //   icon: getFavIcon(index,
+                                                      //       data1!.items[index]),
+                                                      //   onPressed: () {
+                                                      //     favStore.toggleFav(
+                                                      //         data1!.items[index]);
+                                                      //   },
+                                                      // ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
+                              );
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
                           }),
                     ),
                   ),
@@ -332,7 +338,7 @@ class _ArtistListState extends State<ArtistList> {
   }
 
   Icon getFavIcon(int index, AllItems item) {
-    print(favStore.favList);
+    debugPrint(favStore.favList.toString());
     if (favStore.favList.contains(item)) {
       return const Icon(Icons.favorite);
     } else {

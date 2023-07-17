@@ -52,8 +52,8 @@ void parseDataForStoringLocally(result) {
       var songUrl = itemAt?.uri ?? "";
       var itemAtType = itemAt?.type ?? "";
       artistList = [];
-      var artistName;
-      var artistType;
+      String? artistName;
+      String? artistType;
       int itemLength = result.tracks?[track].artists?.length ?? 0;
       for (var artist = 0; artist < itemLength; artist++) {
         artistName = result.tracks?[track].artists?[artist].name.toString();
