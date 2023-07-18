@@ -15,7 +15,6 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // floatingActionButton: FloatingActionButton(onPressed: () {}, ),
-      backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

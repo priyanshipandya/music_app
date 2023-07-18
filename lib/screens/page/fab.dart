@@ -41,7 +41,6 @@ class _FABPageState extends State<FABPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: PageView.builder(
         scrollDirection: Axis.vertical,
         physics: const BouncingScrollPhysics(),

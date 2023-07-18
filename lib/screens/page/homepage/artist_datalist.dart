@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
 import 'package:provider_practical_7/screens/page/music.dart';
-
-import '../../../api/api_service/pagination_store.dart';
 import '../../../main.dart';
+import '../../../services/api_service/pagination_store.dart';
 import '../../../values/app_styles.dart';
+import '../../../values/colors.dart';
 import '../../../values/strings.dart';
 import '../../../values/urls.dart';
 
@@ -59,8 +59,10 @@ class _ArtistListState extends State<ArtistList> {
 
   @override
   Widget build(BuildContext context) {
+    // print("alitems length:  ${pagination.allArtistItems.length}");
     return SafeArea(
       child: Scaffold(
+        backgroundColor: KColors.kWhite,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           elevation: 0,

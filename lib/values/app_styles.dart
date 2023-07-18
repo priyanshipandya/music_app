@@ -46,49 +46,36 @@ class AppStyles {
   static const helloTextStyle = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
-    fontFamily: 'Inter',
     color: Colors.white,
   );
 
   static const smallTextStyle = TextStyle(
     color: Colors.black,
     fontWeight: FontWeight.w400,
-    fontFamily: 'Inter',
     fontSize: 12,
   );
 
   static const titleTextStyle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w500,
-    fontFamily: 'Inter',
     color: Colors.white,
-  );
-
-  static const seeAllTextStyle = TextStyle(
-    fontSize: 14,
-    fontFamily: 'Inter',
-    fontWeight: FontWeight.w400,
-    color: KColors.kSeeAllColor,
   );
 
   static const mediumTextStyle = TextStyle(
     color: KColors.kBlue,
     fontWeight: FontWeight.w700,
-    fontFamily: 'Inter',
     fontSize: 14,
   );
 
   static const userNameTextStyle = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w600,
-    fontFamily: 'Inter',
     color: Colors.white,
   );
 
   static const boldMediumTextStyle = TextStyle(
     color: Colors.white60,
     fontWeight: FontWeight.w700,
-    fontFamily: 'Inter',
     fontSize: 14,
     // overflow: TextOverflow.ellipsis,
   );
@@ -96,14 +83,12 @@ class AppStyles {
   static const mediumTextStyleLabel = TextStyle(
     color: Colors.black,
     fontWeight: FontWeight.w700,
-    fontFamily: 'Inter',
     fontSize: 14,
   );
 
   static const mediumTextStyleWhiteLabel = TextStyle(
     color: Colors.white,
     fontWeight: FontWeight.w700,
-    fontFamily: 'Inter',
     fontSize: 16,
     // overflow: TextOverflow.ellipsis,
   );

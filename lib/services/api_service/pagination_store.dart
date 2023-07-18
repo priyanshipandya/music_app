@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
-import 'package:provider_practical_7/api/api_service/token_interceptor.dart';
+import 'package:provider_practical_7/services/api_service/token_interceptor.dart';
 
 import '../../modal/artist_item_modal.dart';
 

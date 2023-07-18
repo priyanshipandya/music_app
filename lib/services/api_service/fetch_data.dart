@@ -1,9 +1,11 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
-import 'package:provider_practical_7/api/api_service/parsing_data_for_local_storage.dart';
-import 'package:provider_practical_7/api/api_service/token_interceptor.dart';
-
+import 'package:provider_practical_7/services/api_service/parsing_data_for_local_storage.dart';
+import 'package:provider_practical_7/services/api_service/request_retrier.dart';
+import 'package:provider_practical_7/services/api_service/retry_interceptor.dart';
+import 'package:provider_practical_7/services/api_service/token_interceptor.dart';
 import '../../modal/album_modal.dart';
 import '../../modal/artist_modal.dart';
 import '../../modal/music_modal.dart';
@@ -27,17 +29,14 @@ abstract class _FetchAPIDatas with Store {
   _FetchAPIDatas() {
     callAbumAPI = ObservableFuture(
       fetchAllAPI<SpotifyAlbum>(
-          Urls.spotifyAlbumAPI,
-          (json) => SpotifyAlbum.fromJson(json)),
+          Urls.spotifyAlbumAPI, (json) => SpotifyAlbum.fromJson(json)),
     );
 
     callTrackAPI = ObservableFuture(fetchAllAPI<SpotifyModal>(
-        Urls.spotifyTrackAPI,
-        (json) => SpotifyModal.fromJson(json)));
+        Urls.spotifyTrackAPI, (json) => SpotifyModal.fromJson(json)));
 
     callArtistAPI = ObservableFuture(fetchAllAPI<ArtistModal>(
-        Urls.spotifyArtistAPI,
-        (json) => ArtistModal.fromJson(json)));
+        Urls.spotifyArtistAPI, (json) => ArtistModal.fromJson(json)));
   }
 
   @action
@@ -45,6 +44,8 @@ abstract class _FetchAPIDatas with Store {
     Dio dio = Dio();
     try {
       dio.interceptors.add(TokenInterceptor());
+      dio.interceptors
+          .add(RetryInterceptor(RequestRetrier(Dio(), Connectivity())));
       final response = await dio.get(url);
       if (response.statusCode == 200) {
         T result = parser(response.data);

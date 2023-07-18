@@ -8,6 +8,7 @@ import 'package:provider_practical_7/values/app_styles.dart';
 import '../../../main.dart';
 import '../../../values/colors.dart';
 import '../../../values/strings.dart';
+import '../../../values/urls.dart';
 import 'all_cards.dart';
 
 class Dashboard extends StatefulWidget {
@@ -39,7 +40,6 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       extendBody: true,
       body: SafeArea(
         child: Observer(
@@ -56,10 +56,6 @@ class _DashboardState extends State<Dashboard> {
                       const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            Strings.hello,
-                            style: AppStyles.helloTextStyle,
-                          ),
                           SizedBox(
                             height: 2,
                           ),
@@ -69,17 +65,11 @@ class _DashboardState extends State<Dashboard> {
                           ),
                         ],
                       ),
-                      Container(
-                        height: 44,
-                        width: 44,
-                        decoration: AppStyles.imageBoxDecor,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.asset(
-                            Strings.staticImagePath,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                      Image.asset(
+                        Urls.notification,
+                        height: 24,
+                        width: 24,
+                        fit: BoxFit.cover,
                       ),
                     ],
                   ),
@@ -106,18 +96,22 @@ class _DashboardState extends State<Dashboard> {
                         height: 40,
                         width: 104,
                         decoration: BoxDecoration(
-                          color:
-                              btnColors[index] ? KColors.kBlue : Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                            color: btnColors[index]
+                                ? KColors.darkBlack
+                                : KColors.kLightBlack,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: btnColors[index]
+                                    ? KColors.kWhite
+                                    : KColors.kLightBlack)),
                         child: Center(
                           child: Text(
                             "${names[index]}",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: btnColors[index]
-                                  ? Colors.white
-                                  : KColors.kBlack,
+                                  ? KColors.kWhite
+                                  : KColors.kTextGrey,
                             ),
                           ),
                         ),

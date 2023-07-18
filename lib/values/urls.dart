@@ -16,5 +16,7 @@ class Urls{
   static const userIcon = "asset/icons/user.png";
   static const accountIcon = "asset/images/account.png";
   static const userImage = 'asset/images/user.jpeg';
+  static const notification = "asset/icons/notification.svg";
+
 
 }
