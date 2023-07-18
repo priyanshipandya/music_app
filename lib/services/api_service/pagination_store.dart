@@ -27,14 +27,14 @@ abstract class _PaginationStore with Store{
   bool isLoading = false;
 
   @action
-  Future<List<Items>> fetchNextPage(String artistId) async {
-    Dio dio = Dio();
+  Future<List<Items>> fetchNextPage(String artistId, Dio dio) async {
+
 
     final offset = (currentPage - 1) * itemsPerPage;
     final limit = itemsPerPage;
     String url = 'https://api.spotify.com/v1/artists/$artistId/albums';
     try {
-      dio.interceptors.add(TokenInterceptor());
+      dio.interceptors.add(TokenInterceptor(dio));
       final response = await dio.get(url, queryParameters: {
         "offset": offset,
         "limit" : limit,

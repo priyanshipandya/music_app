@@ -17,7 +17,7 @@ class HomePageCards extends StatelessWidget {
     final List<AllData> allAlbumData =
         allData.where((element) => element.cardNo == cardNo).toList();
     return SizedBox(
-      height: 250,
+      height: 230,
       child: ListView.builder(
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
@@ -52,17 +52,19 @@ class HomePageCards extends StatelessWidget {
               }
             },
             child: Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.only(left: 5.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  fit: StackFit.loose,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // alignment: Alignment.topCenter,
+                  // fit: StackFit.loose,
                   children: [
                     Container(
-                      margin: const EdgeInsets.all(10),
-                      height: 200,
-                      width: 200,
+                      margin: const EdgeInsets.only(left: 10),
+                      height: 185,
+                      width: 175,
                       decoration: AppStyles.emptyBoxDecor,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
@@ -70,22 +72,12 @@ class HomePageCards extends StatelessWidget {
                             fit: BoxFit.fill),
                       ),
                     ),
-                    Positioned(
-                      // left: 30,
-                      bottom: 5,
-                      child: SizedBox(
-                        width: 180,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              allAlbumData[i].albumLabelName ??
-                                  Strings.unknownRecord,
-                              style: AppStyles.boldMediumTextStyle,
-                            ),
-                          ],
-                        ),
-                      ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      allAlbumData[i].albumLabelName ?? Strings.unknownRecord,
+                      style: AppStyles.boldMediumTextStyle,
                     ),
                   ],
                 ),

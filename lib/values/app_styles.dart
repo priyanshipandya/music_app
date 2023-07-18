@@ -39,10 +39,12 @@ class AppStyles {
   );
   static const prefixIconStyle = Icon(
     Icons.search,
-    color: KColors.kBlue,
+    color: KColors.kLightWhite,
     size: 24,
   );
-
+  static const searchHintStyle = TextStyle(
+    color: KColors.kLightWhite,
+  );
   static const helloTextStyle = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,

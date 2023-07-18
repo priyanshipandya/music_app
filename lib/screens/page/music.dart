@@ -61,6 +61,7 @@ class _MusicPageState extends State<MusicPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),

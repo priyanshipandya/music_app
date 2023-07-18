@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../modal/all_data.dart';
 import '../../values/app_styles.dart';
 import '../../values/colors.dart';
+import '../../values/urls.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -31,30 +32,22 @@ class _SearchPageState extends State<SearchPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: const [
-                      BoxShadow(
-                        blurRadius: 1,
-                        color: KColors.kGrey,
-                        spreadRadius: 0,
-                      ),
-                    ],
-                  ),
-                  child: TextField(
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    controller: searchController,
-                    cursorColor: KColors.kBlue,
-                    decoration: const InputDecoration(
-                      prefixIcon: AppStyles.prefixIconStyle,
-                      hintText: Strings.search,
-                      border: InputBorder.none,
-                      isDense: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                child: TextField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                  controller: searchController,
+                  cursorColor: KColors.kLightWhite,
+                  decoration: const InputDecoration(
+                    prefixIcon: AppStyles.prefixIconStyle,
+                    hintText: Strings.search,
+                    hintStyle: AppStyles.searchHintStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
+                    isDense: true,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    filled: true,
+                    fillColor: KColors.kLightBlack,
                   ),
                 ),
               ),
@@ -83,17 +76,14 @@ class _SearchPageState extends State<SearchPage> {
                   setState(() {});
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: KColors.kBlue,
+                  backgroundColor: KColors.kLightBlack,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   padding: const EdgeInsets.symmetric(
-                      vertical: 18.0, horizontal: 25.0),
+                      vertical: 14.0, horizontal: 20.0),
                 ),
-                child: const Text(
-                  Strings.filter,
-                  style: TextStyle(color: Colors.white),
-                ),
+                child: Image.asset(Urls.filter, height: 24, width: 24,),
               ),
             ],
           ),

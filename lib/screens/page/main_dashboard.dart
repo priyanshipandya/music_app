@@ -14,7 +14,7 @@ class DashboardMainScreen extends StatelessWidget {
   final screens = [
     const Dashboard(),
     const BookmarkPage(),
-    const FABPage(),
+    // const FABPage(),
     const SearchPage(),
     ProfilePage(),
   ];

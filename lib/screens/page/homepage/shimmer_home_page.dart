@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../values/app_styles.dart';
+import '../../../values/colors.dart';
 
 class ShimmerHomePageCards extends StatelessWidget {
   const ShimmerHomePageCards({super.key});
@@ -8,11 +9,11 @@ class ShimmerHomePageCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.white,
+      baseColor: KColors.kLightBlack,
       highlightColor: Colors.grey,
       direction: ShimmerDirection.ltr,
       child: SizedBox(
-        height: 250,
+        height: 220,
         child: ListView.builder(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
