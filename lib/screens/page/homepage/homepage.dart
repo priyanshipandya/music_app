@@ -123,7 +123,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(top: 25.0, bottom: 10, left: 20),
+                  padding: EdgeInsets.only(top: 20.0, bottom: 0, left: 20),
                   child: Row(
                     children: [
                       Text(
@@ -137,7 +137,7 @@ class _DashboardState extends State<Dashboard> {
                     ? const ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 0),
                 const Padding(
-                  padding: EdgeInsets.only(top: 25.0, bottom: 10, left: 20),
+                  padding: EdgeInsets.only(top: 20.0, bottom: 0, left: 20),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -150,7 +150,7 @@ class _DashboardState extends State<Dashboard> {
                     ? const ShimmerHomePageCards()
                     : HomePageCards(allData: allData, cardNo: 1),
                 const Padding(
-                  padding: EdgeInsets.only(top: 25.0, bottom: 10, left: 20),
+                  padding: EdgeInsets.only(top: 20.0, bottom: 0, left: 20),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(

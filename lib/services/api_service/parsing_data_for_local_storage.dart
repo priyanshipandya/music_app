@@ -6,7 +6,6 @@ import '../../modal/music_modal.dart';
 import '../../values/strings.dart';
 
 void parseDataForStoringLocally(result) {
-  log(result.toString(), name: "RESULTTT");
   if (result is SpotifyAlbum) {
     for (var album = 0; album < result.albums!.length; album++) {
       List<AllItems> allItems = [];
@@ -85,8 +84,10 @@ void parseDataForStoringLocally(result) {
       var songName = result.artists?[artists].name ?? "";
       var songUrl = result.artists?[artists].externalUrls?.spotify ?? "";
       String poster = result.artists?[artists].images?[1].url ?? "";
-      String songCreator = result.artists?[artists].name ?? Strings.unknownRecord;
-      String cardsLabel = result.artists?[artists].name ?? Strings.unknownRecord;
+      String songCreator =
+          result.artists?[artists].name ?? Strings.unknownRecord;
+      String cardsLabel =
+          result.artists?[artists].name ?? Strings.unknownRecord;
       String albumId = result.artists?[artists].id ?? Strings.unknownRecord;
 
       artistList.add(

@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../modal/all_data.dart';
 import '../../values/app_styles.dart';
 import '../../values/colors.dart';
+import '../../values/urls.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -31,68 +32,68 @@ class _SearchPageState extends State<SearchPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: const [
-                      BoxShadow(
-                        blurRadius: 1,
-                        color: KColors.kGrey,
-                        spreadRadius: 0,
-                      ),
-                    ],
-                  ),
-                  child: TextField(
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    controller: searchController,
-                    cursorColor: KColors.kBlue,
-                    decoration: const InputDecoration(
-                      prefixIcon: AppStyles.prefixIconStyle,
-                      hintText: Strings.search,
-                      border: InputBorder.none,
-                      isDense: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                child: TextField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                  controller: searchController,
+                  cursorColor: KColors.kLightWhite,
+                  style: AppStyles.searchStyle,
+                  decoration: const InputDecoration(
+                    prefixIcon: AppStyles.prefixIconStyle,
+                    hintText: Strings.search,
+                    hintStyle: AppStyles.searchHintStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide.none,
                     ),
+                    isDense: true,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    filled: true,
+                    fillColor: KColors.kLightBlack,
                   ),
+                  onChanged: (value) {
+                    filteredData.clear();
+                    for (var data in allData) {
+                      List<AllItems> filteredItems = data.items.where((item) {
+                        return item.songName.toLowerCase().contains(
+                            searchController.text.toLowerCase().trim());
+                      }).toList();
+
+                      if (filteredItems.isNotEmpty) {
+                        bool alreadyExists = filteredData.any(
+                            (d) => d.albumLabelName == data.albumLabelName);
+                        if (!alreadyExists) {
+                          filteredData.add(AllData(
+                              1,
+                              filteredItems,
+                              data.poster,
+                              data.songCreater,
+                              data.albumLabelName,
+                              null));
+                        }
+                      }
+                    }
+                    setState(() {});
+                  },
                 ),
               ),
               const SizedBox(
                 width: 9,
               ),
               ElevatedButton(
-                onPressed: () {
-                  filteredData.clear();
-                  for (var data in allData) {
-                    List<AllItems> filteredItems = data.items.where((item) {
-                      return item.songName
-                          .toLowerCase()
-                          .contains(searchController.text.toLowerCase().trim());
-                    }).toList();
-
-                    if (filteredItems.isNotEmpty) {
-                      bool alreadyExists = filteredData
-                          .any((d) => d.albumLabelName == data.albumLabelName);
-                      if (!alreadyExists) {
-                        filteredData.add(AllData(1, filteredItems, data.poster,
-                            data.songCreater, data.albumLabelName, null));
-                      }
-                    }
-                  }
-                  setState(() {});
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: KColors.kBlue,
+                  backgroundColor: KColors.kLightBlack,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   padding: const EdgeInsets.symmetric(
-                      vertical: 18.0, horizontal: 25.0),
+                      vertical: 14.0, horizontal: 20.0),
                 ),
-                child: const Text(
-                  Strings.filter,
-                  style: TextStyle(color: Colors.white),
+                child: Image.asset(
+                  Urls.filter,
+                  height: 24,
+                  width: 24,
                 ),
               ),
             ],
@@ -121,47 +122,38 @@ class _SearchPageState extends State<SearchPage> {
                   itemCount: filteredData[index].items.length,
                   itemBuilder: (context, i) {
                     return Card(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 2, horizontal: 20),
+
+                      color: KColors.kProfileBackground,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 10),
+                      child: GestureDetector(
+                        onTap: () async {
+                          String uri = filteredData[index].items[i].songUrl;
+                          await launchUrl(Uri.parse(uri));
+                        },
                         child: Row(
                           children: [
-                            GestureDetector(
-                              onTap: () async {
-                                String uri =
-                                    filteredData[index].items[i].songUrl;
-                                await launchUrl(Uri.parse(uri));
-                              },
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      color: KColors.kGrey,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                          filteredData[index].poster,
-                                          fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    filteredData[index].items[i].songName,
-                                    style: AppStyles.mediumTextStyleLabel,
-                                  ),
-                                ],
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                color: KColors.kGrey,
+                                borderRadius: BorderRadius.circular(20),
                               ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  filteredData[index].poster,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              filteredData[index].items[i].songName,
+                              style: AppStyles.smallTextStyleWhiteLabel,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ],
                         ),

@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../values/app_styles.dart';
 import '../../main.dart';
 import '../../modal/all_data.dart';
+import '../../values/colors.dart';
 import '../../values/strings.dart';
 import '../../values/urls.dart';
 
@@ -29,8 +30,7 @@ class BookmarkPage extends StatelessWidget {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
-                        child: Image.network(
-                            Urls.defaultImage,
+                        child: Image.network(Urls.defaultImage,
                             height: MediaQuery.of(context).size.width * 0.7,
                             width: MediaQuery.of(context).size.width * 0.7,
                             fit: BoxFit.fill),
@@ -66,6 +66,7 @@ class BookmarkPage extends StatelessWidget {
                               //       "https://open.spotify.com/track/5nujrmhLynf4yMoMtj8AQF";
                               //   await launchUrl(Uri.parse(callme));
                               // },
+                              onTap: () async {},
                               child: Observer(
                                 builder: (context) => Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -75,11 +76,11 @@ class BookmarkPage extends StatelessWidget {
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 5, horizontal: 8),
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         gradient: LinearGradient(
                                           colors: [
-                                            Colors.white.withOpacity(0.7),
-                                            Colors.white.withOpacity(0.5),
+                                            KColors.kProfileBackground,
+                                            KColors.kProfileBackground,
                                           ],
                                           begin: AlignmentDirectional.topStart,
                                           end: AlignmentDirectional.bottomEnd,
@@ -96,7 +97,9 @@ class BookmarkPage extends StatelessWidget {
                                                 child: Column(
                                                   children: [
                                                     Padding(
-                                                      padding: const EdgeInsets.only(left: 12.0),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 12.0),
                                                       child: Row(
                                                         children: [
                                                           Text(
@@ -105,7 +108,7 @@ class BookmarkPage extends StatelessWidget {
                                                                 .songName
                                                                 .toString(),
                                                             style: AppStyles
-                                                                .mediumTextStyleLabel,
+                                                                .mediumTextStyleWhiteLabel,
                                                             // overflow: TextOverflow.ellipsis,
                                                           ),
                                                         ],
@@ -133,7 +136,7 @@ class BookmarkPage extends StatelessWidget {
                                                                     Icons
                                                                         .person_outline_outlined,
                                                                     color: Colors
-                                                                        .black,
+                                                                        .white,
                                                                     size: 20,
                                                                     weight: 100,
                                                                   ),
@@ -183,7 +186,7 @@ class BookmarkPage extends StatelessWidget {
                                                                           .audiotrack_outlined,
                                                                       size: 20,
                                                                       color: Colors
-                                                                          .black),
+                                                                          .white),
                                                                   SizedBox(
                                                                     width: 200,
                                                                     child: Text(
@@ -205,6 +208,7 @@ class BookmarkPage extends StatelessWidget {
                                                                   index,
                                                                   favStore.favList[
                                                                       index]),
+                                                               color: Colors.white,
                                                               onPressed: () {
                                                                 favStore.toggleFav(
                                                                     favStore.favList[

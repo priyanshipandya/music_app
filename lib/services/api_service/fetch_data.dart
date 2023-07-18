@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,26 +28,34 @@ abstract class _FetchAPIDatas with Store {
   @observable
   ObservableFuture<ArtistModal>? callArtistAPI;
 
+  Dio dio = Dio();
+
   _FetchAPIDatas() {
     callAbumAPI = ObservableFuture(
       fetchAllAPI<SpotifyAlbum>(
           Urls.spotifyAlbumAPI, (json) => SpotifyAlbum.fromJson(json)),
     );
 
-    callTrackAPI = ObservableFuture(fetchAllAPI<SpotifyModal>(
-        Urls.spotifyTrackAPI, (json) => SpotifyModal.fromJson(json)));
+    callTrackAPI = ObservableFuture(
+      fetchAllAPI<SpotifyModal>(
+        Urls.spotifyTrackAPI,
+        (json) => SpotifyModal.fromJson(json),
+      ),
+    );
 
-    callArtistAPI = ObservableFuture(fetchAllAPI<ArtistModal>(
-        Urls.spotifyArtistAPI, (json) => ArtistModal.fromJson(json)));
+    callArtistAPI = ObservableFuture(
+      fetchAllAPI<ArtistModal>(
+        Urls.spotifyArtistAPI,
+        (json) => ArtistModal.fromJson(json),
+      ),
+    );
   }
 
   @action
   Future<T> fetchAllAPI<T>(String url, T Function(dynamic json) parser) async {
-    Dio dio = Dio();
     try {
-      dio.interceptors.add(TokenInterceptor());
-      dio.interceptors
-          .add(RetryInterceptor(RequestRetrier(Dio(), Connectivity())));
+      dio.interceptors.addAll([TokenInterceptor(dio), RetryInterceptor()]);
+      // dio.interceptors.add(RetryInterceptor());
       final response = await dio.get(url);
       if (response.statusCode == 200) {
         T result = parser(response.data);

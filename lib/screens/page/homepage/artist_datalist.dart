@@ -54,7 +54,7 @@ class _ArtistListState extends State<ArtistList> {
   }
 
   Future<void> _loadNextPage(artistId) async {
-    await pagination.fetchNextPage(artistId);
+    await pagination.fetchNextPage(artistId, fetchAPI.dio);
   }
 
   @override

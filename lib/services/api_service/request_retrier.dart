@@ -1,40 +1,46 @@
 import 'dart:async';
-import 'dart:developer';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider_practical_7/services/api_service/retry_interceptor.dart';
 
-import '../../main.dart';
+class RetryInterceptor extends Interceptor {
+  final DioConnectivityRequestRetrier requestRetrier =
+      DioConnectivityRequestRetrier(dio: Dio());
 
-class RequestRetrier {
-  final Dio dio;
-  final Connectivity connectivity;
-
-  RequestRetrier(this.dio, this.connectivity);
-
-  Future<Response> scheduleRequestRetry(RequestOptions requestOptions) async {
-    StreamSubscription streamSubscription;
-    final responseCompleter = Completer<Response>();
-
-    streamSubscription =
-        connectivity.onConnectivityChanged.listen((connectivityResult) async {
-          log(connectivityResult.name.toString(), name: "CONNECTIVITY RESULT OUTSIDE");
-      if (connectivityResult != ConnectivityResult.none) {
-        log(connectivityResult.name.toString(),
-            name: "IF CONNECTIVITY RESULT IS NOT NONE");
-        responseCompleter.complete(
-          dio.request(requestOptions.path,
-              queryParameters: requestOptions.queryParameters,
-              data: requestOptions.data,
-              cancelToken: requestOptions.cancelToken),
-        );
-      }else{
-        BuildContext? context = scaffoldState.currentContext;
-        ScaffoldMessenger.of(context!).showSnackBar(SnackBar(content: Text("No internet Connection")));
-      }
-    });
-    streamSubscription.cancel();
-    return responseCompleter.future;
+  @override
+  Future<void> onError(
+    DioError err,
+    ErrorInterceptorHandler handler,
+  ) async {
+    if (err.error is SocketException) {
+      debugPrint(
+          "=============================IN HERE SOCKET EXCEPTION=============================");
+      debugPrint(
+          "=============================IN HERE SOCKET EXCEPTION=============================");
+      debugPrint(
+          "=============================IN HERE SOCKET EXCEPTION=============================");
+      debugPrint(
+          "=============================IN HERE SOCKET EXCEPTION=============================");
+      debugPrint(
+          "=============================IN HERE SOCKET EXCEPTION=============================");
+      debugPrint(
+          "=============================IN HERE SOCKET EXCEPTION============================");
+      handler.resolve(
+        await requestRetrier.scheduleRetryRequest(err.requestOptions),
+      );
+    } else if (err.response?.statusCode == 401) {
+      debugPrint("IN SOCKET EXCEPTION");
+      debugPrint("IN SOCKET EXCEPTION");
+      debugPrint("IN SOCKET EXCEPTION");
+      debugPrint("IN SOCKET EXCEPTION");
+      handler.next(err);
+    } else {
+      debugPrint("IN SOCKET EXCEPTION ELSE");
+      debugPrint("IN SOCKET EXCEPTION ELSE");
+      debugPrint("IN SOCKET EXCEPTION ELSE");
+      debugPrint("IN SOCKET EXCEPTION ELSE");
+      handler.next(err);
+    }
   }
 }

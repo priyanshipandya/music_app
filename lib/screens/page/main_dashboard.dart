@@ -4,7 +4,7 @@ import 'package:provider_practical_7/screens/page/profile.dart';
 import 'package:provider_practical_7/store/navigation_store.dart';
 import '../../values/urls.dart';
 import 'bookmark.dart';
-import 'fab.dart';
+import 'reels.dart';
 import 'homepage/homepage.dart';
 import 'search.dart';
 
@@ -14,7 +14,7 @@ class DashboardMainScreen extends StatelessWidget {
   final screens = [
     const Dashboard(),
     const BookmarkPage(),
-    const FABPage(),
+    // const FABPage(),
     const SearchPage(),
     ProfilePage(),
   ];

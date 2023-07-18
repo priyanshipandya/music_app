@@ -13,4 +13,6 @@ class KColors {
   static const darkBlack = Color(0xFF030303);
   static const kLightBlack = Color(0xFF2A2A2A);
   static const kTextGrey = Color(0xFF6D6D6D);
+  static const kLightWhite = Color(0xFFCFCFCF);
+  static const kProfileBackground = Color(0xFF1E1E1E);
 }

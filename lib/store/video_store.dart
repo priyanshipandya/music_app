@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:video_player/video_player.dart';
 
+import '../values/urls.dart';
+
 part 'video_store.g.dart';
 
 class VideoStore = _VideoStore with _$VideoStore;
@@ -11,6 +13,9 @@ class VideoStore = _VideoStore with _$VideoStore;
 abstract class _VideoStore with Store {
   @observable
   VideoPlayerController? videoPlayerController;
+
+  @observable
+  bool isPlaying = false;
 
   @action
   void initializeVideoPlayer(url, index) {
@@ -31,10 +36,14 @@ abstract class _VideoStore with Store {
 
   @action
   void changePauseResume() {
+    isPlaying = !isPlaying;
+
+    if (isPlaying) {
+      videoPlayerController?.play();
+    } else {
+      videoPlayerController?.pause();
+    }
     debugPrint("${videoPlayerController?.value.isPlaying}");
-    videoPlayerController?.value.isPlaying ?? true
-        ? videoPlayerController?.pause()
-        : videoPlayerController?.play();
   }
 
   @action

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider_practical_7/values/colors.dart';
 import '../../values/app_styles.dart';
 import '../../values/strings.dart';
 import '../../values/urls.dart';
@@ -9,12 +10,15 @@ class ProfilePage extends StatelessWidget {
 
   bool switchValue = false;
 
-  List infoList = [Strings.personalInfo, Strings.pswdAndSecurity, Strings.appTheme];
+  List infoList = [
+    Strings.personalInfo,
+    Strings.pswdAndSecurity,
+    Strings.appTheme
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(onPressed: () {}, ),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -34,8 +38,7 @@ class ProfilePage extends StatelessWidget {
                     decoration: AppStyles.emptyBoxDecor,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(30),
-                      child:
-                          Image.asset(Urls.userImage, fit: BoxFit.fill),
+                      child: Image.asset(Urls.userImage, fit: BoxFit.fill),
                     ),
                   ),
                 ),
@@ -80,13 +83,13 @@ class ProfilePage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 6, horizontal: 15.0),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: BorderRadius.circular(20),
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Colors.white.withOpacity(0.4),
-                            Colors.white.withOpacity(0.4),
+                            KColors.kProfileBackground,
+                            KColors.kProfileBackground,
                           ],
                           begin: AlignmentDirectional.topStart,
                           end: AlignmentDirectional.bottomEnd,
@@ -116,6 +119,24 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  border: Border.all(color: KColors.kLightWhite),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: double.maxFinite,
+                height: 50,
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Text("Logout",
+                      style: TextStyle(color: KColors.kLightWhite),
+                      textAlign: TextAlign.center),
                 ),
               ),
             ],
