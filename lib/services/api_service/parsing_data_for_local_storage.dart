@@ -1,4 +1,3 @@
-import 'dart:developer';
 import '../../modal/album_modal.dart';
 import '../../modal/all_data.dart';
 import '../../modal/artist_modal.dart';
@@ -39,6 +38,7 @@ void parseDataForStoringLocally(result) {
       allData.add(AllData(1, allItems, poster, songCreator, cardsLabel, null));
     }
   } else if (result is SpotifyModal) {
+
     List<AllItems> allItems = [];
     late List<Artist> artistList;
     int trackLength = result.tracks?.length ?? 0;
@@ -48,7 +48,6 @@ void parseDataForStoringLocally(result) {
       var id = itemAt?.id ?? "";
       var songName = itemAt?.name ?? "";
       var songUrl = itemAt?.uri ?? "";
-      var itemAtType = itemAt?.type ?? "";
       artistList = [];
       String? artistName;
       String? artistType;

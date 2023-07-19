@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/services/api_service/interceptor/token_interceptor.dart';

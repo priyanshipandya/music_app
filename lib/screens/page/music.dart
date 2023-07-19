@@ -182,6 +182,13 @@ class _MusicPageState extends State<MusicPage> {
                         ],
                       ),
                     ),
+                    const Row(
+                      children: [
+                        Text("0.0"),
+                        Spacer(),
+                        Text("4.04"),
+                      ],
+                    ),
                     Slider(
                       min: 0,
                       max: _duration.inSeconds.toDouble(),
@@ -192,9 +199,7 @@ class _MusicPageState extends State<MusicPage> {
                       onChanged: (value) {
                         setState(() {
                           audioPlayer.seek(Duration(seconds: value.toInt()));
-                          log(value.toString(), name: "VALUE OF AUDIO");
                         });
-                        debugPrint("song duration current : $currentValue");
                       },
                     ),
                     const SizedBox(

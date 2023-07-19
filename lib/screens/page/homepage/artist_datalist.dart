@@ -1,8 +1,9 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
-import 'package:provider_practical_7/screens/page/music.dart';
+
 import '../../../main.dart';
 import '../../../store/pagination_store.dart';
 import '../../../values/app_styles.dart';
@@ -174,9 +175,8 @@ class _ArtistListState extends State<ArtistList> {
                                                                   .unknownRecord,
                                                           style: AppStyles
                                                               .mediumTextStyleLabel,
-                                                          overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                         ),
                                                       ),
                                                     ],
@@ -221,22 +221,22 @@ class _ArtistListState extends State<ArtistList> {
                                                                 children: List
                                                                     .generate(
                                                                   pagination
-                                                                          .allArtistItems[index]
+                                                                          .allArtistItems[
+                                                                              index]
                                                                           .artists
                                                                           ?.length ??
                                                                       0,
                                                                   (i) =>
                                                                       SizedBox(
-                                                                    width:
-                                                                        200,
-                                                                    child:
-                                                                        Text(
+                                                                    width: 200,
+                                                                    child: Text(
                                                                       "${pagination.allArtistItems[index].artists?[i].name}",
                                                                       style: const TextStyle(
                                                                           color:
                                                                               Colors.black87),
                                                                       overflow:
-                                                                          TextOverflow.ellipsis,
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                       // maxLines: 1,
                                                                     ),
                                                                   ),
@@ -279,14 +279,17 @@ class _ArtistListState extends State<ArtistList> {
                                                       ],
                                                     ),
                                                     const Spacer(),
-                                                    // IconButton(
-                                                    //   icon: getFavIcon(index,
-                                                    //       data1!.items[index]),
-                                                    //   onPressed: () {
-                                                    //     favStore.toggleFav(
-                                                    //         data1!.items[index]);
-                                                    //   },
-                                                    // ),
+                                                    IconButton(
+                                                      icon:
+                                                          Icon(Icons.favorite),
+                                                      onPressed: () {},
+                                                      // getFavIcon(index,
+                                                      //     // data1!.items[index]),
+                                                      // onPressed: () {
+                                                      //   favStore.toggleFav(
+                                                      //       data1!.items[index]);
+                                                      // },
+                                                    ),
                                                   ],
                                                 ),
                                               ],

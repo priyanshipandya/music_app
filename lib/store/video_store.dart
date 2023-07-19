@@ -3,9 +3,6 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:video_player/video_player.dart';
-
-import '../values/urls.dart';
-
 part 'video_store.g.dart';
 
 class VideoStore = _VideoStore with _$VideoStore;
@@ -42,9 +39,9 @@ abstract class _VideoStore with Store {
       videoPlayerController?.play();
     }
     isPlaying = !isPlaying;
-    if(isPlaying == true){
-      videoPlayerController?.play();
-    }
+    // if(isPlaying == true){
+    //   videoPlayerController?.play();
+    // }
     debugPrint("${videoPlayerController?.value.isPlaying}");
   }
 

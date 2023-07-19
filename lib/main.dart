@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:provider_practical_7/screens/page/main_dashboard.dart';
 import 'package:provider_practical_7/services/api_service/fetch_data.dart';
 import 'package:provider_practical_7/store/fav_store.dart';
-import 'package:provider_practical_7/values/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -53,10 +53,11 @@ class HomePageCards extends StatelessWidget {
                           Uri.parse(allAlbumData[i].items[idx].songUrl));
                     }
                   }
-                } on Error {
+                } on Error catch(e){
+                  print("===============$e===================");
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text("Please Download Spotify"),
+                      content: Text(Strings.downloadSpotify),
                     ),
                   );
                 }

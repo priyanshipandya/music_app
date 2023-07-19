@@ -25,6 +25,7 @@ class Strings{
   static const  appTheme = "App Theme";
   static const  welcomeMsg = "Welcome, Priyanshi Pandya";
   static const  account = "Account Settings";
+  static const  downloadSpotify = "Please Download Spotify";
 
 
 }

@@ -1,11 +1,10 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
-import 'package:provider_practical_7/services/api_service/parsing_data_for_local_storage.dart';
 import 'package:provider_practical_7/services/api_service/interceptor/request_retrier.dart';
-import 'package:provider_practical_7/services/api_service/interceptor/retry_interceptor.dart';
 import 'package:provider_practical_7/services/api_service/interceptor/token_interceptor.dart';
+import 'package:provider_practical_7/services/api_service/parsing_data_for_local_storage.dart';
+
 import '../../modal/album_modal.dart';
 import '../../modal/artist_modal.dart';
 import '../../modal/music_modal.dart';
@@ -26,7 +25,7 @@ abstract class _FetchAPIDatas with Store {
   @observable
   ObservableFuture<ArtistModal>? callArtistAPI;
 
-  Dio dio = Dio();
+  Dio dio = Dio(BaseOptions(baseUrl: Urls.baseUrl));
 
   _FetchAPIDatas() {
     callAbumAPI = ObservableFuture(
@@ -53,7 +52,6 @@ abstract class _FetchAPIDatas with Store {
   Future<T> fetchAllAPI<T>(String url, T Function(dynamic json) parser) async {
     try {
       dio.interceptors.addAll([TokenInterceptor(dio), RetryInterceptor()]);
-      // dio.interceptors.add(RetryInterceptor());
       final response = await dio.get(url);
       if (response.statusCode == 200) {
         T result = parser(response.data);
