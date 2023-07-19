@@ -36,12 +36,14 @@ abstract class _VideoStore with Store {
 
   @action
   void changePauseResume() {
-    isPlaying = !isPlaying;
-
     if (isPlaying) {
-      videoPlayerController?.play();
-    } else {
       videoPlayerController?.pause();
+    } else {
+      videoPlayerController?.play();
+    }
+    isPlaying = !isPlaying;
+    if(isPlaying == true){
+      videoPlayerController?.play();
     }
     debugPrint("${videoPlayerController?.value.isPlaying}");
   }

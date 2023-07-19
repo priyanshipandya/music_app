@@ -14,5 +14,5 @@ class KColors {
   static const kLightBlack = Color(0xFF2A2A2A);
   static const kTextGrey = Color(0xFF6D6D6D);
   static const kLightWhite = Color(0xFFCFCFCF);
-  static const kProfileText = Color(0xFF1E1E1E);
+  static const kProfileBackground = Color(0xFF1E1E1E);
 }

@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
-import 'package:provider_practical_7/services/api_service/token_interceptor.dart';
+import 'package:provider_practical_7/services/api_service/interceptor/token_interceptor.dart';
 
-import '../../modal/artist_item_modal.dart';
+import '../modal/artist_item_modal.dart';
 
 part 'pagination_store.g.dart';
 
@@ -40,7 +40,6 @@ abstract class _PaginationStore with Store{
         "limit" : limit,
       });
 
-      log(response.statusCode.toString(), name: "STATUS CODE");
       if (response.statusCode == 200) {
 
         final data = response.data;

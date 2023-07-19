@@ -45,9 +45,20 @@ class HomePageCards extends StatelessWidget {
                   );
                 }
               } else {
-                for (int idx = 0; idx < 3; idx++) {
-                  await launchUrl(
-                      Uri.parse(allAlbumData[i].items[idx].songUrl));
+                try {
+                  for (int idx = 0; idx < 3; idx++) {
+                    if (await canLaunchUrl(
+                        Uri.parse(allAlbumData[i].items[idx].songUrl))) {
+                      await launchUrl(
+                          Uri.parse(allAlbumData[i].items[idx].songUrl));
+                    }
+                  }
+                } on Error {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Please Download Spotify"),
+                    ),
+                  );
                 }
               }
             },

@@ -38,7 +38,6 @@ void parseDataForStoringLocally(result) {
       String cardsLabel = result.albums?[album].name ?? "Unknown Records";
       allData.add(AllData(1, allItems, poster, songCreator, cardsLabel, null));
     }
-    log(allData.length.toString(), name: "FROM ALBUM RECORDS");
   } else if (result is SpotifyModal) {
     List<AllItems> allItems = [];
     late List<Artist> artistList;

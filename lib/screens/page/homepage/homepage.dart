@@ -88,7 +88,6 @@ class _DashboardState extends State<Dashboard> {
                     itemCount: names.length,
                     itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
-                        log("${names.length}", name: "LENGTH");
                         btnColors[index] = !btnColors[index];
                         setState(() {});
                       },

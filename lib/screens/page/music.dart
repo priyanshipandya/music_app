@@ -24,21 +24,36 @@ class _MusicPageState extends State<MusicPage> {
 
   @override
   void initState() {
-    initializeAudioPlayer();
     super.initState();
+    initializeAudioPlayer();
   }
 
   void initializeAudioPlayer() async {
     audioPlayer.positionStream.listen((p) {
-      setState(() {
-        _positioned = p;
-      });
+      try {
+        if (context.mounted) {
+          setState(() {
+            _positioned = p;
+          });
+        } else {
+          audioPlayer.stop();
+          return;
+        }
+      } on Error {
+        audioPlayer.stop();
+        audioPlayer.dispose();
+        return;
+      }
     });
 
     audioPlayer.durationStream.listen((d) {
-      setState(() {
-        _duration = d!;
-      });
+      if (context.mounted) {
+        setState(() {
+          _duration = d!;
+        });
+      } else {
+        return;
+      }
     });
     debugPrint(widget.data?.items[widget.itemIndex].songUrl);
     await audioPlayer.setAudioSource(
@@ -106,9 +121,7 @@ class _MusicPageState extends State<MusicPage> {
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(30),
-                  child: Image.network(
-                      widget.data?.poster ??
-                          "https://jonlieffmd.com/wp-content/uploads/2013/02/Music-vector-Feature-HiRes1-scaled.jpg",
+                  child: Image.network(widget.data?.poster ?? Urls.defaultImage,
                       height: MediaQuery.of(context).size.height * 0.4,
                       width: MediaQuery.of(context).size.width * 0.85,
                       fit: BoxFit.fill),
@@ -182,7 +195,6 @@ class _MusicPageState extends State<MusicPage> {
                           log(value.toString(), name: "VALUE OF AUDIO");
                         });
                         debugPrint("song duration current : $currentValue");
-                        setState(() {});
                       },
                     ),
                     const SizedBox(
@@ -205,15 +217,17 @@ class _MusicPageState extends State<MusicPage> {
                           ),
                           GestureDetector(
                             onTap: changePlayPause,
-                            child: _isPlaying == true ? Image.asset(
-                              'asset/icons/pause.png',
-                              height: 25,
-                              width: 25,
-                            ) : Image.asset(
-                              'asset/icons/play.png',
-                              height: 25,
-                              width: 25,
-                            ),
+                            child: _isPlaying == true
+                                ? Image.asset(
+                                    'asset/icons/pause.png',
+                                    height: 25,
+                                    width: 25,
+                                  )
+                                : Image.asset(
+                                    'asset/icons/play.png',
+                                    height: 25,
+                                    width: 25,
+                                  ),
                           ),
                           Image.asset(
                             'asset/icons/next.png',
@@ -240,11 +254,12 @@ class _MusicPageState extends State<MusicPage> {
   }
 
   changePlayPause() {
-    if(_isPlaying){
+    if (_isPlaying) {
       audioPlayer.pause();
-    }else{
+    } else {
       audioPlayer.play();
     }
+
     _isPlaying = !_isPlaying;
   }
 }

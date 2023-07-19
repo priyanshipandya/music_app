@@ -5,6 +5,7 @@ import 'package:provider_practical_7/store/navigation_store.dart';
 import '../../values/urls.dart';
 import 'bookmark.dart';
 import 'fab.dart';
+import 'reels.dart';
 import 'homepage/homepage.dart';
 import 'search.dart';
 
@@ -14,7 +15,7 @@ class DashboardMainScreen extends StatelessWidget {
   final screens = [
     const Dashboard(),
     const BookmarkPage(),
-    // const FABPage(),
+    const FABPage(),
     const SearchPage(),
     ProfilePage(),
   ];
@@ -35,49 +36,89 @@ class DashboardMainScreen extends StatelessWidget {
           backgroundColor: Colors.black,
           items: [
             BottomNavigationBarItem(
-                icon: Image.asset(
-                  Urls.homeIcon,
-                  height: 20,
-                  width: 20,
-                  fit: BoxFit.fill,
-                  color: Colors.white,
-                ),
+                icon: navigationStore.currentIndex == 0
+                    ? Image.asset(
+                        Urls.homeIconFilled,
+                        height: 20,
+                        width: 20,
+                        fit: BoxFit.fill,
+                        color: Colors.white,
+                      )
+                    : Image.asset(
+                        Urls.homeIcon,
+                        height: 20,
+                        width: 20,
+                        fit: BoxFit.fill,
+                        color: Colors.white,
+                      ),
                 label: ""),
             BottomNavigationBarItem(
-                icon: Image.asset(
-                  Urls.bookmarkIcon,
-                  height: 20,
-                  width: 20,
-                  fit: BoxFit.fill,
-                  color: Colors.white,
-                ),
+                icon: navigationStore.currentIndex == 1
+                    ? Image.asset(
+                        Urls.bookmarkIconFilled,
+                        height: 20,
+                        width: 20,
+                        fit: BoxFit.fill,
+                        color: Colors.white,
+                      )
+                    : Image.asset(
+                        Urls.bookmarkIcon,
+                        height: 20,
+                        width: 20,
+                        fit: BoxFit.fill,
+                        color: Colors.white,
+                      ),
                 label: ""),
             BottomNavigationBarItem(
-                icon: Image.asset(
-                  Urls.videoIcon,
-                  height: 20,
-                  width: 20,
-                  fit: BoxFit.fill,
-                  color: Colors.white,
-                ),
+                icon: navigationStore.currentIndex == 2
+                    ? Image.asset(
+                        Urls.videoIconFilled,
+                        height: 20,
+                        width: 20,
+                        fit: BoxFit.fill,
+                        color: Colors.white,
+                      )
+                    : Image.asset(
+                        Urls.videoIcon,
+                        height: 20,
+                        width: 20,
+                        fit: BoxFit.fill,
+                        color: Colors.white,
+                      ),
                 label: ""),
             BottomNavigationBarItem(
-                icon: Image.asset(
-                  Urls.searchIcon,
-                  height: 20,
-                  width: 20,
-                  fit: BoxFit.fill,
-                  color: Colors.white,
-                ),
+                icon: navigationStore.currentIndex == 3
+                    ? Image.asset(
+                        Urls.searchIconFilled,
+                        height: 20,
+                        width: 20,
+                        fit: BoxFit.fill,
+                        color: Colors.white,
+                      )
+                    : Image.asset(
+                        Urls.searchIcon,
+                        height: 20,
+                        width: 20,
+                        fit: BoxFit.fill,
+                        color: Colors.white,
+                      ),
                 label: ""),
             BottomNavigationBarItem(
-                icon: Image.asset(
-                  Urls.userIcon,
-                  height: 20,
-                  width: 20,
-                  fit: BoxFit.fill,
-                  color: Colors.white,
-                ),
+                icon: navigationStore.currentIndex == 4
+                    ? Image.asset(
+                        Urls.userIconFilled,
+                        height: 20,
+                        width: 20,
+                        fit: BoxFit.fill,
+                        color: Colors.white,
+                      )
+                    : Image.asset(
+                        Urls.userIcon,
+                        height: 20,
+                        width: 20,
+                        fit: BoxFit.fill,
+                        color: Colors.white,
+                      ),
                 label: ""),
           ],
           onTap: (index) {

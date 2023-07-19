@@ -1,30 +1,30 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'generate_token.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../generate_token.dart';
 
 class TokenInterceptor extends Interceptor {
   final Dio dio;
+
   TokenInterceptor(this.dio);
+
+  final secureStorage = const FlutterSecureStorage(
+      aOptions: AndroidOptions(encryptedSharedPreferences: true));
 
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    String token = await generateToken(dio);
+    var token = await secureStorage.read(key: 'access_token');
     options.headers["Authorization"] = "Bearer $token";
     handler.next(options);
   }
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    super.onResponse(response, handler);
-    handler.next(response);
-  }
-
-  @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
-      String newToken = await generateToken(dio);
+      secureStorage.delete(key: 'access_token');
+      String? newToken = await generateToken();
       err.requestOptions.headers["Authorization"] = "Bearer $newToken";
       return handler.resolve(await dio.fetch(err.requestOptions));
     }

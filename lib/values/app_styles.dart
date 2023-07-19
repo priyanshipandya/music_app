@@ -52,7 +52,7 @@ class AppStyles {
   );
 
   static const smallTextStyle = TextStyle(
-    color: Colors.black,
+    color: Colors.white,
     fontWeight: FontWeight.w400,
     fontSize: 12,
   );
@@ -60,6 +60,10 @@ class AppStyles {
   static const titleTextStyle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
+
+  static const searchStyle = TextStyle(
     color: Colors.white,
   );
 
@@ -92,9 +96,13 @@ class AppStyles {
     color: Colors.white,
     fontWeight: FontWeight.w700,
     fontSize: 16,
-    // overflow: TextOverflow.ellipsis,
   );
 
+  static const smallTextStyleWhiteLabel = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+  );
   static final navDecoration = BoxDecoration(
     // color: Colors.white,
     borderRadius: BorderRadius.circular(20),

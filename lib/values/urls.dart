@@ -15,13 +15,17 @@ class Urls {
       'https://jonlieffmd.com/wp-content/uploads/2013/02/Music-vector-Feature-HiRes1-scaled.jpg';
 
   static const homeIcon = "asset/icons/home.png";
+  static const homeIconFilled = "asset/icons/home_filled.png";
   static const bookmarkIcon = "asset/icons/bookmark.png";
+  static const bookmarkIconFilled = "asset/icons/bookmark_filled.png";
   static const videoIcon = "asset/icons/video.png";
+  static const videoIconFilled = "asset/icons/video_filled.png";
   static const searchIcon = "asset/icons/search.png";
+  static const searchIconFilled = "asset/icons/search_filled.png";
   static const userIcon = "asset/icons/user.png";
+  static const userIconFilled = "asset/icons/user_filled.png";
   static const accountIcon = "asset/images/account.png";
   static const userImage = 'asset/images/user.jpeg';
   static const notification = "asset/icons/notification.png";
-  static const  filter = "asset/icons/filter-lines.png";
-  static const  isPlaying = "asset/icons/play-icon.png";
+  static const filter = "asset/icons/filter-lines.png";
 }

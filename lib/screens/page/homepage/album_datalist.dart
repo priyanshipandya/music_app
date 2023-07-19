@@ -17,6 +17,7 @@ class AlbumList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           elevation: 0,
@@ -40,8 +41,7 @@ class AlbumList extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                data?.poster ??
-                    Urls.defaultImage,
+                data?.poster ?? Urls.defaultImage,
               ),
               fit: BoxFit.cover,
             ),
@@ -67,8 +67,7 @@ class AlbumList extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(30),
                           child: Image.network(
-                              data?.poster ??
-                                  Urls.defaultImage,
+                              data?.poster ?? Urls.defaultImage,
                               height: MediaQuery.of(context).size.width * 0.7,
                               width: MediaQuery.of(context).size.width * 0.7,
                               fit: BoxFit.fill),
@@ -142,7 +141,8 @@ class AlbumList extends StatelessWidget {
                                                         Strings.unknownRecord,
                                                     style: AppStyles
                                                         .mediumTextStyleLabel,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
                                                 ),
                                               ],

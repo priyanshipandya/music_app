@@ -1,13 +1,11 @@
-import 'dart:developer';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/services/api_service/parsing_data_for_local_storage.dart';
-import 'package:provider_practical_7/services/api_service/request_retrier.dart';
-import 'package:provider_practical_7/services/api_service/retry_interceptor.dart';
-import 'package:provider_practical_7/services/api_service/token_interceptor.dart';
+import 'package:provider_practical_7/services/api_service/interceptor/request_retrier.dart';
+import 'package:provider_practical_7/services/api_service/interceptor/retry_interceptor.dart';
+import 'package:provider_practical_7/services/api_service/interceptor/token_interceptor.dart';
 import '../../modal/album_modal.dart';
 import '../../modal/artist_modal.dart';
 import '../../modal/music_modal.dart';
@@ -54,7 +52,7 @@ abstract class _FetchAPIDatas with Store {
   @action
   Future<T> fetchAllAPI<T>(String url, T Function(dynamic json) parser) async {
     try {
-      dio.interceptors.addAll([TokenInterceptor(dio), RetryInterceptor(RequestRetrier(dio, Connectivity()))]);
+      dio.interceptors.addAll([TokenInterceptor(dio), RetryInterceptor()]);
       // dio.interceptors.add(RetryInterceptor());
       final response = await dio.get(url);
       if (response.statusCode == 200) {
