@@ -1,7 +1,7 @@
-import '../../modal/album_modal.dart';
+import '../../modal/album.dart';
 import '../../modal/all_data.dart';
-import '../../modal/artist_modal.dart';
-import '../../modal/music_modal.dart';
+import '../../modal/artist.dart';
+import '../../modal/music.dart';
 import '../../values/strings.dart';
 
 void parseDataForStoringLocally(result) {

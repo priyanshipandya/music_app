@@ -5,9 +5,9 @@ import 'package:provider_practical_7/services/api_service/interceptor/request_re
 import 'package:provider_practical_7/services/api_service/interceptor/token_interceptor.dart';
 import 'package:provider_practical_7/services/api_service/parsing_data_for_local_storage.dart';
 
-import '../../modal/album_modal.dart';
-import '../../modal/artist_modal.dart';
-import '../../modal/music_modal.dart';
+import '../../modal/album.dart';
+import '../../modal/artist.dart';
+import '../../modal/music.dart';
 import '../../values/strings.dart';
 import '../../values/urls.dart';
 

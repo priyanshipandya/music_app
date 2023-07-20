@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:provider_practical_7/services/api_service/interceptor/retry_interceptor.dart';
-import 'package:shimmer/shimmer.dart';
 
 class RetryInterceptor extends Interceptor {
   final DioConnectivityRequestRetrier requestRetrier =

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider_practical_7/screens/page/profile.dart';
 import 'package:provider_practical_7/store/navigation_store.dart';
-
 import '../../values/urls.dart';
 import 'bookmark.dart';
+import 'reels.dart';
 import 'homepage/homepage.dart';
 import 'search.dart';
+
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class DashboardMainScreen extends StatelessWidget {
   DashboardMainScreen({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class DashboardMainScreen extends StatelessWidget {
   final screens = [
     const Dashboard(),
     const BookmarkPage(),
-    // const FABPage(),
+    const FABPage(),
     SearchPage(),
     ProfilePage(),
   ];
@@ -25,7 +27,7 @@ class DashboardMainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) => Scaffold(
-        // extendBody: true,
+        key: scaffoldKey,
         body: IndexedStack(
             index: navigationStore.currentIndex, children: screens),
         bottomNavigationBar: BottomNavigationBar(

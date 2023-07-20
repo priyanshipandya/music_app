@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider_practical_7/store/fav_store.dart';
 import 'package:provider_practical_7/values/urls.dart';
-import '../../modal/album_modal.dart';
 import '../../modal/all_data.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -145,8 +144,7 @@ class _MusicPageState extends State<MusicPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  // "${widget.data?.items[widget.itemIndex].songName}",
-                                  "${widget.item.songName}",
+                                  widget.item.songName,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -180,13 +178,14 @@ class _MusicPageState extends State<MusicPage> {
                     const SizedBox(
                       height: 15,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Row(
                         children: [
-                          Text("0.0"),
-                          Spacer(),
-                          Text("4.04"),
+                          Text(convertToMinutesSeconds(
+                              _positioned.inSeconds.toDouble())),
+                          const Spacer(),
+                          const Text("4.04"),
                         ],
                       ),
                     ),
@@ -267,5 +266,12 @@ class _MusicPageState extends State<MusicPage> {
     }
 
     _isPlaying = !_isPlaying;
+  }
+
+  String convertToMinutesSeconds(double seconds) {
+    int minutes = seconds ~/ 60;
+    int remainingSeconds = seconds.toInt() % 60;
+
+    return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 }

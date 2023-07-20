@@ -94,18 +94,6 @@ class AlbumList extends StatelessWidget {
                                   item: data!.items[index]),
                             ),
                           );
-
-                          // String? callme = data?.items[index].songUrl ??
-                          //     "https://open.spotify.com/track/5nujrmhLynf4yMoMtj8AQF";
-                          // try{
-                          //   // if(await canLaunchUrl(Uri.parse(callme))){
-                          //     await launchUrl(Uri.parse(callme));
-                          //   // }else{
-                          //   //   log("Can't launch", name: "CANT LAUNCH");
-                          //   // }
-                          // }catch(e){
-                          //   log("error in launching $e", name: "ERROR IN LAUNCH");
-                          // }
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(

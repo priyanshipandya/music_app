@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/modal/search.dart';
-
-import '../values/strings.dart';
+import 'package:provider_practical_7/screens/page/main_dashboard.dart';
 import '../values/urls.dart';
 
 part 'search_store.g.dart';
@@ -29,20 +29,27 @@ abstract class _SearchApi with Store {
       var secureStorage = const FlutterSecureStorage(
           aOptions: AndroidOptions(encryptedSharedPreferences: true));
       var token = await secureStorage.read(key: 'access_token');
-      final response = await _dio.get(
-        'search',
-        queryParameters: {'q': query, 'type': 'album'},
-        options: Options(headers: {'Authorization': "Bearer $token"}),
-      );
 
-      if (response.statusCode == 200) {
-        final albumsData = response.data['albums']['items'] as List;
-        searchResults.clear();
-        for (var item in albumsData) {
-          searchResults.add(Items.fromJson(item));
+      try {
+        final response = await _dio.get(
+          'search',
+          queryParameters: {'q': query, 'type': 'album'},
+          options: Options(headers: {'Authorization': "Bearer $token"}),
+        );
+        if (response.statusCode == 200) {
+          final albumsData = response.data['albums']['items'] as List;
+          searchResults.clear();
+          for (var item in albumsData) {
+            searchResults.add(Items.fromJson(item));
+          }
         }
-      } else {
-        throw Exception(Strings.failedToLoadData);
+      } on DioException {
+        BuildContext? context = scaffoldKey.currentState?.context;
+        ScaffoldMessenger.of(context!).showSnackBar(
+          const SnackBar(
+            content: Text('Search Something'),
+          ),
+        );
       }
     });
   }

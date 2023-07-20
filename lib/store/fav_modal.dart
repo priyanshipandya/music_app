@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:provider_practical_7/modal/album_modal.dart';
+import 'package:provider_practical_7/modal/album.dart';
 
 part 'fav_modal.g.dart';
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider_practical_7/screens/page/music.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../values/app_styles.dart';
 import '../../main.dart';
 import '../../modal/all_data.dart';
@@ -225,6 +224,7 @@ class BookmarkPage extends StatelessWidget {
                                                                     favStore.favList[
                                                                         index]);
                                                               },
+                                                              splashRadius: 30,
                                                             );
                                                           },
                                                         ),
@@ -254,19 +254,10 @@ class BookmarkPage extends StatelessWidget {
   }
 
   Icon getFavIcon(int index, AllItems item) {
-    debugPrint(favStore.favList.toString());
     if (favStore.favList.contains(item)) {
       return const Icon(Icons.favorite);
     } else {
       return const Icon(Icons.favorite_border);
-    }
-  }
-
-  void _launchUrl(String? spotifyUrl) async {
-    if (await canLaunchUrl(Uri.parse(spotifyUrl!))) {
-      await launchUrl(spotifyUrl as Uri);
-    } else {
-      throw Strings.throwUrlError;
     }
   }
 }

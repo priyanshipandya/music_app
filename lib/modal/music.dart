@@ -2,7 +2,7 @@
 //
 import 'package:json_annotation/json_annotation.dart';
 
-part 'music_modal.g.dart';
+part 'music.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class SpotifyModal {

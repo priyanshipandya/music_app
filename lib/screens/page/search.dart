@@ -1,16 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider_practical_7/values/strings.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../modal/all_data.dart';
-import '../../modal/search.dart';
 import '../../store/search_store.dart';
 import '../../values/app_styles.dart';
 import '../../values/colors.dart';
 import '../../values/urls.dart';
-import 'music.dart';
 
 class SearchPage extends StatelessWidget {
    SearchPage({Key? key}) : super(key: key);
@@ -82,7 +77,7 @@ class SearchPage extends StatelessWidget {
             ),
           ),
         ),
-        body: searchController.text.isEmpty
+        body: searchController.text.isEmpty || searchApi.searchResults.isEmpty
             ? const Center(
                 child: Text(
                   Strings.noData,

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/modal/all_data.dart';
 

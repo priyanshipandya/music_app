@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'artist_modal.g.dart';
+part 'artist.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class ArtistModal {

@@ -16,7 +16,7 @@ void main() async {
 
 FavStore favStore = FavStore();
 FetchAPIDatas fetchAPI = FetchAPIDatas();
-final scaffoldState = GlobalKey<ScaffoldMessengerState>();
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      scaffoldMessengerKey: scaffoldState,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
