@@ -134,7 +134,7 @@ class _ArtistListState extends State<ArtistList> {
                               ? pagination.allArtistItems.length + 1
                               : pagination.allArtistItems.length,
                           itemBuilder: (context, index) {
-                            if (index < pagination.allArtistItems.length - 1) {
+                            if (index < pagination.allArtistItems.length) {
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 15.0, vertical: 7),
@@ -277,18 +277,6 @@ class _ArtistListState extends State<ArtistList> {
                                                           ),
                                                         ),
                                                       ],
-                                                    ),
-                                                    const Spacer(),
-                                                    IconButton(
-                                                      icon:
-                                                          Icon(Icons.favorite),
-                                                      onPressed: () {},
-                                                      // getFavIcon(index,
-                                                      //     // data1!.items[index]),
-                                                      // onPressed: () {
-                                                      //   favStore.toggleFav(
-                                                      //       data1!.items[index]);
-                                                      // },
                                                     ),
                                                   ],
                                                 ),

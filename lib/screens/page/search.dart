@@ -12,14 +12,9 @@ import '../../values/colors.dart';
 import '../../values/urls.dart';
 import 'music.dart';
 
-class SearchPage extends StatefulWidget {
-  SearchPage({Key? key}) : super(key: key);
+class SearchPage extends StatelessWidget {
+   SearchPage({Key? key}) : super(key: key);
 
-  @override
-  State<SearchPage> createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
   TextEditingController searchController = TextEditingController();
 
   final searchApi = SearchApi();
@@ -124,7 +119,7 @@ class _SearchPageState extends State<SearchPage> {
                         } on Error {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Please Download Spotify"),
+                              content: Text(Strings.downloadSpotify),
                             ),
                           );
                         }

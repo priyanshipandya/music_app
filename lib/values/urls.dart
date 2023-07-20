@@ -28,4 +28,5 @@ class Urls {
   static const userImage = 'asset/images/user.jpeg';
   static const notification = "asset/icons/notification.png";
   static const filter = "asset/icons/filter-lines.png";
+  static const moreIcon = "asset/icons/more.png";
 }

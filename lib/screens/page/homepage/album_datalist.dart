@@ -88,8 +88,10 @@ class AlbumList extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  MusicPage(data: data, itemIndex: index),
+                              builder: (context) => MusicPage(
+                                  data: data,
+                                  itemIndex: index,
+                                  item: data!.items[index]),
                             ),
                           );
 
@@ -196,12 +198,10 @@ class AlbumList extends StatelessWidget {
                                                                 style: const TextStyle(
                                                                     color: Colors
                                                                         .black87),
-                                                                // style: AppStyles
-                                                                //     .smallTextStyle,
                                                                 overflow:
                                                                     TextOverflow
                                                                         .ellipsis,
-                                                                // maxLines: 1,
+                                                                maxLines: 1,
                                                               ),
                                                             ),
                                                           ),
@@ -258,8 +258,6 @@ class AlbumList extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    // Spacer(),
-                                    // IconButton(icon: Icon(Icons.favorite_border, size: 30), onPressed: () {}, ),
                                   ],
                                 ),
                               ),
@@ -279,7 +277,6 @@ class AlbumList extends StatelessWidget {
   }
 
   Icon getFavIcon(int index, AllItems item) {
-    debugPrint(favStore.favList.toString());
     if (favStore.favList.contains(item)) {
       return const Icon(Icons.favorite);
     } else {

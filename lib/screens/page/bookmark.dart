@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider_practical_7/screens/page/music.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../values/app_styles.dart';
 import '../../main.dart';
@@ -66,7 +67,14 @@ class BookmarkPage extends StatelessWidget {
                               //       "https://open.spotify.com/track/5nujrmhLynf4yMoMtj8AQF";
                               //   await launchUrl(Uri.parse(callme));
                               // },
-                              onTap: () async {},
+                              onTap: () async {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MusicPage(
+                                            itemIndex: index,
+                                            item: favStore.favList[index])));
+                              },
                               child: Observer(
                                 builder: (context) => Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -109,7 +117,9 @@ class BookmarkPage extends StatelessWidget {
                                                                 .toString(),
                                                             style: AppStyles
                                                                 .smallTextStyleWhiteLabel,
-                                                            overflow: TextOverflow.ellipsis,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
                                                         ],
                                                       ),
@@ -208,7 +218,8 @@ class BookmarkPage extends StatelessWidget {
                                                                   index,
                                                                   favStore.favList[
                                                                       index]),
-                                                               color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               onPressed: () {
                                                                 favStore.toggleFav(
                                                                     favStore.favList[
@@ -241,16 +252,6 @@ class BookmarkPage extends StatelessWidget {
       ),
     );
   }
-
-  //
-  // Icon getFavIcon(int index, AllItems item) {
-  //   print(favStore.favList);
-  //   if (favStore.favList.contains(item)) {
-  //     return const Icon(Icons.favorite);
-  //   } else {
-  //     return const Icon(Icons.favorite_border);
-  //   }
-  // }
 
   Icon getFavIcon(int index, AllItems item) {
     debugPrint(favStore.favList.toString());

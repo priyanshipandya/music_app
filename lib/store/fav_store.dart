@@ -10,20 +10,13 @@ abstract class _FavStore with Store {
   @observable
   ObservableList<AllItems> favList = ObservableList();
 
-  @computed
-  int get totalNo => favList.length;
-
   @action
   void toggleFav(AllItems item) {
-    // data.items[index].isFav = !(item?.isFav ?? false);
     item.isFav = !(item.isFav ?? false);
-    log(item.isFav.toString(), name: "ITEM ISFAV");
-
     if (item.isFav == true) {
       favList.add(item);
     } else {
       favList.remove(item);
     }
-    log(favList.toString(), name: "ITEMS LIST");
   }
 }

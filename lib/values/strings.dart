@@ -26,6 +26,8 @@ class Strings{
   static const  welcomeMsg = "Welcome, Priyanshi Pandya";
   static const  account = "Account Settings";
   static const  downloadSpotify = "Please Download Spotify";
+  static const  failedToLoadData = "Failed to load tracks";
+  static const  playingFromFavs = "Playing from Favourites";
 
 
 }

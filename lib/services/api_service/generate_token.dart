@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 Future<String?> generateToken() async {
-  var client_id = '9e6e0c333de44e219dbb4ce6b6d7a1d0';
-  var client_secret = 'e84966b032054bcdac175105830e26fd';
+  var clientId = '9e6e0c333de44e219dbb4ce6b6d7a1d0';
+  var clientSecret = 'e84966b032054bcdac175105830e26fd';
 
   const secureStorage = FlutterSecureStorage(
       aOptions: AndroidOptions(encryptedSharedPreferences: true));
@@ -12,7 +12,7 @@ Future<String?> generateToken() async {
     'url': 'https://accounts.spotify.com/api/token',
     'headers': {
       'Authorization':
-          'Basic ${base64.encode(utf8.encode('$client_id:$client_secret'))}',
+          'Basic ${base64.encode(utf8.encode('$clientId:$clientSecret'))}',
       "Content-Type": "application/x-www-form-urlencoded",
     },
     'data': {'grant_type': 'client_credentials'},

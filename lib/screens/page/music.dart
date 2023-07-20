@@ -1,21 +1,28 @@
 import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:provider_practical_7/store/fav_store.dart';
 import 'package:provider_practical_7/values/urls.dart';
+import '../../modal/album_modal.dart';
 import '../../modal/all_data.dart';
 import 'package:just_audio/just_audio.dart';
 
+import '../../values/strings.dart';
+
 class MusicPage extends StatefulWidget {
-  const MusicPage({Key? key, required this.data, required this.itemIndex})
+  const MusicPage(
+      {Key? key, this.data, required this.itemIndex, required this.item})
       : super(key: key);
   final AllData? data;
   final int itemIndex;
+  final AllItems item;
 
   @override
   State<MusicPage> createState() => _MusicPageState();
 }
 
 class _MusicPageState extends State<MusicPage> {
+  FavStore favStore = FavStore();
   double currentValue = 0;
   AudioPlayer audioPlayer = AudioPlayer();
   Duration _duration = const Duration();
@@ -55,7 +62,6 @@ class _MusicPageState extends State<MusicPage> {
         return;
       }
     });
-    debugPrint(widget.data?.items[widget.itemIndex].songUrl);
     await audioPlayer.setAudioSource(
       AudioSource.uri(
         Uri.parse(
@@ -109,11 +115,11 @@ class _MusicPageState extends State<MusicPage> {
                       ),
                     ),
                     const Text(
-                      "Playing from Favourites",
+                      Strings.playingFromFavs,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Image.asset(
-                      'asset/icons/more.png',
+                      Urls.moreIcon,
                       height: 20,
                       width: 20,
                     ),
@@ -139,7 +145,8 @@ class _MusicPageState extends State<MusicPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "${widget.data?.items[widget.itemIndex].songName}",
+                                  // "${widget.data?.items[widget.itemIndex].songName}",
+                                  "${widget.item.songName}",
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -153,13 +160,9 @@ class _MusicPageState extends State<MusicPage> {
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
-                                    itemCount: widget
-                                        .data
-                                        ?.items[widget.itemIndex]
-                                        .artists
-                                        ?.length,
+                                    itemCount: widget.item.artists?.length,
                                     itemBuilder: (context, i) => Text(
-                                      "${widget.data?.items[widget.itemIndex].artists?[i].name} ",
+                                      "${widget.item.artists?[i].name} ",
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w500,
@@ -171,23 +174,21 @@ class _MusicPageState extends State<MusicPage> {
                             ),
                           ),
                           // Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                                widget.data?.items[widget.itemIndex].isFav ??
-                                        false
-                                    ? Icons.favorite
-                                    : Icons.favorite_border),
-                          ),
                         ],
                       ),
                     ),
-                    const Row(
-                      children: [
-                        Text("0.0"),
-                        Spacer(),
-                        Text("4.04"),
-                      ],
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        children: [
+                          Text("0.0"),
+                          Spacer(),
+                          Text("4.04"),
+                        ],
+                      ),
                     ),
                     Slider(
                       min: 0,
