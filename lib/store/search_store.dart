@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/modal/search.dart';
 import 'package:provider_practical_7/screens/page/main_dashboard.dart';
+import '../values/strings.dart';
 import '../values/urls.dart';
 
 part 'search_store.g.dart';
@@ -25,7 +26,7 @@ abstract class _SearchApi with Store {
   Future<void> searchAlbums(String query) async {
     _debounce?.cancel();
 
-    _debounce = Timer(const Duration(milliseconds: 700), () async {
+    _debounce = Timer(const Duration(milliseconds: 500), () async {
       var secureStorage = const FlutterSecureStorage(
           aOptions: AndroidOptions(encryptedSharedPreferences: true));
       var token = await secureStorage.read(key: 'access_token');
@@ -47,7 +48,7 @@ abstract class _SearchApi with Store {
         BuildContext? context = scaffoldKey.currentState?.context;
         ScaffoldMessenger.of(context!).showSnackBar(
           const SnackBar(
-            content: Text('Search Something'),
+            content: Text(Strings.searchSomething),
           ),
         );
       }

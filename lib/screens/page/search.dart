@@ -7,8 +7,9 @@ import '../../values/app_styles.dart';
 import '../../values/colors.dart';
 import '../../values/urls.dart';
 
+// ignore: must_be_immutable
 class SearchPage extends StatelessWidget {
-   SearchPage({Key? key}) : super(key: key);
+  SearchPage({Key? key}) : super(key: key);
 
   TextEditingController searchController = TextEditingController();
 
@@ -16,75 +17,75 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (context) => Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          titleSpacing: 0,
-          title: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: TextField(
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    controller: searchController,
-                    cursorColor: KColors.kLightWhite,
-                    style: AppStyles.searchStyle,
-                    decoration: const InputDecoration(
-                      prefixIcon: AppStyles.prefixIconStyle,
-                      hintText: Strings.search,
-                      hintStyle: AppStyles.searchHintStyle,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide.none,
-                      ),
-                      isDense: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                      filled: true,
-                      fillColor: KColors.kLightBlack,
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        titleSpacing: 0,
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: TextField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                  controller: searchController,
+                  cursorColor: KColors.kLightWhite,
+                  style: AppStyles.searchStyle,
+                  decoration: const InputDecoration(
+                    prefixIcon: AppStyles.prefixIconStyle,
+                    hintText: Strings.search,
+                    hintStyle: AppStyles.searchHintStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide.none,
                     ),
-                    onChanged: (value) async {
-                      final query = value;
-                      await searchApi.searchAlbums(query);
-                    },
+                    isDense: true,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    filled: true,
+                    fillColor: KColors.kLightBlack,
                   ),
+                  onChanged: (value) async {
+                    final query = value;
+                    await searchApi.searchAlbums(query);
+                  },
                 ),
-                const SizedBox(
-                  width: 9,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: KColors.kLightBlack,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 14.0, horizontal: 20.0),
+              ),
+              const SizedBox(
+                width: 9,
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: KColors.kLightBlack,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Image.asset(
-                    Urls.filter,
-                    height: 24,
-                    width: 24,
-                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 14.0, horizontal: 20.0),
                 ),
-              ],
-            ),
+                child: Image.asset(
+                  Urls.filter,
+                  height: 24,
+                  width: 24,
+                ),
+              ),
+            ],
           ),
         ),
-        body: searchController.text.isEmpty || searchApi.searchResults.isEmpty
-            ? const Center(
-                child: Text(
-                  Strings.noData,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              )
-            : ListView.builder(
+      ),
+      body: searchController.text.isEmpty || searchApi.searchResults.isEmpty
+          ? const Center(
+              child: Text(
+                Strings.noData,
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            )
+          : Observer(
+              builder: (context) => ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: searchApi.searchResults.length,
@@ -150,7 +151,7 @@ class SearchPage extends StatelessWidget {
                   );
                 },
               ),
-      ),
+            ),
     );
   }
 }

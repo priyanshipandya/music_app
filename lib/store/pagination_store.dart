@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/services/api_service/interceptor/token_interceptor.dart';
 
 import '../modal/artist_item.dart';
+import '../values/strings.dart';
 
 part 'pagination_store.g.dart';
 
@@ -53,7 +54,7 @@ abstract class _PaginationStore with Store{
         hasMoreData = hasNextPage;
         return items;
       } else {
-        throw Exception("Token generation error");
+        throw Exception(Strings.generatedToken);
       }
     } catch (e) {
       throw Exception(e);

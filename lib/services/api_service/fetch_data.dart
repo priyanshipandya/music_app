@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 import 'package:provider_practical_7/services/api_service/interceptor/request_retrier.dart';
 import 'package:provider_practical_7/services/api_service/interceptor/token_interceptor.dart';
 import 'package:provider_practical_7/services/api_service/parsing_data_for_local_storage.dart';
-
 import '../../modal/album.dart';
 import '../../modal/artist.dart';
 import '../../modal/music.dart';

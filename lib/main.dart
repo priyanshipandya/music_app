@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider_practical_7/screens/page/main_dashboard.dart';
 import 'package:provider_practical_7/services/api_service/fetch_data.dart';
 import 'package:provider_practical_7/store/fav_store.dart';
+import 'package:provider_practical_7/values/strings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,6 @@ void main() async {
 FavStore favStore = FavStore();
 FetchAPIDatas fetchAPI = FetchAPIDatas();
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
-        fontFamily: 'Poppins',
+        fontFamily: Strings.fontFamily,
       ),
       home: DashboardMainScreen(),
     );

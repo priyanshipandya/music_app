@@ -134,7 +134,7 @@ class ProfilePage extends StatelessWidget {
                 height: 50,
                 child: const Align(
                   alignment: Alignment.center,
-                  child: Text("Logout",
+                  child: Text(Strings.logout,
                       style: TextStyle(color: KColors.kLightWhite),
                       textAlign: TextAlign.center),
                 ),

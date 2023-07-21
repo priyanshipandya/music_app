@@ -1,9 +1,9 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider_practical_7/values/colors.dart';
 import 'package:video_player/video_player.dart';
+
 import '../../store/navigation_store.dart';
 import '../../store/video_store.dart';
 import '../../values/app_styles.dart';
@@ -31,7 +31,6 @@ class _FABPageState extends State<FABPage> {
     var videoCollection =
         await FirebaseFirestore.instance.collection('videos').get();
     reels = videoCollection.docs.map((doc) => doc.data()).toList();
-    log(reels.toString(), name: "REELS");
   }
 
   @override
@@ -60,6 +59,7 @@ class _FABPageState extends State<FABPage> {
 
 class ReelPlayer extends StatefulWidget {
   const ReelPlayer({super.key, this.url});
+
   final url;
 
   @override

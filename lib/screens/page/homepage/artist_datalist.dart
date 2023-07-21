@@ -11,46 +11,27 @@ import '../../../values/colors.dart';
 import '../../../values/strings.dart';
 import '../../../values/urls.dart';
 
-class ArtistList extends StatefulWidget {
-  const ArtistList({super.key, required this.data1, this.artistId});
+// ignore: must_be_immutable
+class ArtistList extends StatelessWidget {
+  ArtistList({super.key, required this.data1, this.artistId});
 
   final AllData? data1;
   final String? artistId;
 
-  @override
-  State<ArtistList> createState() => _ArtistListState();
-}
+  final ScrollController _scrollController = ScrollController();
 
-class _ArtistListState extends State<ArtistList> {
-  late final ScrollController _scrollController;
   PaginationStore pagination = PaginationStore();
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    _scrollController.addListener(() {
-      _onScroll();
-    });
-    _loadNextPage(widget.artistId);
-  }
 
   void _onScroll() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       if (!pagination.isLoading) {
-        setState(() {
-          pagination.isLoading = true;
-        });
+        pagination.isLoading = true;
 
-        _loadNextPage(widget.artistId);
+        _loadNextPage(artistId);
 
-        setState(() {
-          pagination.isLoading = false;
-        });
+        pagination.isLoading = false;
       }
-    } else {
-      debugPrint("_onScroll not be called");
     }
   }
 
@@ -60,6 +41,10 @@ class _ArtistListState extends State<ArtistList> {
 
   @override
   Widget build(BuildContext context) {
+    _scrollController.addListener(() {
+      _onScroll();
+    });
+    _loadNextPage(artistId);
     return SafeArea(
       child: Scaffold(
         backgroundColor: KColors.kWhite,
@@ -86,7 +71,7 @@ class _ArtistListState extends State<ArtistList> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                widget.data1?.poster ?? Urls.defaultImage,
+                data1?.poster ?? Urls.defaultImage,
               ),
               fit: BoxFit.cover,
             ),
@@ -114,7 +99,7 @@ class _ArtistListState extends State<ArtistList> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(30),
                           child: Image.network(
-                              widget.data1?.poster ?? Urls.defaultImage,
+                              data1?.poster ?? Urls.defaultImage,
                               height: MediaQuery.of(context).size.width * 0.7,
                               width: MediaQuery.of(context).size.width * 0.7,
                               fit: BoxFit.fill),
@@ -265,7 +250,7 @@ class _ArtistListState extends State<ArtistList> {
                                                               SizedBox(
                                                                 width: 200,
                                                                 child: Text(
-                                                                  "${widget.data1?.songCreater}",
+                                                                  "${data1?.songCreater}",
                                                                   style: const TextStyle(
                                                                       color: Colors
                                                                           .black87),

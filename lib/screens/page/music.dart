@@ -5,7 +5,6 @@ import 'package:provider_practical_7/store/fav_store.dart';
 import 'package:provider_practical_7/values/urls.dart';
 import '../../modal/all_data.dart';
 import 'package:just_audio/just_audio.dart';
-
 import '../../values/strings.dart';
 
 class MusicPage extends StatefulWidget {
@@ -69,7 +68,6 @@ class _MusicPageState extends State<MusicPage> {
       ),
     );
     await audioPlayer.play();
-    log("audio play is playing", name: "AUDIO PLAYER PLAYING");
   }
 
   @override
@@ -108,7 +106,7 @@ class _MusicPageState extends State<MusicPage> {
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: Image.asset(
-                        'asset/icons/arrow_down.png',
+                        Urls.arrowDown,
                         height: 20,
                         width: 20,
                       ),
@@ -211,12 +209,12 @@ class _MusicPageState extends State<MusicPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Image.asset(
-                            'asset/icons/shuffle.png',
+                            Urls.shuffle,
                             height: 20,
                             width: 20,
                           ),
                           Image.asset(
-                            'asset/icons/previous.png',
+                            Urls.previous,
                             height: 25,
                             width: 25,
                           ),
@@ -224,18 +222,18 @@ class _MusicPageState extends State<MusicPage> {
                             onTap: changePlayPause,
                             child: _isPlaying == true
                                 ? Image.asset(
-                                    'asset/icons/pause.png',
+                                    Urls.pause,
                                     height: 25,
                                     width: 25,
                                   )
                                 : Image.asset(
-                                    'asset/icons/play.png',
+                                    Urls.play,
                                     height: 25,
                                     width: 25,
                                   ),
                           ),
                           Image.asset(
-                            'asset/icons/next.png',
+                            Urls.next,
                             height: 25,
                             width: 25,
                           ),

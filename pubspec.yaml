@@ -30,6 +30,7 @@ dependencies:
   cloud_firestore:
   connectivity_plus: ^4.0.1
   flutter_secure_storage: ^8.0.0
+  very_good_analysis: ^5.0.0+1
 
 dev_dependencies:
   flutter_test:

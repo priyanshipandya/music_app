@@ -10,31 +10,8 @@ import '../../../values/strings.dart';
 import '../../../values/urls.dart';
 import 'all_cards.dart';
 
-class Dashboard extends StatefulWidget {
+class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
-
-  @override
-  State<Dashboard> createState() => _DashboardState();
-}
-
-class _DashboardState extends State<Dashboard> {
-  List names = [
-    'All',
-    'Playlists',
-    'Songs',
-    'Podcasts & Shows',
-    'Artist',
-    'Album',
-    'Profile'
-  ];
-  List btnColors = List.filled(7, false);
-  final searchController = TextEditingController();
-  late Future<List<AllData>> fetchTracks;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,30 +61,27 @@ class _DashboardState extends State<Dashboard> {
                   child: ListView.separated(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemCount: names.length,
+                    itemCount: Strings.names.length,
                     itemBuilder: (context, index) => GestureDetector(
-                      onTap: () {
-                        btnColors[index] = !btnColors[index];
-                        setState(() {});
-                      },
+                      onTap: () {},
                       child: Container(
                         height: 40,
                         width: 104,
                         decoration: BoxDecoration(
-                            color: btnColors[index]
+                            color: index == 0
                                 ? KColors.darkBlack
                                 : KColors.kLightBlack,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                                color: btnColors[index]
+                                color: index == 0
                                     ? KColors.kWhite
                                     : KColors.kLightBlack)),
                         child: Center(
                           child: Text(
-                            "${names[index]}",
+                            Strings.names[index],
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: btnColors[index]
+                              color: index == 0
                                   ? KColors.kWhite
                                   : KColors.kTextGrey,
                             ),

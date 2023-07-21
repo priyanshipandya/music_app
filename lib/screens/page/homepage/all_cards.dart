@@ -69,8 +69,6 @@ class HomePageCards extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  // alignment: Alignment.topCenter,
-                  // fit: StackFit.loose,
                   children: [
                     Container(
                       margin: const EdgeInsets.only(left: 10),

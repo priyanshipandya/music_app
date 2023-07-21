@@ -29,4 +29,11 @@ class Urls {
   static const notification = "asset/icons/notification.png";
   static const filter = "asset/icons/filter-lines.png";
   static const moreIcon = "asset/icons/more.png";
+  static const play = "asset/icons/play.png";
+  static const pause = "asset/icons/pause.png";
+  static const arrowDown = "asset/icons/arrow_down.png";
+  static const shuffle = "asset/icons/shuffle.png";
+  static const previous = "asset/icons/previous.png";
+  static const next = "asset/icons/next.png";
+  static const repeat = "asset/icons/repeat.png";
 }

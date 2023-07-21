@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:video_player/video_player.dart';
 part 'video_store.g.dart';
@@ -17,7 +14,6 @@ abstract class _VideoStore with Store {
   @action
   void initializeVideoPlayer(url, index) {
     videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(url));
-    log(index.toString(), name: "INDEX OF INITIAL REELS");
     if (index == 2) {
       videoPlayerController?.initialize().then((_) {
         videoPlayerController?.play();
@@ -39,21 +35,6 @@ abstract class _VideoStore with Store {
       videoPlayerController?.play();
     }
     isPlaying = !isPlaying;
-    // if(isPlaying == true){
-    //   videoPlayerController?.play();
-    // }
-    debugPrint("${videoPlayerController?.value.isPlaying}");
   }
 
-  @action
-  void checkIndexIsReels(int index) {
-    debugPrint("called again checkIndexIsReels");
-    debugPrint("checked $index");
-    debugPrint("is playing: ${videoPlayerController?.value.isPlaying}");
-    if (index != 2) {
-      videoPlayerController?.pause();
-    } else {
-      videoPlayerController?.play();
-    }
-  }
 }

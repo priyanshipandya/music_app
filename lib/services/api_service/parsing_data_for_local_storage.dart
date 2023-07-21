@@ -59,8 +59,8 @@ void parseDataForStoringLocally(result) {
       }
 
       String poster = itemAt?.album?.images?[1].url ?? "";
-      String songCreator = itemAt?.name ?? "Unknown Records";
-      String cardsLabel = itemAt?.type ?? "Unknown Records";
+      String songCreator = itemAt?.name ?? Strings.unknownRecord;
+      String cardsLabel = itemAt?.type ?? Strings.unknownRecord;
 
       allItems.add(
         AllItems(

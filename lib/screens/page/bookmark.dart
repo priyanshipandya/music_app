@@ -58,14 +58,6 @@ class BookmarkPage extends StatelessWidget {
                           itemCount: favStore.favList.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              // onTap: () async {
-                              //   print(
-                              //       "${favStore.favList[index].items.externalUrls?.spotify}");
-                              //   String? callme = favStore
-                              //           .favList[index].items.externalUrls?.spotify ??
-                              //       "https://open.spotify.com/track/5nujrmhLynf4yMoMtj8AQF";
-                              //   await launchUrl(Uri.parse(callme));
-                              // },
                               onTap: () async {
                                 Navigator.push(
                                     context,
