@@ -1,4 +1,4 @@
-# provider_practical_7
+# HarmonyBeat (Music App)
 
 A new Flutter project.
 
